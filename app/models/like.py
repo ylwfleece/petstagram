@@ -5,18 +5,10 @@ class Like(db.Model):
     __tablename__ = "likes"
 
     id = db.Column(db.Integer, primary_key=True)
-    userId = db.Column(db.Integer, nullable=False, db.ForeignKey("users.id"))
-    type = db.Column(db.String, nullable=False)
-    contentId = db.Column(db.Integer, nullable=False, db.ForeignKey("posts.id"))
-    or
-    contentId = db.Column(db.Integer, nullable=False, db.ForeignKey("comments.id"))
-
-
-# userId references Users table
-# if type == 'p':
-# contentId references Posts table
-# SQLAlchemy belongsTo Posts table
-# if type == 'c':
-# contentId references Comments table
-# SQLAlchemy belongsTo Comments table
-# SQLAlchemy belongsTo Users association
+    userId = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
+    postId = db.Column(db.Integer, db.ForeignKey("posts.id"), nullable=True)
+    commentId = db.Column(db.Integer, db.ForeignKey(
+        "comments.id"), nullable=True)
+    post = db.relationship("Post", back_populates="likes")
+    comment = db.relationship("Comment", back_populates="likes")
+    user = db.relationship("User", back_populates="likes")
