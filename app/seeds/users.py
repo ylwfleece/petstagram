@@ -8,7 +8,7 @@ fake = Faker()
 
 def seed_users(n):
 
-    for i in range(1, n):
+    for i in range(n):
         entry = User(
             username=fake.user_name(), email=fake.ascii_email(),
             password=f'password{i}', profilePhotoUrl=fake.image_url()
