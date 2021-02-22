@@ -11,9 +11,9 @@ class Comment(db.Model):
     userId = db.Column(db.Integer, db.ForeignKey(
         "users.id"), nullable=False, unique=True)
     content = db.Column(db.String, nullable=False)
-    createdAt = db.Column(db.DateTime, nullable=False,
+    createdAt = db.Column(db.DateTime,
                           default=datetime.datetime.utcnow)
-    updatedAt = db.Column(db.DateTime, nullable=False,
+    updatedAt = db.Column(db.DateTime,
                           default=datetime.datetime.utcnow)
     post = db.relationship("Post", back_populates="comments")
     user = db.relationship("User", back_populates="comments")

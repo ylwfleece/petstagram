@@ -8,8 +8,8 @@ class Photo(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     postId = db.Column(db.Integer, db.ForeignKey("posts.id"), nullable=False)
     photoKey = db.Column(db.String, nullable=False)
-    createdAt = db.Column(db.DateTime, nullable=False,
+    createdAt = db.Column(db.DateTime,
                           default=datetime.datetime.utcnow)
-    updatedAt = db.Column(db.DateTime, nullable=False,
+    updatedAt = db.Column(db.DateTime,
                           default=datetime.datetime.utcnow)
     post = db.relationship("Post", back_populates="photos")

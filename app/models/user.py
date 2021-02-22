@@ -17,9 +17,9 @@ class User(db.Model, UserMixin):
     email = db.Column(db.String(255), nullable=False, unique=True)
     hashed_password = db.Column(db.String(255), nullable=False)
     profilePhotoUrl = db.Column(db.String, nullable=True)
-    createdAt = db.Column(db.DateTime, nullable=False,
+    createdAt = db.Column(db.DateTime,
                           default=datetime.datetime.utcnow)
-    updatedAt = db.Column(db.DateTime, nullable=False,
+    updatedAt = db.Column(db.DateTime,
                           default=datetime.datetime.utcnow)
     posts = db.relationship("Post", back_populates="user")
     comments = db.relationship("Comment", back_populates="user")
