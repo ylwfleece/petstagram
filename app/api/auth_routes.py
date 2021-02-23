@@ -69,15 +69,12 @@ def sign_up():
     form['csrf_token'].data = request.cookies['csrf_token']
 
     if form.validate_on_submit():
-        s3_photo_url = 'randomphotostring'
+        s3_photo_url = 'http://petstagram-top-25.s3.amazonaws.com/default_profile.jpeg'
 
         file = form.data['profile_photo_file']
-        print('>>>>>>>', file)
-        print(file.filename, file.content_type)
         if file:
             file.filename = secure_filename(file.filename)
             s3_photo_url = upload_file_to_s3(file, Config.S3_BUCKET)
-            print('*********', s3_photo_url)
 
         user = User(
             username=form.data['username'],
