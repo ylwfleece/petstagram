@@ -83,7 +83,7 @@ const SignUpForm = ({authenticated, setAuthenticated}) => {
         ></input>
       </div>
       <div>
-        <label for="user_file">Upload Your File</label>
+        <label htmlFor="user_file">Upload Your File</label>
         <input 
          type="file" 
          name="user_file" 

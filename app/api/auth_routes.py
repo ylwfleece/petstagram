@@ -3,7 +3,7 @@ from app.models import User, db
 from app.forms import LoginForm
 from app.forms import SignUpForm
 from flask_login import current_user, login_user, logout_user, login_required
-# from werkzeug.security import secure_filename
+from werkzeug.utils import secure_filename
 from ..helpers import *
 from ..config import Config
 
@@ -69,8 +69,7 @@ def sign_up():
 
 
     form = SignUpForm()
-    print("Request files",request.files)
-    print("form", form)
+    file = request.files.get("profile_photo_file")
     # print(request.headers)
     # print(dict(request.form))
     # print("request", request)
@@ -79,14 +78,12 @@ def sign_up():
     # print(form.data, form.data["email"])
 
     if form.validate_on_submit():
-        print("made it here")
         s3_photo_url = 'randomphotostring'
-        # print(f'-----line 70 auth_routes, form.data: {form.data} -----')
 
         file = form.data['profile_photo_file']
         if file:
-            # file.filename = secure_filename(file.filename)
-            # s3_photo_url = upload_file_to_s3(file, Config.S3_BUCKET)
+            file.filename = secure_filename(file.filename)
+            s3_photo_url = upload_file_to_s3(file, Config.S3_BUCKET)
             print(f'-----line 78 auth_routes, s3_photo_url: {s3_photo_url} -----')
 
         user = User(
