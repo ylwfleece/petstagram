@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import LoginForm from "./components/auth/LoginForm";
 import SignUpForm from "./components/auth/SignUpForm";
+import HomePage from "./components/HomePage";
 import NavBar from "./components/NavBar";
 import ProtectedRoute from "./components/auth/ProtectedRoute";
 import UsersList from "./components/UsersList";
@@ -28,10 +29,8 @@ function App() {
 
   return (
     <BrowserRouter>
-      <NavBar setAuthenticated={setAuthenticated} />
       <div className='content'>
         <Switch>
-
           <Route path="/login" exact={true}>
             <LoginForm
               authenticated={authenticated}
@@ -42,13 +41,16 @@ function App() {
             <SignUpForm authenticated={authenticated} setAuthenticated={setAuthenticated} />
           </Route>
           <ProtectedRoute path="/users" exact={true} authenticated={authenticated}>
+            <NavBar setAuthenticated={setAuthenticated} />
             <UsersList />
           </ProtectedRoute>
           <ProtectedRoute path="/users/:userId" exact={true} authenticated={authenticated}>
+            <NavBar setAuthenticated={setAuthenticated} />
             <User />
           </ProtectedRoute>
           <ProtectedRoute path="/" exact={true} authenticated={authenticated}>
-            <h1>My Home Page</h1>
+            <NavBar setAuthenticated={setAuthenticated} />
+            <HomePage />
           </ProtectedRoute>
         </Switch>
       </div>
