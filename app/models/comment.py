@@ -7,9 +7,9 @@ class Comment(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     postId = db.Column(db.Integer, db.ForeignKey(
-        "posts.id"), nullable=False, unique=True)
+        "posts.id"), nullable=False)
     userId = db.Column(db.Integer, db.ForeignKey(
-        "users.id"), nullable=False, unique=True)
+        "users.id"), nullable=False)
     content = db.Column(db.String, nullable=False)
     createdAt = db.Column(db.DateTime,
                           default=datetime.datetime.utcnow)

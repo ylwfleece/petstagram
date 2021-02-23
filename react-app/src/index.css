@@ -1,1 +1,5 @@
 /* TODO Add site wide styles */
+.content {
+    margin-top: 5rem;
+    padding: 15px;
+}
