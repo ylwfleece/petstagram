@@ -1,7 +1,17 @@
 from app.models import db, Photo
+from faker import Faker
+import random
 
 
-def seed_photos():
+fake = Faker()
+
+
+def seed_photos(n):
+    for _ in range(n):
+        entry = Photo(
+            postId=random.randint(1, 20), photoKey='urlstring'
+        )
+        db.session.add(entry)
 
     post1 = Photo(postId=1, photoKey="urlstring")
 

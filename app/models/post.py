@@ -7,7 +7,7 @@ class Post(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     userId = db.Column(db.Integer, db.ForeignKey(
-        "users.id"), nullable=False, unique=True)
+        "users.id"), nullable=False)
     caption = db.Column(db.String(140))
     createdAt = db.Column(db.DateTime, default=datetime.datetime.utcnow)
     updatedAt = db.Column(db.DateTime, default=datetime.datetime.utcnow)
