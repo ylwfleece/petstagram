@@ -10,8 +10,16 @@ s3 = boto3.client(
 def upload_file_to_s3(file, bucket_name, acl="public-read"):
 
     try:
-        print(s3.list_buckets())
-        print(s3.list_objects(Bucket=Config.S3_BUCKET))
+        print('***********************')
+        print('***********************')
+        print('***********************')
+        print('key', Config.S3_KEY)
+        print('secret', Config.S3_SECRET)
+        # print(s3.list_buckets())
+        # print(s3.list_objects(Bucket=Config.S3_BUCKET))
+        print('***********************')
+        print('***********************')
+        print('***********************')
         s3.upload_fileobj(
             file,
             bucket_name,
@@ -27,4 +35,4 @@ def upload_file_to_s3(file, bucket_name, acl="public-read"):
         print("Something Happened: ", e)
         return e
 
-    return "{}{}".format(Config["S3_LOCATION"], file.filename)
+    return f"{Config.S3_LOCATION}{file.filename}"
