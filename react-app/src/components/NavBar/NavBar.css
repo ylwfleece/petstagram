@@ -1,8 +1,7 @@
 nav {
     background: white;
-    width: 100%;
+    width: 100vw;
     box-sizing: border-box;
-    left: 0;
     top: 0;
     position: fixed;
     border-bottom: 1px solid rgb(219, 219, 219) ;
@@ -11,7 +10,7 @@ nav {
 
 .menu {
     display: flex;
-    width: 100%;
+    width: 100vw;
     height: 54px;
     line-height: 18px;
     align-items: center;
