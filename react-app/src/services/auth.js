@@ -31,17 +31,22 @@ export const logout = async () => {
 };
 
 
-export const signUp = async (username, email, password) => {
+export const signUp = async (username, email, password, profilePhotoFile) => {
+
+  const formData = new FormData();
+  
+  formData.append("username", username);
+  formData.append("email", email);
+  formData.append("password", password);
+
+  if (profilePhotoFile) {
+    formData.append("profile_photo_file", profilePhotoFile)
+  };
+
   const response = await fetch("/api/auth/signup", {
     method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      username,
-      email,
-      password,
-    }),
+    // Dont add a content-type header. it breaks everything
+    body: formData
   });
   return await response.json();
 }
