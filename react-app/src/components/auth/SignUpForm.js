@@ -11,7 +11,6 @@ const SignUpForm = ({authenticated, setAuthenticated}) => {
 
   const onSignUp = async (e) => {
     e.preventDefault();
-    console.log('-----profile photo file: ', profilePhotoFile)
     if (password === repeatPassword) {
       const user = await signUp(username, email, password, profilePhotoFile);
       if (!user.errors) {
@@ -37,7 +36,6 @@ const SignUpForm = ({authenticated, setAuthenticated}) => {
   };
 
   const updateProfilePhotoFile = (e) => {
-    console.log(e.target.files[0])
     setProfilePhotoFile(e.target.files[0]);
   }
 
@@ -46,7 +44,7 @@ const SignUpForm = ({authenticated, setAuthenticated}) => {
   }
 
   return (
-    <form encType="multipart/form-data" onSubmit={onSignUp}>
+    <form onSubmit={onSignUp}>
       <div>
         <label>User Name</label>
         <input

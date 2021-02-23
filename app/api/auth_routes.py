@@ -63,12 +63,25 @@ def sign_up():
     """
     Creates a new user and logs them in
     """
+    # jsdata = request.form['javascript_data']
+    # print(jsdata)
+    # print("Request.data", list(request.form.keys()))
+
+
     form = SignUpForm()
+    print("Request files",request.files)
+    print("form", form)
+    # print(request.headers)
+    # print(dict(request.form))
+    # print("request", request)
+    # print("request.data", request.data)
     form['csrf_token'].data = request.cookies['csrf_token']
-    print(form.data)
+    # print(form.data, form.data["email"])
+
     if form.validate_on_submit():
+        print("made it here")
         s3_photo_url = 'randomphotostring'
-        print(f'-----line 70 auth_routes, form.data: {form.data} -----')
+        # print(f'-----line 70 auth_routes, form.data: {form.data} -----')
 
         file = form.data['profile_photo_file']
         if file:
