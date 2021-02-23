@@ -13,22 +13,27 @@ const NavBar = ({ setAuthenticated }) => {
           </NavLink>
         </div>
         <div>
-          <NavLink to="/login" exact={true} activeClassName="active">
-            Login
-          </NavLink>
+          <input></input>
         </div>
-        <div>
-          <NavLink to="/sign-up" exact={true} activeClassName="active">
-            Sign Up
-          </NavLink>
-        </div>
-        <div>
-          <NavLink to="/users" exact={true} activeClassName="active">
-            Users
-          </NavLink>
-        </div>
-        <div>
-          <LogoutButton setAuthenticated={setAuthenticated} />
+        <div className='user-buttons'>
+          <div>
+            <NavLink to="/login" exact={true} activeClassName="active">
+              Login
+            </NavLink>
+          </div>
+          <div>
+            <NavLink to="/sign-up" exact={true} activeClassName="active">
+              Sign Up
+            </NavLink>
+          </div>
+          <div>
+            <NavLink to="/users" exact={true} activeClassName="active">
+              Users
+            </NavLink>
+          </div>
+          <div>
+            <LogoutButton setAuthenticated={setAuthenticated} />
+          </div>
         </div>
       </div>
     </nav>
