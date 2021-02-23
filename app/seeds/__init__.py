@@ -18,7 +18,6 @@ def seed():
     seed_photos(20)
     seed_comments(20)
     seed_likes(20)
-
     # Add other seed functions here
 
 # Creates the `flask seed undo` command
