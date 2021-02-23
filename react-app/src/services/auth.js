@@ -31,17 +31,22 @@ export const logout = async () => {
 };
 
 
-export const signUp = async (username, email, password) => {
+export const signUp = async (username, email, password, profilePhotoFile) => {
+  // const { images, image, username, email, password } = user;
+  const formData = new FormData();
+  formData.append("username", username);
+  formData.append("email", email);
+  formData.append("password", password);
+
+  // for single file
+  if (profilePhotoFile) formData.append("profile_photo_file", profilePhotoFile);
+
   const response = await fetch("/api/auth/signup", {
     method: "POST",
     headers: {
-      "Content-Type": "application/json",
+      "Content-Type": "multipart/form-data",
     },
-    body: JSON.stringify({
-      username,
-      email,
-      password,
-    }),
+    body: formData
   });
   return await response.json();
 }
