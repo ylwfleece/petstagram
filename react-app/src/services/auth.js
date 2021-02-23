@@ -39,7 +39,10 @@ export const signUp = async (username, email, password, profilePhotoFile) => {
   formData.append("password", password);
 
   // for single file
-  if (profilePhotoFile) formData.append("profile_photo_file", profilePhotoFile);
+  if (profilePhotoFile) {
+    console.log(profilePhotoFile)
+    formData.append("profile_photo_file", profilePhotoFile)
+  };
 
   const response = await fetch("/api/auth/signup", {
     method: "POST",
