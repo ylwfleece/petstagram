@@ -72,9 +72,12 @@ def sign_up():
         s3_photo_url = 'randomphotostring'
 
         file = form.data['profile_photo_file']
+        print('>>>>>>>', file)
+        print(file.filename, file.content_type)
         if file:
             file.filename = secure_filename(file.filename)
             s3_photo_url = upload_file_to_s3(file, Config.S3_BUCKET)
+            print('*********', s3_photo_url)
 
         user = User(
             username=form.data['username'],

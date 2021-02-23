@@ -1,8 +1,2 @@
-<<<<<<< HEAD
-.env
-*.env*
-env
-=======
 env
 .env
->>>>>>> main
