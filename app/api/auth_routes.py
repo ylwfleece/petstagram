@@ -75,7 +75,6 @@ def sign_up():
         if file:
             file.filename = secure_filename(file.filename)
             s3_photo_url = upload_file_to_s3(file, Config.S3_BUCKET)
-            print(f'-----line 78 auth_routes, s3_photo_url: {s3_photo_url} -----')
 
         user = User(
             username=form.data['username'],

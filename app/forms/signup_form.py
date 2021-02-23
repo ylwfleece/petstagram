@@ -1,7 +1,6 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField
 from flask_wtf.file import FileField
-# from flask_wtf.file import FileField
 from wtforms.validators import DataRequired, Email, ValidationError
 from app.models import User
 
