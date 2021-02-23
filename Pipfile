@@ -28,7 +28,11 @@ python-editor = "==1.0.4"
 Mako = "==1.1.3"
 PyJWT = "==1.7.1"
 faker = "*"
+<<<<<<< HEAD
+boto3 = "*"
+=======
 psycopg2-binary = "*"
+>>>>>>> main
 
 [dev-packages]
 psycopg2-binary = "==2.8.6"
