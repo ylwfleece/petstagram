@@ -9,20 +9,26 @@ import CommentsPage from "./components/CommentsPage";
 import UsersList from "./components/UsersList";
 import User from "./components/User";
 import { authenticate } from "./services/auth";
+import {useDispatch} from "react-redux";
+import {getPostsForUser} from "./store/posts";
+import {addUser} from './store/session';
 
 function App() {
   const [authenticated, setAuthenticated] = useState(false);
   const [loaded, setLoaded] = useState(false);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     (async () => {
       const user = await authenticate();
       if (!user.errors) {
         setAuthenticated(true);
+        dispatch(addUser(user));
+        dispatch(getPostsForUser(user.id));
       }
       setLoaded(true);
     })();
-  }, []);
+  }, [dispatch]);
 
   if (!loaded) {
     return null;

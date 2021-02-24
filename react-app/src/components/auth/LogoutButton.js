@@ -1,7 +1,8 @@
 import React from "react";
 import { logout } from "../../services/auth";
-import { useDispatch } from 'react-redux'
-import { logoutUser } from '../../store/session'
+import { useDispatch } from 'react-redux';
+import { logoutUser } from '../../store/session';
+import { removePostsOnLogout } from '../../store/posts';
 
 const LogoutButton = ({ setAuthenticated }) => {
   const dispatch = useDispatch()
@@ -9,6 +10,7 @@ const LogoutButton = ({ setAuthenticated }) => {
     await logout();
     setAuthenticated(false);
     dispatch(logoutUser())
+    dispatch(removePostsOnLogout())
   };
 
   return <button onClick={onLogout} className='dropdown-item-redirect'>Log Out</button>;
