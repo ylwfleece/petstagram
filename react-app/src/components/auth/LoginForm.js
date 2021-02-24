@@ -36,9 +36,9 @@ const LoginForm = ({ authenticated, setAuthenticated }) => {
   }
 
   return (
-    <div className='login-page-container'>
+    <div className='page-container'>
       <div>
-        <div className='login-form-container'>
+        <div className='form-container'>
           <img src={petstagramlogo} alt='logo' style={{ padding: '5px 5rem' }} />
           <form onSubmit={onLogin}>
             <div className='field-inputs'>
@@ -59,8 +59,8 @@ const LoginForm = ({ authenticated, setAuthenticated }) => {
                 onChange={updatePassword}
               />
             </div>
-            <div className='login-button-container' style={{ marginTop: '18px' }}>
-              <button type="submit" className='blue-button'>Log In</button>
+            <div className='submit-button-container' style={{ marginTop: '18px' }}>
+              <button type="submit" className='blue-submit-button'>Log In</button>
             </div>
           </form>
           <div className='errors-container'>
@@ -70,7 +70,7 @@ const LoginForm = ({ authenticated, setAuthenticated }) => {
           </div>
         </div>
         <div>
-          <div className='login-form-container signup-redirect-container'>
+          <div className='form-container redirect-container'>
             <p>Don't have an account? <nobr><a href='/sign-up'>Sign up</a></nobr></p>
           </div>
         </div>

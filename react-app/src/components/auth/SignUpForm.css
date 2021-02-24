@@ -1,0 +1,9 @@
+.paragraph {
+    font-weight: 600;
+    text-align: center;
+}
+
+.paragraph-container {
+    display: flex;
+    width: 80%;
+}

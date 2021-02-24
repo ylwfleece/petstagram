@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import { Redirect } from 'react-router-dom';
 import { signUp } from '../../services/auth';
 import './SignUpForm.css'
+import petstagramlogo from '../NavBar/petstagramlogo.png'
 import {useDispatch} from 'react-redux'
 import {addUser} from '../../store/session'
-
 
 const SignUpForm = ({ authenticated, setAuthenticated }) => {
   const [username, setUsername] = useState("");
@@ -50,55 +50,75 @@ const SignUpForm = ({ authenticated, setAuthenticated }) => {
   }
 
   return (
-    <form onSubmit={onSignUp}>
+    <div className='page-container'>
       <div>
-        <label>User Name</label>
-        <input
-          type="text"
-          name="username"
-          onChange={updateUsername}
-          value={username}
-        ></input>
+        <div className='form-container'>
+          <img src={petstagramlogo} alt='logo' style={{ padding: '5px 5rem' }} />
+          <div className='paragraph-container'>
+            <p className='paragraph' style={{ color: 'rgb(155, 155, 155)', fontSize: '18px' }}>Sign up to see pet photos and videos from your friends.</p>
+          </div>
+          <form onSubmit={onSignUp}>
+            <div className='field-inputs'>
+              <input
+                type="text"
+                name="username"
+                placeholder='Username'
+                onChange={updateUsername}
+                value={username}
+              ></input>
+            </div>
+            <div className='field-inputs'>
+              <input
+                type="text"
+                name="email"
+                placeholder='Email'
+                onChange={updateEmail}
+                value={email}
+              ></input>
+            </div>
+            <div className='field-inputs'>
+              <input
+                type="password"
+                name="password"
+                placeholder='Password'
+                onChange={updatePassword}
+                value={password}
+              ></input>
+            </div>
+            <div className='field-inputs'>
+              <input
+                type="password"
+                name="repeat_password"
+                placeholder='Confirm password'
+                onChange={updateRepeatPassword}
+                value={repeatPassword}
+                required={true}
+              ></input>
+            </div>
+            <div className='submit-button-container' style={{ marginTop: '18px' }}>
+              <button type="submit" className='blue-submit-button'>Sign Up</button>
+            </div>
+            <div>
+              <label htmlFor="user_file">Upload Your File</label>
+              <input
+                type="file"
+                name="user_file"
+                onChange={updateProfilePhotoFile}
+              //  value={profilePhotoUrl}
+              />
+            </div>
+          </form>
+          <div className='errors-container'>
+            {/* {errors.map((error) => (
+              <div className='errors'>{error}</div>
+            ))} */}
+          </div>
+        </div>
+        <div className='form-container redirect-container'>
+          <p>Have an account? <nobr><a href='/login'>Log in</a></nobr></p>
+        </div>
       </div>
-      <div>
-        <label>Email</label>
-        <input
-          type="text"
-          name="email"
-          onChange={updateEmail}
-          value={email}
-        ></input>
-      </div>
-      <div>
-        <label>Password</label>
-        <input
-          type="password"
-          name="password"
-          onChange={updatePassword}
-          value={password}
-        ></input>
-      </div>
-      <div>
-        <label>Repeat Password</label>
-        <input
-          type="password"
-          name="repeat_password"
-          onChange={updateRepeatPassword}
-          value={repeatPassword}
-          required={true}
-        ></input>
-      </div>
-      <div>
-        <label htmlFor="user_file">Upload Your File</label>
-        <input
-          type="file"
-          name="user_file"
-          onChange={updateProfilePhotoFile}
-        //  value={profilePhotoUrl}
-        />
-      </div>
-      <button type="submit">Sign Up</button>
-    </form>
+    </div>
   );
 };
 
