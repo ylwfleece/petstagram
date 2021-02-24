@@ -59,6 +59,11 @@
     font-size: 16px;
 }
 
+.login-button:focus {
+    background-color: rgb(92, 190, 255);
+    outline: none;
+}
+
 .errors {
     color: rgb(237, 73, 86);
     font-size: 14px;
@@ -74,4 +79,8 @@
 .signup-redirect-container a {
     color: rgb(0, 149, 246);
     font-weight: 600;
+}
+
+.signup-redirect-container a:focus {
+    color: rgb(92, 190, 255);
 }
