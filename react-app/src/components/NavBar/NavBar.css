@@ -34,11 +34,6 @@ nav {
 
 }
 
-.logo img:active {
-    opacity: 0.5;
-}
-
-
 input:focus {
     outline: none;
 }

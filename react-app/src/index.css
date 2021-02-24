@@ -23,6 +23,9 @@ a {
     color: rgb(38, 38, 38);
 }
 
+svg:active,img:active {
+    opacity: 0.5;
+}
 
 .blue-submit-button {
     width: 100%;
