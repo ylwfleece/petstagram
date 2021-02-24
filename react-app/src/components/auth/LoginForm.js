@@ -3,17 +3,21 @@ import { Redirect } from "react-router-dom";
 import { login } from "../../services/auth";
 import './LoginForm.css'
 import petstagramlogo from '../NavBar/petstagramlogo.png'
+import {useDispatch} from 'react-redux'
+import {addUser} from '../../store/session'
 
 const LoginForm = ({ authenticated, setAuthenticated }) => {
   const [errors, setErrors] = useState([]);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const dispatch = useDispatch();
 
   const onLogin = async (e) => {
     e.preventDefault();
     const user = await login(email, password);
     if (!user.errors) {
       setAuthenticated(true);
+      dispatch(addUser(user))
     } else {
       setErrors(user.errors);
     }
