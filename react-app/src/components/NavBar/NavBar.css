@@ -68,3 +68,85 @@ input:focus {
     content: 'X';
     color: black;
 }
+
+
+
+
+
+#dropdown-menu-button {
+    padding: 0;
+    cursor: pointer;
+    border: 1px solid lightgray;
+    border-radius: 50%;
+    overflow: hidden;
+    position: relative;
+    width: 30px;
+    height: 30px;
+}
+
+#dropdown-menu-button img {
+    object-fit: cover;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+}
+
+#dropdown-menu-button:hover {
+    box-shadow: 0 0 3px 1px rgb(0, 0, 0, 0.2);
+    outline: none;
+}
+
+.dropdown-menu {
+    background-color: white;
+    box-sizing: border-box;
+    padding: .1rem 0;
+    list-style-type: none;
+    box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.2);
+    border-radius: 3px;
+}
+
+.popout * {
+    font-size: 14px;
+}
+
+.dropdown-item {
+    padding: 0.5rem 1rem 0.5rem 0.8rem;
+    font-weight: normal;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    height: 36px;
+}
+
+.dropdown-profile-redirect {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.dropdown-item:hover {
+    background-color: rgb(248, 248, 248);
+}
+
+.dropdown-item-redirect {
+    cursor: pointer;
+    border: none;
+    background-color: white;
+    text-align: left;
+    width: 100%;
+    padding: .5rem 1rem;
+    border-top: 1px solid rgb(211, 211, 211);
+    height: 36px;
+}
+
+.dropdown-item-redirect:hover {
+    background-color: rgb(248, 248, 248);
+}
+
+.popout {
+    position: absolute !important;
+    right: 2vw;
+    top: 55px;
+    min-width: 220px;
+}
