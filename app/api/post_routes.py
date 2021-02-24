@@ -4,7 +4,7 @@ from werkzeug.utils import secure_filename
 from ..helpers import *
 from ..config import Config
 from app.models import Post, User, db
-from app.forms import PhotoForm
+# from app.forms import PhotoForm
 
 post_routes = Blueprint('posts', __name__)
 

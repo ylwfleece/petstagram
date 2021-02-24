@@ -56,7 +56,7 @@ const LoginForm = ({ authenticated, setAuthenticated }) => {
               />
             </div>
             <div className='login-button-container' style={{ marginTop: '18px' }}>
-              <button type="submit" className='login-button'>Log In</button>
+              <button type="submit" className='blue-button'>Log In</button>
             </div>
           </form>
           <div className='errors-container'>
