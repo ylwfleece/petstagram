@@ -21,10 +21,12 @@ export const postComment = (userId, postId) => {
   };
 };
 
-export const fetchComments = () => {
+export const fetchComments = (id) => {
   return async (dispatch) => {
-    const response = await fetch(`/api/comments/`);
-    dispatch(fetchAllComments(response.data));
+    const response = await fetch(`/api/comments/${id}`);
+    const responseJSON = await response.json();
+    console.log("RESPONSE DATA", responseJSON);
+    dispatch(fetchAllComments(responseJSON.comments));
   };
 };
 //reducer
@@ -38,9 +40,8 @@ function commentsReducer(state = initialState, action) {
       return newState;
 
     case FETCH_ALL_COMMENTS:
-      newState = Object.assign({}, state, {
-        comments: action.payload,
-      });
+      newState = Object.assign({}, state);
+      newState = action.payload;
       return newState;
     default:
       return state;

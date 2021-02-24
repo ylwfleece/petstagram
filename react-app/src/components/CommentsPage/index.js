@@ -5,17 +5,20 @@ import { fetchComments, postComment } from "../../store/comments";
 
 function CommentsPage() {
   const comments = useSelector((state) => state.comments.comments);
-  //   const user? = state.session.user?
-  //const post? = state.post.post?
+  const user = useSelector((state) => state.session.user);
+  // const posts = useSelector((state) => state.posts);
+  // const post = useSelector((state) => state.posts.onePost);
+
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(fetchComments());
-    //ideally I would want to pass in the postid into fetchComments to
-    //grab the comments associated to this particular post, but that is
-    //up in the air atm
+    dispatch(fetchComments(user.id));
+    // dispatch(fetchOnePost());
   }, [dispatch]);
 
+  const comment = ({ prop }) => {
+    return <div>{prop.content}</div>;
+  };
   return <>{comments && <div>{comments.content}</div>}</>;
 
   // return (
