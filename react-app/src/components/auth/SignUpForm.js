@@ -2,6 +2,9 @@ import React, { useState } from "react";
 import { Redirect } from 'react-router-dom';
 import { signUp } from '../../services/auth';
 import './SignUpForm.css'
+import {useDispatch} from 'react-redux'
+import {addUser} from '../../store/session'
+
 
 const SignUpForm = ({ authenticated, setAuthenticated }) => {
   const [username, setUsername] = useState("");
@@ -9,6 +12,7 @@ const SignUpForm = ({ authenticated, setAuthenticated }) => {
   const [password, setPassword] = useState("");
   const [repeatPassword, setRepeatPassword] = useState("");
   const [profilePhotoFile, setProfilePhotoFile] = useState("");
+  const dispatch = useDispatch();
 
   const onSignUp = async (e) => {
     e.preventDefault();
@@ -16,6 +20,7 @@ const SignUpForm = ({ authenticated, setAuthenticated }) => {
       const user = await signUp(username, email, password, profilePhotoFile);
       if (!user.errors) {
         setAuthenticated(true);
+        dispatch(addUser(user))
       }
     }
   };
