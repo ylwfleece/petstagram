@@ -1,7 +1,6 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { useSelector } from 'react-redux'
-import LogoutButton from '../auth/LogoutButton';
 import ProfileButton from './ProfileButton'
 import { Home, FavoriteBorder, Search, MailOutline, Explore } from '@material-ui/icons'
 import petstagramlogo2 from './petstagramlogo2.png'
