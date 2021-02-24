@@ -17,7 +17,7 @@ def get_posts(userId):
     ids_to_query = [int(userId)]
     for follower in followers:
         ids_to_query.append(follower.id)
-
+    print(ids_to_query)
 
 @post_routes.route('/', methods=["POST"])
 @login_required
