@@ -34,9 +34,8 @@ nav {
 
 }
 
-.logo > img {
-    max-width: 54px;
-    max-height: 54px;
+.logo img:active {
+    opacity: 0.5;
 }
 
 
