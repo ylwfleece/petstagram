@@ -1,18 +1,18 @@
-from flask import Blueprint, jsonify
+from flask import Blueprint, jsonify, request
 from flask_login import login_required, current_user
 from ..helpers import *
 from ..config import Config
-from app.models import Comment, Post
+from app.models import Comment, Post, db
 from app.forms import CommentForm
 
 
 comment_routes = Blueprint('comments', __name__)
 
 
-@comment_routes.route('/')
-def getPostComments(id):
-    post = Post.query.get(id)
-    comments = Comment.query.filter_by(postId=post.id).all()
+@comment_routes.route('/:id')
+def getPostComments():
+    postId = request.json['id']
+    comments = Comment.query.filter_by(postId=postId).all()
 
     def comment_info(self):
         return {
@@ -24,10 +24,10 @@ def getPostComments(id):
     return jsonify({"comments": [comment_info(comment) for comment in comments]})
 
 
-@comment_routes.route('/', methods=["POST"])
+@comment_routes.route('/:id', methods=["POST"])
 @login_required
-def createComment(id):
-    post = Post.query.get(id)
+def createComment():
+    postId = request.json['id']
     form = CommentForm()
     form['csrf_token'].data = request.cookies['csrf_token']
 
@@ -35,7 +35,7 @@ def createComment(id):
         commentData = form.data
 
         comment = Comment(
-            postId=post.id,
+            postId=postId,
             userId=current_user.get_id(),
             content=commentData
         )
