@@ -2,6 +2,7 @@ from flask import Blueprint, jsonify, request
 from flask_login import login_required, current_user
 from app.models import db, Follow, User
 
+
 follow_routes = Blueprint('follows', __name__)
 
 
@@ -12,7 +13,9 @@ def get_all_user_followers():
     return {"followers": [follower.to_dict() for follower in followers]}
 
 
+
 @follow_routes.route("/followed/<int:id>", methods=["POST"])
+
 @login_required
 def add_follower(id):
     # Creates a follow relationship
