@@ -8,6 +8,14 @@ from app.models import Post, User, db
 
 post_routes = Blueprint('posts', __name__)
 
+@post_routes.route('/<userId>', methods=["GET"])
+# @login_required
+def get_posts(userId):
+    user = User.query.get(userId)
+    followers = user.followers
+    for follower in followers:
+        
+
 
 @post_routes.route('/', methods=["POST"])
 @login_required
