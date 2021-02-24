@@ -34,7 +34,6 @@ const LoginForm = ({ authenticated, setAuthenticated }) => {
   return (
     <div className='login-page-container'>
       <div>
-
         <div className='login-form-container'>
           <img src={petstagramlogo} alt='logo' style={{ padding: '5px 5rem' }} />
           <form onSubmit={onLogin}>

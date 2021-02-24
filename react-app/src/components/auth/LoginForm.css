@@ -1,11 +1,11 @@
 .login-page-container {
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
     height: 90vh;
     width: 100vw;
-    margin: 0;
+    margin: 10vh 0 0 0;
 }
 
 .login-form-container {
@@ -16,7 +16,6 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: space-between;
 }
 
 .field-inputs, .field-inputs input {
