@@ -1,4 +1,5 @@
 const SET_POSTS = "posts/setPosts"
+const REMOVE_POSTS = "posts/removePosts"
 
 const setPosts = (posts) => {
     return {
@@ -7,10 +8,22 @@ const setPosts = (posts) => {
     };
   };
 
+const removePosts = () => {
+    return {
+      type: REMOVE_POSTS
+    };
+  };
+
 export const getPostsForUser = (userId) => async (dispatch) => {
-    const posts = await fetch(`/api/posts/${userId}`);
+    let posts = await fetch(`/api/posts/${userId}`);
+    posts = await posts.json();
     dispatch(setPosts(posts));
     return posts;
+  };
+
+export const removePostsOnLogout = () => async (dispatch) => {
+    dispatch(removePosts());
+    return "removed posts on logout";
   };
 
 const initialState = { posts: null };
