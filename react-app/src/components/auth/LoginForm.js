@@ -33,36 +33,44 @@ const LoginForm = ({ authenticated, setAuthenticated }) => {
 
   return (
     <div className='login-page-container'>
-      <div className='login-form-container'>
-        <img src={petstagramlogo} alt='logo' style={{ margin: '5px 5rem' }} />
-        <form onSubmit={onLogin}>
-          <div>
+      <div>
+
+        <div className='login-form-container'>
+          <img src={petstagramlogo} alt='logo' style={{ padding: '5px 5rem' }} />
+          <form onSubmit={onLogin}>
+            <div className='field-inputs'>
+              <input
+                name="email"
+                type="text"
+                placeholder="Email"
+                value={email}
+                onChange={updateEmail}
+              />
+            </div>
+            <div className='field-inputs'>
+              <input
+                name="password"
+                type="password"
+                placeholder="Password"
+                value={password}
+                onChange={updatePassword}
+              />
+            </div>
+            <div className='login-button-container' style={{ marginTop: '18px' }}>
+              <button type="submit" className='login-button'>Log In</button>
+            </div>
+          </form>
+          <div className='errors-container'>
             {errors.map((error) => (
-              <div>{error}</div>
+              <div className='errors'>{error}</div>
             ))}
           </div>
-          <div>
-            <input
-              name="email"
-              type="text"
-              placeholder="Email"
-              value={email}
-              onChange={updateEmail}
-            />
+        </div>
+        <div>
+          <div className='login-form-container signup-redirect-container'>
+            <p>Don't have an account? <nobr><a href='/sign-up'>Sign up</a></nobr></p>
           </div>
-          <div>
-            <input
-              name="password"
-              type="password"
-              placeholder="Password"
-              value={password}
-              onChange={updatePassword}
-            />
-          </div>
-          <div className='login-button'>
-            <button type="submit">Login</button>
-          </div>
-        </form>
+        </div>
       </div>
     </div>
   );

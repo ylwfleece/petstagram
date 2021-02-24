@@ -1,5 +1,6 @@
 .login-page-container {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     height: 90vh;
@@ -12,4 +13,63 @@
     padding: 10px 0;
     margin-bottom: 10px;
     background-color: rgb(255, 255, 255);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.field-inputs, .field-inputs input {
+    border: 1px solid rgb(219, 219, 219);
+    width: 100%;
+    background-color: rgb(250, 250, 250);
+    box-sizing: border-box;
+    border-radius: 3px;
+}
+
+.field-inputs input:focus {
+    border: 1px solid black;
+    padding: 6.2px;
+}
+
+.login-form-container input {
+    border: none;
+    padding: .45rem;
+}
+
+.login-form-container form {
+    width: 80%;
+}
+
+.login-form-container form div {
+    margin: .5rem 0;
+}
+
+.login-button-container, .login-button {
+    width: 100%;
+    border: none;
+    color: rgb(255, 255, 255);
+    border-radius: 5px;
+    background-color: rgb(0, 149, 246);
+}
+
+.login-button {
+    padding: 5px;
+    font-weight: 500;
+    font-size: 16px;
+}
+
+.errors {
+    color: rgb(237, 73, 86);
+    font-size: 14px;
+}
+
+.login-form-container p {
+    color: rgb(38, 38, 38);
+    font-size: 14px;
+}
+
+.signup-redirect-container a {
+    color: rgb(0, 149, 246);
+    font-weight: 600;
 }
