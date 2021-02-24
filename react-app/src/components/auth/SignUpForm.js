@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import { Redirect } from 'react-router-dom';
 import { signUp } from '../../services/auth';
+import './SignUpForm.css'
 
-const SignUpForm = ({authenticated, setAuthenticated}) => {
+const SignUpForm = ({ authenticated, setAuthenticated }) => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -84,11 +85,11 @@ const SignUpForm = ({authenticated, setAuthenticated}) => {
       </div>
       <div>
         <label htmlFor="user_file">Upload Your File</label>
-        <input 
-         type="file" 
-         name="user_file" 
-         onChange={updateProfilePhotoFile} 
-        //  value={profilePhotoUrl} 
+        <input
+          type="file"
+          name="user_file"
+          onChange={updateProfilePhotoFile}
+        //  value={profilePhotoUrl}
         />
       </div>
       <button type="submit">Sign Up</button>
