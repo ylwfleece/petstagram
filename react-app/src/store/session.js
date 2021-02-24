@@ -17,7 +17,6 @@ const removeUser = () => {
 
 export const addUser = (user) => async (dispatch) => {
 //   const { id, username, email, profilePhotoUrl } = user;
-
   dispatch(setUser(user));
   return user;
 };

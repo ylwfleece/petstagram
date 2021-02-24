@@ -11,12 +11,12 @@ def seed_users(n):
     for i in range(n):
         entry = User(
             username=fake.user_name(), email=fake.ascii_email(),
-            password=f'password{i}', profilePhotoUrl=fake.image_url()
+            password=f'password{i}', profilePhotoUrl='http://petstagram-top-25.s3.amazonaws.com/default_profile.jpeg'
         )
         db.session.add(entry)
 
     demo = User(username='Demo', email='demo@aa.io',
-                password='password', profilePhotoUrl=None)
+                password='password', profilePhotoUrl='http://petstagram-top-25.s3.amazonaws.com/default_profile.jpeg')
 
     db.session.add(demo)
     db.session.commit()
