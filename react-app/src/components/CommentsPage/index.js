@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { fetchComments, postComment } from "../../store/comments";
 
-function commentsPage() {
+function CommentsPage() {
   const comments = useSelector((state) => state.comments.comments);
   //   const user? = state.session.user?
   //const post? = state.post.post?
@@ -17,6 +17,14 @@ function commentsPage() {
   }, [dispatch]);
 
   return <>{comments && <div>{comments.content}</div>}</>;
+
+  // return (
+  //   <>
+  //     <div>"hello"</div>
+  //   </>
+  // );
   //also include the useSelector for post to display the post on this page as
   // well
 }
+
+export default CommentsPage;

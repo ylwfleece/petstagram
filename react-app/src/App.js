@@ -5,6 +5,7 @@ import SignUpForm from "./components/auth/SignUpForm";
 import HomePage from "./components/HomePage";
 import NavBar from "./components/NavBar";
 import ProtectedRoute from "./components/auth/ProtectedRoute";
+import CommentsPage from "./components/CommentsPage";
 import UsersList from "./components/UsersList";
 import User from "./components/User";
 import { authenticate } from "./services/auth";
@@ -29,7 +30,7 @@ function App() {
 
   return (
     <BrowserRouter>
-      <div className='content'>
+      <div className="content">
         <Switch>
           <Route path="/login" exact={true}>
             <LoginForm
@@ -38,13 +39,24 @@ function App() {
             />
           </Route>
           <Route path="/sign-up" exact={true}>
-            <SignUpForm authenticated={authenticated} setAuthenticated={setAuthenticated} />
+            <SignUpForm
+              authenticated={authenticated}
+              setAuthenticated={setAuthenticated}
+            />
           </Route>
-          <ProtectedRoute path="/users" exact={true} authenticated={authenticated}>
+          <ProtectedRoute
+            path="/users"
+            exact={true}
+            authenticated={authenticated}
+          >
             <NavBar setAuthenticated={setAuthenticated} />
             <UsersList />
           </ProtectedRoute>
-          <ProtectedRoute path="/users/:userId" exact={true} authenticated={authenticated}>
+          <ProtectedRoute
+            path="/users/:userId"
+            exact={true}
+            authenticated={authenticated}
+          >
             <NavBar setAuthenticated={setAuthenticated} />
             <User />
           </ProtectedRoute>
@@ -52,6 +64,9 @@ function App() {
             <NavBar setAuthenticated={setAuthenticated} />
             <HomePage />
           </ProtectedRoute>
+          <Route path="/comments">
+            <CommentsPage />
+          </Route>
         </Switch>
       </div>
     </BrowserRouter>
