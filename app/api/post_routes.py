@@ -12,9 +12,11 @@ post_routes = Blueprint('posts', __name__)
 # @login_required
 def get_posts(userId):
     user = User.query.get(userId)
-    followers = user.followers
+    followers = user.followers # people the user follows
+    # follows = user.follows (people who follow the user)
+    ids_to_query = [int(userId)]
     for follower in followers:
-        
+        ids_to_query.append(follower.id)
 
 
 @post_routes.route('/', methods=["POST"])
