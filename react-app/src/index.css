@@ -18,3 +18,95 @@ a {
     text-decoration: none;
     color: rgb(38, 38, 38);
 }
+
+
+.blue-submit-button {
+    width: 100%;
+    border: none;
+    color: rgb(255, 255, 255);
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: rgb(0, 149, 246);
+}
+
+.blue-submit-button {
+    padding: 5px;
+    font-weight: 500;
+    font-size: 16px;
+}
+
+.blue-submit-button:focus {
+    background-color: rgb(92, 190, 255);
+    outline: none;
+}
+
+.submit-button-container {
+    margin-top: 18px;
+}
+
+.page-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    height: 90vh;
+    width: 100vw;
+    margin: 10vh 0 0 0;
+}
+
+.form-container {
+    border: 1px solid rgb(219, 219, 219);
+    padding: 10px 0;
+    margin-bottom: 10px;
+    background-color: rgb(255, 255, 255);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.field-inputs, .field-inputs input {
+    border: 1px solid rgb(219, 219, 219);
+    width: 100%;
+    background-color: rgb(250, 250, 250);
+    box-sizing: border-box;
+    border-radius: 3px;
+}
+
+.field-inputs input:focus {
+    border: 1px solid black;
+    padding: 6.2px;
+}
+
+.form-container input {
+    border: none;
+    padding: .45rem;
+}
+
+.form-container form {
+    width: 80%;
+}
+
+.form-container form div {
+    margin: .5rem 0;
+}
+
+.form-container p {
+    color: rgb(38, 38, 38);
+    font-size: 14px;
+}
+
+.redirect-container a {
+    color: rgb(0, 149, 246);
+    font-weight: 600;
+}
+
+.redirect-container a:focus {
+    color: rgb(92, 190, 255);
+}
+
+.errors {
+    color: rgb(237, 73, 86);
+    font-size: 14px;
+    display: flex;
+    justify-content: center;
+}
