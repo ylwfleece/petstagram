@@ -5,14 +5,14 @@ from app.models import db, Follow, User
 follow_routes = Blueprint('follows', __name__)
 
 
-@follow_routes.route('/user/:id/followers')
+@follow_routes.route('/followers/:id')
 @login_required
 def get_all_user_followers():
     followers = db.session.query(Follow).all()
     return {"followers": [follower.to_dict() for follower in followers]}
 
 
-@follow_routes.route("/:id/follower", methods=["POST"])
+@follow_routes.route("/followed/<int:id>", methods=["POST"])
 @login_required
 def add_follower(id):
     # Creates a follow relationship
