@@ -8,6 +8,7 @@ from app.models import Post, User, db
 
 post_routes = Blueprint('posts', __name__)
 
+
 @post_routes.route('/<userId>', methods=["GET"])
 # @login_required
 def get_posts(userId):
@@ -17,7 +18,16 @@ def get_posts(userId):
     ids_to_query = [int(userId)]
     for follower in followers:
         ids_to_query.append(follower.id)
-    print(ids_to_query)
+    # print(ids_to_query)
+    posts = set()
+    for id in ids_to_query:
+        posts_from_userId = Post.query.filter(Post.userId == id).all()
+        posts = posts | set(posts_from_userId)
+    # print('===> posts: ', posts)
+    posts_to_return = []
+    for post in posts:
+        posts_to_return.append(post.to_dict())
+    return jsonify(posts_to_return)
 
 @post_routes.route('/', methods=["POST"])
 @login_required

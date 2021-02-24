@@ -5,6 +5,7 @@ import './LoginForm.css'
 import petstagramlogo from '../NavBar/petstagramlogo.png'
 import {useDispatch} from 'react-redux'
 import {addUser} from '../../store/session'
+import {getPostsForUser} from '../../store/posts'
 
 const LoginForm = ({ authenticated, setAuthenticated }) => {
   const [errors, setErrors] = useState([]);
@@ -17,7 +18,8 @@ const LoginForm = ({ authenticated, setAuthenticated }) => {
     const user = await login(email, password);
     if (!user.errors) {
       setAuthenticated(true);
-      dispatch(addUser(user))
+      dispatch(addUser(user));
+      dispatch(getPostsForUser(user.id));
     } else {
       setErrors(user.errors);
     }
