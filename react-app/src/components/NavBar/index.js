@@ -1,12 +1,16 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
+import { useSelector } from 'react-redux'
 import LogoutButton from '../auth/LogoutButton';
+import ProfileButton from './ProfileButton'
 import { Home, FavoriteBorder, Search, MailOutline, Explore } from '@material-ui/icons'
 import petstagramlogo2 from './petstagramlogo2.png'
 import './NavBar.css'
 
 const NavBar = ({ setAuthenticated }) => {
-  return (
+  const user = useSelector(state => state.session.user)
+
+  return (user &&
     <nav>
       <div className='menu'>
         <div className='logo'>
@@ -25,22 +29,16 @@ const NavBar = ({ setAuthenticated }) => {
             </NavLink>
           </div>
           <div className='messages'>
-            {/* <NavLink to="/login" exact={true} activeClassName="active"> */}
             <MailOutline style={{ fontSize: '30px', color: 'rgb(38, 38, 38)' }} />
-            {/* </NavLink> */}
           </div>
           <div className='explore'>
-            {/* <NavLink to="/sign-up" exact={true} activeClassName="active"> */}
             <Explore style={{ fontSize: '30px', color: 'rgb(38, 38, 38)' }} />
-            {/* </NavLink> */}
           </div>
           <div className='activity'>
-            {/* <NavLink to="/users" exact={true} activeClassName="active"> */}
             <FavoriteBorder style={{ fontSize: '30px', color: 'rgb(38, 38, 38)' }} />
-            {/* </NavLink> */}
           </div>
-          <div className='logout'>
-            <LogoutButton setAuthenticated={setAuthenticated} />
+          <div>
+            <ProfileButton user={user} setAuthenticated={setAuthenticated} />
           </div>
         </div>
       </div>
