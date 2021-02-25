@@ -1,19 +1,21 @@
+
 const SET_POSTS = "posts/setPosts"
 const REMOVE_POSTS = "posts/removePosts"
 const CREATE_POST = "posts/createPost"
 
+
 const setPosts = (posts) => {
-    return {
-      type: SET_POSTS,
-      payload: posts
-    };
+  return {
+    type: SET_POSTS,
+    payload: posts,
   };
+};
 
 const removePosts = () => {
-    return {
-      type: REMOVE_POSTS
-    };
+  return {
+    type: REMOVE_POSTS,
   };
+
 const createOnePost = (post) =>{
       return {
           type: CREATE_POST,
@@ -29,9 +31,9 @@ export const getPostsForUser = () => async (dispatch) => {
   };
 
 export const removePostsOnLogout = () => async (dispatch) => {
-    dispatch(removePosts());
-    return "removed posts on logout";
-  };
+  dispatch(removePosts());
+  return "removed posts on logout";
+};
 
 export const createPost = (caption, photoFile) => async (dispatch) => {
     const formData = new FormData()
