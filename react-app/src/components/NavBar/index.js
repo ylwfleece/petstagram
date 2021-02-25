@@ -1,13 +1,27 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import { useSelector } from 'react-redux'
-import ProfileButton from './ProfileButton'
+import { useSelector } from 'react-redux';
+import ProfileButton from './ProfileButton';
 import { Home, FavoriteBorder, Search, MailOutline, Explore } from '@material-ui/icons'
-import petstagramlogo2 from './petstagramlogo2.png'
-import './NavBar.css'
+import petstagramlogo2 from './petstagramlogo2.png';
+import './NavBar.css';
+import {searchUsers} from '../../services/search';
+import { useState } from 'react';
 
 const NavBar = ({ setAuthenticated }) => {
   const user = useSelector(state => state.session.user)
+
+  const [searchTerm, setSearchTerm] = useState('');
+
+  const updateSearchTerm = (e) => {
+    setSearchTerm(e.target.value);
+  };
+
+  const onSearch = async(e) => {
+    e.preventDefault();
+    const searchResults = await searchUsers(searchTerm);
+    console.log(searchResults)
+  }
 
   return (user &&
     <nav>
@@ -19,7 +33,14 @@ const NavBar = ({ setAuthenticated }) => {
         </div>
         <div className='search'>
           <Search style={{ textAlign: 'center', color: 'rgb(142, 142, 142)', fontSize: '18px' }} />
-          <input type='search' placeholder='Search'></input>
+          <form onSubmit={onSearch}>
+            <div>
+              <input onChange={updateSearchTerm} type='search' placeholder='Search by username'></input>
+            </div>
+            <div>
+            <button type="submit">search</button>
+            </div>
+          </form>
         </div>
         <div className='user-buttons'>
           <div className='home'>
