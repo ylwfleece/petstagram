@@ -3,8 +3,8 @@ import { Redirect } from 'react-router-dom';
 import { signUp } from '../../services/auth';
 import './SignUpForm.css'
 import petstagramlogo from '../NavBar/petstagramlogo.png'
-import {useDispatch} from 'react-redux'
-import {addUser} from '../../store/session'
+import { useDispatch } from 'react-redux'
+import { addUser } from '../../store/session'
 
 const SignUpForm = ({ authenticated, setAuthenticated }) => {
   const [username, setUsername] = useState("");
@@ -52,7 +52,7 @@ const SignUpForm = ({ authenticated, setAuthenticated }) => {
   return (
     <div className='page-container'>
       <div>
-        <div className='form-container'>
+        <div className='container'>
           <img src={petstagramlogo} alt='logo' style={{ padding: '5px 5rem' }} />
           <div className='paragraph-container'>
             <p className='paragraph' style={{ color: 'rgb(155, 155, 155)', fontSize: '18px' }}>Sign up to see pet photos and videos from your friends.</p>
@@ -114,7 +114,7 @@ const SignUpForm = ({ authenticated, setAuthenticated }) => {
             ))} */}
           </div>
         </div>
-        <div className='form-container redirect-container'>
+        <div className='container redirect-container'>
           <p>Have an account? <nobr><a href='/login'>Log in</a></nobr></p>
         </div>
       </div>

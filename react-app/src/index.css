@@ -61,7 +61,7 @@ svg:active,img:active {
     margin: 10vh 0 0 0;
 }
 
-.form-container {
+.container {
     border: 1px solid rgb(219, 219, 219);
     padding: 10px 0;
     margin-bottom: 10px;
@@ -84,20 +84,20 @@ svg:active,img:active {
     padding: 6.2px;
 }
 
-.form-container input {
+.container input {
     border: none;
     padding: .45rem;
 }
 
-.form-container form {
+.container form {
     width: 80%;
 }
 
-.form-container form div {
+.container form div {
     margin: .5rem 0;
 }
 
-.form-container p {
+.container p {
     color: rgb(38, 38, 38);
     font-size: 14px;
 }
@@ -116,4 +116,27 @@ svg:active,img:active {
     font-size: 14px;
     display: flex;
     justify-content: center;
+}
+
+.rounded-img-container {
+    border-radius: 50%;
+    overflow: hidden;
+    position: relative;
+}
+
+.rounded-img-container img {
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.flex-left-container {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.normalize-text {
+    font-size: 14px;
+    color: rgb(142, 142, 142);
+    margin: 0;
 }
