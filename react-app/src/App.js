@@ -11,9 +11,9 @@ import UsersList from "./components/UsersList";
 import User from "./components/User";
 import PostForm from "./components/PostForm";
 import { authenticate } from "./services/auth";
-import {useDispatch} from "react-redux";
-import {getPostsForUser} from "./store/posts";
-import {addUser} from './store/session';
+import { useDispatch } from "react-redux";
+import { getPostsForUser } from "./store/posts";
+import { addUser } from './store/session';
 
 function App() {
   const [authenticated, setAuthenticated] = useState(false);
@@ -69,20 +69,20 @@ function App() {
             <User />
           </ProtectedRoute>
           <ProtectedRoute
-            path="/posts/:postId"
-            exact={true}
-            authenticated={authenticated}
-          >
-            <NavBar setAuthenticated={setAuthenticated} />
-            <SinglePostPage />
-          </ProtectedRoute>
-          <ProtectedRoute
             path="/posts/new"
             exact={true}
             authenticated={authenticated}
           >
             <NavBar setAuthenticated={setAuthenticated} />
             <PostForm />
+          </ProtectedRoute>
+          <ProtectedRoute
+            path="/posts/:postId"
+            exact={true}
+            authenticated={authenticated}
+          >
+            <NavBar setAuthenticated={setAuthenticated} />
+            <SinglePostPage />
           </ProtectedRoute>
           <ProtectedRoute path="/" exact={true} authenticated={authenticated}>
             <NavBar setAuthenticated={setAuthenticated} />

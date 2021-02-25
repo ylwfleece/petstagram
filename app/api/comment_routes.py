@@ -13,21 +13,25 @@ comment_routes = Blueprint('comments', __name__)
 def getPostComments(post_id):
     comments = Comment.query.filter_by(postId=post_id).all()
     comments_formatted = []
-    def comment_info(self, like_count):
+    def comment_info(self, like_count, username, photo):
         return {
             "id": self.id,
             "postId": self.postId,
             "userId": self.userId,
             "content": self.content,
             "likes": like_count,
-            "createdAt": self.createdAt 
+            "createdAt": self.createdAt,
+            "username": username,
+            "photo": photo,
         }
     for comment in comments:
         likes = Like.query.filter(Like.commentId == comment.id).all()
         like_count = len(likes)
-        comments_formatted.append(comment_info(comment, like_count))
+        username = comment.user.username
+        photo = comment.user.profilePhotoUrl
+        comments_formatted.append(comment_info(comment, like_count, username, photo))
 
- 
+
     return {"comments": comments_formatted}
 
 
@@ -45,6 +49,8 @@ def createComment(post_id):
             "content": self.content,
             "likes": 0,
             "createdAt": self.createdAt,
+            "username": current_user.username,
+            "photo": current_user.profilePhotoUrl,
         }
 
     if form.validate_on_submit():

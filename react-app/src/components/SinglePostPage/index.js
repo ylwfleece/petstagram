@@ -13,7 +13,10 @@ function SinglePostPage() {
     postId = parseInt(postId, 10)
 
     useEffect(() => {
-        dispatch(fetchComments(postId))
+        if (!isNaN(postId)) {
+            console.log(postId)
+            dispatch(fetchComments(postId))
+        }
     }, [dispatch])
 
     let post
@@ -42,7 +45,7 @@ function SinglePostPage() {
         <div>
             {post &&
                 <div className='container' style={{ marginTop: '3vh' }}>
-                    <div className='rounded-img-container' style={{ alignSelf: 'flex-start' }}>
+                    <div className='rounded-img-container' style={{ alignSelf: 'flex-start', width: '32px', height: '32px' }}>
                         <img src={post.photo} alt='profilepicposter' style={{ width: '32px', height: '32px' }} />
                     </div>
                     <div>
@@ -50,6 +53,24 @@ function SinglePostPage() {
                     </div>
                     <div>
                         <img src={post.imageLinks} alt='postphoto' />
+                    </div>
+                    <div>
+                        {
+                            comments.map(
+                                comment =>
+                                    <div className='comments-container'>
+                                        <div className='comments-content-container'>
+                                            <p>{comment.content}</p>
+                                        </div>
+                                        <div>
+                                            <h5>{comment.username}</h5>
+                                        </div>
+                                        <div>
+                                            <img src={comment.photo} alt='commenter-profile' />
+                                        </div>
+                                    </div>
+                            )
+                        }
                     </div>
                 </div>
             }
