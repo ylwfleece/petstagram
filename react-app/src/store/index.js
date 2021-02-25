@@ -1,17 +1,19 @@
 import { createStore, combineReducers, applyMiddleware, compose } from "redux";
 import thunk from "redux-thunk";
 import commentsReducer from "./comments";
-import sessionReducer from "./session"
-import postsReducer from "./posts"
-import searchReducer from "./search"
-import followsReducer from "./follows"
+import sessionReducer from "./session";
+import postsReducer from "./posts";
+import searchReducer from "./search";
+import followsReducer from "./follows";
+import likesReducer from "./likes";
 
 const rootReducer = combineReducers({
   comments: commentsReducer,
-  session: sessionReducer, 
+  session: sessionReducer,
   posts: postsReducer,
   search: searchReducer,
-  follows: followsReducer
+  follows: followsReducer,
+  likes: likesReducer,
 });
 
 let enhancer;
