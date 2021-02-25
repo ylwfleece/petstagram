@@ -2,7 +2,7 @@ from flask import Blueprint, jsonify, request
 from flask_login import login_required, current_user
 from ..helpers import *
 from ..config import Config
-from app.models import Comment, Post, db
+from app.models import Comment, Post, Like, db
 from app.forms import CommentForm
 
 
@@ -11,16 +11,28 @@ comment_routes = Blueprint('comments', __name__)
 
 @comment_routes.route('/<int:post_id>')
 def getPostComments(post_id):
-    comments = Comment.query.filter_by(userId=post_id).all()
-
-    def comment_info(self):
+    comments = Comment.query.filter_by(postId=post_id).all()
+    comments_formatted = []
+    def comment_info(self, like_count, username, photo):
         return {
             "id": self.id,
             "postId": self.postId,
             "userId": self.userId,
-            "content": self.content
+            "content": self.content,
+            "likes": like_count,
+            "createdAt": self.createdAt,
+            "username": username,
+            "photo": photo,
         }
-    return {"comments": [comment_info(comment) for comment in comments]}
+    for comment in comments:
+        likes = Like.query.filter(Like.commentId == comment.id).all()
+        like_count = len(likes)
+        username = comment.user.username
+        photo = comment.user.profilePhotoUrl
+        comments_formatted.append(comment_info(comment, like_count, username, photo))
+
+
+    return {"comments": comments_formatted}
 
 
 @comment_routes.route('/<int:post_id>', methods=["POST"])
@@ -34,7 +46,11 @@ def createComment(post_id):
             "id": self.id,
             "postId": self.postId,
             "userId": current_user.id,
-            "content": self.content
+            "content": self.content,
+            "likes": 0,
+            "createdAt": self.createdAt,
+            "username": current_user.username,
+            "photo": current_user.profilePhotoUrl,
         }
 
     if form.validate_on_submit():
@@ -42,7 +58,7 @@ def createComment(post_id):
 
         comment = Comment(
             postId=post_id,
-            userId=22,
+            userId=current_user.id,
             content=commentData
         )
         db.session.add(comment)
