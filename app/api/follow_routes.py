@@ -13,9 +13,7 @@ def get_all_user_followers():
     return {"followers": [follower.to_dict() for follower in followers]}
 
 
-
 @follow_routes.route("/followed/<int:id>", methods=["POST"])
-
 @login_required
 def add_follower(id):
     # Creates a follow relationship

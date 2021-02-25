@@ -9,6 +9,7 @@ import CommentsPage from "./components/CommentsPage";
 import SinglePostPage from "./components/SinglePostPage";
 import UsersList from "./components/UsersList";
 import User from "./components/User";
+import SearchResults from './components/SearchResults';
 import PostForm from "./components/PostForm";
 import { authenticate } from "./services/auth";
 import { useDispatch } from "react-redux";
@@ -87,6 +88,10 @@ function App() {
           <ProtectedRoute path="/" exact={true} authenticated={authenticated}>
             <NavBar setAuthenticated={setAuthenticated} />
             <HomePage />
+          </ProtectedRoute>
+          <ProtectedRoute path="/search-results" exact={true} authenticated={authenticated}>
+            <NavBar setAuthenticated={setAuthenticated} />
+            <SearchResults />
           </ProtectedRoute>
           <Route path="/comments">
             <CommentsPage />
