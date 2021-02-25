@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchComments, postComment } from "../../store/comments";
 
 function CommentsPage() {
-  const comments = useSelector((state) => state.comments.comments);
+  const comments = useSelector((state) => state.comments);
   const user = useSelector((state) => state.session.user);
   // const posts = useSelector((state) => state.posts);
   // const post = useSelector((state) => state.posts.onePost);
@@ -16,10 +16,22 @@ function CommentsPage() {
     // dispatch(fetchOnePost());
   }, [dispatch]);
 
-  const comment = ({ prop }) => {
-    return <div>{prop.content}</div>;
-  };
-  return <>{comments && <div>{comments.content}</div>}</>;
+  // const commentContent = ({ prop }) => {
+  //   return <div>{prop.content}</div>;
+  // };
+  return (
+    <>
+      {comments && (
+        <div className="page-container">
+          {comments.map((IndividualComment) => {
+            return (
+              <div className="form-container">{IndividualComment.content}</div>
+            );
+          })}
+        </div>
+      )}
+    </>
+  );
 
   // return (
   //   <>
