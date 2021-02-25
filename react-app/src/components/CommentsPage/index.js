@@ -6,6 +6,17 @@ import { fetchComments, postComment } from "../../store/comments";
 function CommentsPage() {
   const comments = useSelector((state) => state.comments);
   const user = useSelector((state) => state.session.user);
+  const posts = useSelector((state) => state.posts)
+
+  // const post;
+
+  // if(posts){
+  //   if(posts.length){
+  //       console.log("Testing nested state", posts[7])
+  //       console.log("Testing nested state, image links", posts[7].imageLinks)
+  //   }
+  // }
+  
   // const posts = useSelector((state) => state.posts);
   // const post = useSelector((state) => state.posts.onePost);
 

@@ -4,7 +4,7 @@ from flask_login import login_required, current_user
 from werkzeug.utils import secure_filename
 from ..helpers import *
 from ..config import Config
-from app.models import Post, User, Photo, db
+from app.models import Post, User, Photo, Like, db
 # from app.forms import PhotoForm
 
 post_routes = Blueprint('posts', __name__)
@@ -31,7 +31,9 @@ def get_posts():
         photo_urls = []
         for photo in photos_for_post:
             photo_urls.append(photo.photoKey)
-        posts_to_return.append(post.to_dict(photo_urls))
+        likes = Like.query.filter(Like.postId == post.id).all()
+        like_count = len(likes)
+        posts_to_return.append(post.to_dict(photo_urls, like_count))
     return jsonify(posts_to_return)
 
 @post_routes.route('/', methods=["POST"])
