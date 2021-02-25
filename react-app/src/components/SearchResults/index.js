@@ -38,6 +38,9 @@ const SearchResults = ({ authenticated, setAuthenticated }) => {
             {user.username}
           </p>
           <p>
+            <img alt="profile_photo" src={user.profilePhotoUrl}></img>
+          </p>
+          <p>
             {followIds.includes(user.id) ? 
             <button 
               id={user.id}
