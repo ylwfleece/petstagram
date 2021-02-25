@@ -1,6 +1,6 @@
 const SET_COMMENT_LIKES = "likes/setCommentLikes";
 const SET_POST_LIKES = "likes/setPostLikes";
-const SET_COMMENT_LIKES = "likes/makeCommentLikes";
+const MAKE_COMMENT_LIKES = "likes/makeCommentLikes";
 const MAKE_POST_LIKES = "likes/makePostLikes";
 
 const setCommentLikes = (likes) => {
@@ -21,7 +21,7 @@ const makeCommentLikes = (likes) => {
     payload: likes,
   };
 };
-const makeCommentLikes = (likes) => {
+const makePostLikes = (likes) => {
   return {
     type: MAKE_POST_LIKES,
     payload: likes,
@@ -84,7 +84,7 @@ const likesReducer = (state = initialState, action) => {
         return newState;
       }
     default:
-      return statel;
+      return state;
   }
 };
 
