@@ -19,7 +19,7 @@ const LoginForm = ({ authenticated, setAuthenticated }) => {
     if (!user.errors) {
       setAuthenticated(true);
       dispatch(addUser(user));
-      dispatch(getPostsForUser(user.id));
+      dispatch(getPostsForUser());
     } else {
       setErrors(user.errors);
     }

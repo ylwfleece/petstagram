@@ -8,6 +8,7 @@ import ProtectedRoute from "./components/auth/ProtectedRoute";
 import CommentsPage from "./components/CommentsPage";
 import UsersList from "./components/UsersList";
 import User from "./components/User";
+import PostForm from "./components/PostForm";
 import { authenticate } from "./services/auth";
 import {useDispatch} from "react-redux";
 import {getPostsForUser} from "./store/posts";
@@ -24,7 +25,7 @@ function App() {
       if (!user.errors) {
         setAuthenticated(true);
         dispatch(addUser(user));
-        dispatch(getPostsForUser(user.id));
+        dispatch(getPostsForUser());
       }
       setLoaded(true);
     })();
@@ -65,6 +66,14 @@ function App() {
           >
             <NavBar setAuthenticated={setAuthenticated} />
             <User />
+          </ProtectedRoute>
+          <ProtectedRoute
+            path="/posts/new"
+            exact={true}
+            authenticated={authenticated}
+          >
+            <NavBar setAuthenticated={setAuthenticated} />
+            <PostForm />
           </ProtectedRoute>
           <ProtectedRoute path="/" exact={true} authenticated={authenticated}>
             <NavBar setAuthenticated={setAuthenticated} />
