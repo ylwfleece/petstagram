@@ -3,9 +3,9 @@ import { Redirect } from "react-router-dom";
 import { login } from "../../services/auth";
 import './LoginForm.css'
 import petstagramlogo from '../NavBar/petstagramlogo.png'
-import {useDispatch} from 'react-redux'
-import {addUser} from '../../store/session'
-import {getPostsForUser} from '../../store/posts'
+import { useDispatch } from 'react-redux'
+import { addUser } from '../../store/session'
+import { getPostsForUser } from '../../store/posts'
 
 const LoginForm = ({ authenticated, setAuthenticated }) => {
   const [errors, setErrors] = useState([]);
@@ -40,7 +40,7 @@ const LoginForm = ({ authenticated, setAuthenticated }) => {
   return (
     <div className='page-container'>
       <div>
-        <div className='form-container'>
+        <div className='container'>
           <img src={petstagramlogo} alt='logo' style={{ padding: '5px 5rem' }} />
           <form onSubmit={onLogin}>
             <div className='field-inputs'>
@@ -72,7 +72,7 @@ const LoginForm = ({ authenticated, setAuthenticated }) => {
           </div>
         </div>
         <div>
-          <div className='form-container redirect-container'>
+          <div className='container redirect-container'>
             <p>Don't have an account? <nobr><a href='/sign-up'>Sign up</a></nobr></p>
           </div>
         </div>

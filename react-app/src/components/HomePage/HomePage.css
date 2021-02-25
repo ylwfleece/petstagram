@@ -1,0 +1,39 @@
+.homepage-feed {
+    margin-top: 3vh;
+    width: 70%;
+    align-self: flex-end;
+    margin-right: 2vw;
+}
+
+.homepage-container {
+    width: 65vw;
+}
+
+.sidebar {
+    width: 30vw;
+    position: fixed;
+    right: 5%;
+}
+
+#homepage {
+    display: flex;
+}
+
+.rounded-img-container {
+    width: 60px;
+    height: 60px;
+    margin: 12px;
+}
+
+.rounded-img-container img {
+    width: 60px;
+    height: 60px;
+}
+
+.sidebar {
+    padding: 4vh 1vw;
+}
+
+.user-display {
+
+}
