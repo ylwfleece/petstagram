@@ -40,7 +40,7 @@ def follows():
 @search_routes.route('/<string:search_term>', methods=['GET'])
 # @login_required
 def user(search_term):
-    users = User.query.filter(User.username.like(f'%{search_term}%')).all()
+    users = User.query.filter(User.username.ilike(f'%{search_term}%')).all()
     users_to_return = []
     for user in users:
         users_to_return.append(user.to_dict())

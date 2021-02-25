@@ -9,6 +9,7 @@ const setFollows = (follows) => {
   };
 };
 
+// export const addFollow = (userId) 
 
 export const getFollowsForUser = () => async (dispatch) => {
   const res = await fetch(`/api/search/follows`);
