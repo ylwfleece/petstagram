@@ -1,0 +1,5 @@
+.rounded-img-container {
+    width: 32px;
+    height: 32px;
+    justify-self: flex-start;
+}

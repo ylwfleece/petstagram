@@ -16,16 +16,16 @@ function CommentsPage() {
   //       console.log("Testing nested state, image links", posts[7].imageLinks)
   //   }
   // }
-  
+
   // const posts = useSelector((state) => state.posts);
   // const post = useSelector((state) => state.posts.onePost);
 
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(fetchComments(user.id));
-    // dispatch(fetchOnePost());
-  }, [dispatch]);
+  // useEffect(() => {
+  //   dispatch(fetchComments(posts.id));
+  //   // dispatch(fetchOnePost());
+  // }, [dispatch]);
 
   // const commentContent = ({ prop }) => {
   //   return <div>{prop.content}</div>;

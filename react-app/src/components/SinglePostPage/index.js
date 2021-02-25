@@ -1,30 +1,26 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {useParams} from "react-router-dom"
-import {fetchComments} from '../../store/comments'
+import { useParams } from "react-router-dom"
+import { fetchComments } from '../../store/comments'
+import './SinglePostPage.css'
 
-
-function SinglePostPage(){
+function SinglePostPage() {
     const dispatch = useDispatch()
     const comments = useSelector((state) => state.comments)
     const user = useSelector((state) => state.session.user)
     const posts = useSelector((state) => state.posts)
-    let {postId} = useParams()
+    let { postId } = useParams()
     postId = parseInt(postId, 10)
-    console.log("post Id", postId, typeof postId)
 
     useEffect(() => {
         dispatch(fetchComments(postId))
     }, [dispatch])
 
     let post
-
-    if(posts){
-        if(posts.length){
-            console.log("Trying to find a post")
+    if (posts) {
+        if (posts.length) {
             const found = posts.find(post => post.id === postId)
-            if(found){
-                console.log("found a post")
+            if (found) {
                 post = found
             }
         }
@@ -32,35 +28,34 @@ function SinglePostPage(){
 
     let commentsArr = []
 
-    if(comments){
-        if(comments.length){
-            commentsArr = comments.filter((comment) =>{
+    if (comments) {
+        if (comments.length) {
+            commentsArr = comments.filter((comment) => {
                 return comment.postId === postId
             })
         }
     }
 
-    let profilePhoto
-    if(user){
-        console.log("Found a profile photo")
-        profilePhoto = user.profilePhotoUrl
-    }
-
-    if(post && user){
-        console.log("Testing the outputs", post, commentsArr, profilePhoto)
-    }
 
 
-return (
-    <div>
-        {profilePhoto && 
-            <div>
-                {profilePhoto}
-            </div>
-        }
-    </div>
-)
+    return (
+        <div>
+            {post &&
+                <div className='container' style={{ marginTop: '3vh' }}>
+                    <div className='rounded-img-container' style={{ alignSelf: 'flex-start' }}>
+                        <img src={post.photo} alt='profilepicposter' style={{ width: '32px', height: '32px' }} />
+                    </div>
+                    <div>
+                        <h5>{post.username}</h5>
+                    </div>
+                    <div>
+                        <img src={post.imageLinks} alt='postphoto' />
+                    </div>
+                </div>
+            }
+        </div>
+    )
 }
-   
+
 
 export default SinglePostPage

@@ -33,7 +33,9 @@ def get_posts():
             photo_urls.append(photo.photoKey)
         likes = Like.query.filter(Like.postId == post.id).all()
         like_count = len(likes)
-        posts_to_return.append(post.to_dict(photo_urls, like_count))
+        poster_photo = post.user.profilePhotoUrl
+        username = post.user.username
+        posts_to_return.append(post.to_dict(photo_urls, like_count, poster_photo, username))
     return jsonify(posts_to_return)
 
 @post_routes.route('/', methods=["POST"])
@@ -67,5 +69,5 @@ def create_post():
         photo = Photo(photoKey=photoKey, postId=postId)
         db.session.add(photo)
         db.session.commit()
-        return jsonify(post.to_dict([s3_photo_url]))
+        return jsonify(post.to_dict([s3_photo_url], 0, current_user.profilePhotoUrl, current_user.username))
     return {'errors': validation_errors_to_error_messages(form.errors)}
