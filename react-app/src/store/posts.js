@@ -58,19 +58,19 @@ const postsReducer = (state = initialState, action) => {
   switch (action.type) {
     case SET_POSTS:
       newState = Object.assign({}, state);
-      newState.posts = action.payload;
+      newState = action.payload;
       return newState;
     case REMOVE_POSTS:
       newState = Object.assign({}, state);
-      newState.posts = null;
+      newState = null;
       return newState;
     case CREATE_POST:
       newState = Object.assign({}, state);
-      if(newState.posts){
-          newState.posts.push(action.payload);  
+      if(newState){
+          newState.push(action.payload);  
       }
       else{
-          newState.posts = [action.payload]
+          newState = [action.payload]
       }
     default:
       return state;
