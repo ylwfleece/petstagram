@@ -51,25 +51,28 @@ export const createPost = (caption, photoFile) => async (dispatch) => {
   return post;
 };
 
-const initialState = { posts: null };
+const initialState = [];
 
 const postsReducer = (state = initialState, action) => {
   let newState;
   switch (action.type) {
     case SET_POSTS:
-      newState = Object.assign({}, state);
+      newState = [...state];
       newState = action.payload;
       return newState;
     case REMOVE_POSTS:
-      newState = Object.assign({}, state);
+      newState = [...state]
       newState = null;
       return newState;
     case CREATE_POST:
-      newState = Object.assign({}, state);
-      if (newState) {
-        newState.push(action.payload);
-      } else {
-        newState = [action.payload];
+      newState = [...state]
+      if(newState){
+          newState.push(action.payload); 
+          return newState; 
+      }
+      else{
+          newState = [action.payload];
+          return newState;
       }
     default:
       return state;
