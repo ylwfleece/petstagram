@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Redirect, useHistory } from 'react-router-dom';
 // import './SignUpForm.css'
 import petstagramlogo from '../NavBar/petstagramlogo.png'
 import { useDispatch, useSelector } from 'react-redux'
 // import {createPost} from '../../store/posts'
+import { addFollow, unfollow } from '../../store/follows';
 
 const SearchResults = ({ authenticated, setAuthenticated }) => {
 
@@ -15,11 +16,16 @@ const SearchResults = ({ authenticated, setAuthenticated }) => {
 
   const followUser = async (e) => {
     console.log(e.target.id);
-    dispatch()
+    dispatch(addFollow(e.target.id))
   }
   const unfollowUser = async (e) => {
     console.log(e.target.id)
+    dispatch(unfollow(e.target.id))
   }
+
+  useEffect(() => {
+    console.log('useeffect triggered')
+  }, [dispatch])
 
   return (
     <div className='page-container'>
