@@ -7,6 +7,7 @@ import petstagramlogo2 from './petstagramlogo2.png';
 import './NavBar.css';
 import {searchUsers} from '../../store/search';
 import { useState } from 'react';
+import { getFollowsForUser } from '../../store/follows';
 
 const NavBar = ({ setAuthenticated }) => {
 
@@ -24,6 +25,7 @@ const NavBar = ({ setAuthenticated }) => {
   const onSearch = async(e) => {
     e.preventDefault();
     const searchResults = dispatch(searchUsers(searchTerm));
+    const follows = dispatch(getFollowsForUser());
     history.push('/search-results')
   }
 
