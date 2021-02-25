@@ -36,7 +36,7 @@ const NavBar = ({ setAuthenticated }) => {
           <div className='activity'>
             <FavoriteBorder style={{ fontSize: '30px', color: 'rgb(38, 38, 38)' }} />
           </div>
-          <div>
+          <div style={{ padding: '0 12px' }}>
             <ProfileButton user={user} setAuthenticated={setAuthenticated} />
           </div>
         </div>
