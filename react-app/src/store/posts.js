@@ -1,8 +1,6 @@
-
-const SET_POSTS = "posts/setPosts"
-const REMOVE_POSTS = "posts/removePosts"
-const CREATE_POST = "posts/createPost"
-
+const SET_POSTS = "posts/setPosts";
+const REMOVE_POSTS = "posts/removePosts";
+const CREATE_POST = "posts/createPost";
 
 const setPosts = (posts) => {
   return {
@@ -15,20 +13,21 @@ const removePosts = () => {
   return {
     type: REMOVE_POSTS,
   };
+};
 
-const createOnePost = (post) =>{
-      return {
-          type: CREATE_POST,
-          payload: post
-      }
-  }
+const createOnePost = (post) => {
+  return {
+    type: CREATE_POST,
+    payload: post,
+  };
+};
 
 export const getPostsForUser = () => async (dispatch) => {
-    let posts = await fetch(`/api/posts/`);
-    posts = await posts.json();
-    dispatch(setPosts(posts));
-    return posts;
-  };
+  let posts = await fetch(`/api/posts/`);
+  posts = await posts.json();
+  dispatch(setPosts(posts));
+  return posts;
+};
 
 export const removePostsOnLogout = () => async (dispatch) => {
   dispatch(removePosts());
@@ -36,22 +35,21 @@ export const removePostsOnLogout = () => async (dispatch) => {
 };
 
 export const createPost = (caption, photoFile) => async (dispatch) => {
-    const formData = new FormData()
-    formData.append("caption", caption)
-    if(photoFile){
-        formData.append("feed_photo_file", photoFile)
-    }
-    else{
-        return "Failed to attach a photo"
-    }
-    let res = await fetch(`/api/posts/`, {
-        method: "POST",
-        body: formData
-    });
-    const post = await res.json();
-    dispatch(createOnePost(post));
-    return post;
-  };
+  const formData = new FormData();
+  formData.append("caption", caption);
+  if (photoFile) {
+    formData.append("feed_photo_file", photoFile);
+  } else {
+    return "Failed to attach a photo";
+  }
+  let res = await fetch(`/api/posts/`, {
+    method: "POST",
+    body: formData,
+  });
+  const post = await res.json();
+  dispatch(createOnePost(post));
+  return post;
+};
 
 const initialState = { posts: null };
 
@@ -68,11 +66,10 @@ const postsReducer = (state = initialState, action) => {
       return newState;
     case CREATE_POST:
       newState = Object.assign({}, state);
-      if(newState){
-          newState.push(action.payload);  
-      }
-      else{
-          newState = [action.payload]
+      if (newState) {
+        newState.push(action.payload);
+      } else {
+        newState = [action.payload];
       }
     default:
       return state;
