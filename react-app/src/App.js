@@ -8,6 +8,7 @@ import ProtectedRoute from "./components/auth/ProtectedRoute";
 import CommentsPage from "./components/CommentsPage";
 import UsersList from "./components/UsersList";
 import User from "./components/User";
+import UserProfile from "./components/UserProfile"
 import PostForm from "./components/PostForm";
 import { authenticate } from "./services/auth";
 import {useDispatch} from "react-redux";
@@ -66,6 +67,14 @@ function App() {
           >
             <NavBar setAuthenticated={setAuthenticated} />
             <User />
+          </ProtectedRoute>
+          <ProtectedRoute
+            path="/users/:id/posts"
+            exact={true}
+            authenticated={authenticated}
+          >
+            <NavBar setAuthenticated={setAuthenticated} />
+            <UserProfile />
           </ProtectedRoute>
           <ProtectedRoute
             path="/posts/new"
