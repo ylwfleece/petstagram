@@ -1,14 +1,18 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { NavLink, useHistory } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
 import ProfileButton from './ProfileButton';
 import { Home, FavoriteBorder, Search, MailOutline, Explore } from '@material-ui/icons'
 import petstagramlogo2 from './petstagramlogo2.png';
 import './NavBar.css';
-import {searchUsers} from '../../services/search';
+import {searchUsers} from '../../store/search';
 import { useState } from 'react';
 
 const NavBar = ({ setAuthenticated }) => {
+
+  const history = useHistory();
+  const dispatch = useDispatch();
+
   const user = useSelector(state => state.session.user)
 
   const [searchTerm, setSearchTerm] = useState('');
@@ -19,8 +23,8 @@ const NavBar = ({ setAuthenticated }) => {
 
   const onSearch = async(e) => {
     e.preventDefault();
-    const searchResults = await searchUsers(searchTerm);
-    console.log(searchResults)
+    const searchResults = dispatch(searchUsers(searchTerm));
+    history.push('/search-results')
   }
 
   return (user &&
