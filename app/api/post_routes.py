@@ -27,7 +27,11 @@ def get_posts():
     # print('===> posts: ', posts)
     posts_to_return = []
     for post in posts:
-        posts_to_return.append(post.to_dict())
+        photos_for_post = Photo.query.filter(Photo.postId == post.id).all()
+        photo_urls = []
+        for photo in photos_for_post:
+            photo_urls.append(photo.photoKey)
+        posts_to_return.append(post.to_dict(photo_urls))
     return jsonify(posts_to_return)
 
 @post_routes.route('/', methods=["POST"])
@@ -61,5 +65,5 @@ def create_post():
         photo = Photo(photoKey=photoKey, postId=postId)
         db.session.add(photo)
         db.session.commit()
-        return jsonify(post.to_dict())
+        return jsonify(post.to_dict([s3_photo_url]))
     return {'errors': validation_errors_to_error_messages(form.errors)}
