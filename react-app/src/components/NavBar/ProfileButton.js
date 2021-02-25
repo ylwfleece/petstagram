@@ -11,8 +11,8 @@ const ProfileButton = ({ user, setAuthenticated }) => {
             {/* <li className='dropdown-item'>{user.username}</li>
             <li className='dropdown-item'>{user.email}</li> */}
             <div className='dropdown-item'>
-                <Link to={`/users/${user.id}`} >
-                    <div className='dropdown-profile-redirect'>
+                <Link to={`/users/${user.id}`} style={{ width: '100%' }}>
+                    <div className='dropdown-profile-redirect' style={{ width: '100%' }}>
                         <div>
                             <PersonOutline style={{ paddingRight: '0.25rem' }} />
                         </div>
