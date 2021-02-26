@@ -40,7 +40,7 @@ def getPostComments(post_id):
 def createComment(post_id):
     form = CommentForm()
     form['csrf_token'].data = request.cookies['csrf_token']
-
+    
     def comment_info(self):
         return {
             "id": self.id,
@@ -54,8 +54,7 @@ def createComment(post_id):
         }
 
     if form.validate_on_submit():
-        commentData = form.data['content']
-
+        commentData = request.form.get('content')
         comment = Comment(
             postId=post_id,
             userId=current_user.id,
