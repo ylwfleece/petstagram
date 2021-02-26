@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams, Link } from "react-router-dom";
 import { fetchComments } from "../../store/comments";
+import { createPostLikes, getAllLikes } from "../../store/likes";
 import {
   FavoriteBorder,
   MailOutline,
@@ -15,15 +16,18 @@ function SinglePostPage() {
   const comments = useSelector((state) => state.comments);
   const user = useSelector((state) => state.session.user);
   const posts = useSelector((state) => state.posts);
+  const likes = useSelector((state) => state.likes.likes);
+  const [trigger, setTrigger] = useState(false);
   let { postId } = useParams();
   postId = parseInt(postId, 10);
 
-  // useEffect(() => {
-  //     if (!isNaN(postId)) {
-  //         console.log(postId)
-  //         dispatch(fetchComments(postId))
-  //     }
-  // }, [dispatch])
+  useEffect(() => {
+    //   if (!isNaN(postId)) {
+    //       console.log(postId)
+    //       dispatch(fetchComments(postId))
+    //   }
+    dispatch(getAllLikes());
+  }, [dispatch]);
 
   let post;
   if (posts) {
@@ -44,6 +48,37 @@ function SinglePostPage() {
       });
     }
   }
+  let likedPost = false;
+  if (likes && post) {
+    if (likes.length) {
+      for (let i = 0; i < likes.length; i++) {
+        if (likes[i].userId === user.id && likes[i].postId === post.id) {
+          likedPost = true;
+        }
+      }
+    }
+  }
+  const likeToggle = (e) => {
+    console.log("etarget", typeof e.target.id);
+    let id = parseInt(e.target.id, 10);
+    let likeExists = false;
+    if (likes) {
+      if (likes.length) {
+        for (let i = 0; i < likes.length; i++) {
+          if (likes[i].userId === user.id && likes[i].postId === id) {
+            likeExists = true;
+          }
+        }
+        if (!likeExists) {
+          dispatch(createPostLikes(parseInt(e.target.id, 10)));
+          setTrigger(true);
+        }
+        // if (likeExists) {
+        //   dispatch(deletePostLikes(parseInt(e.target.id, 10)));
+        // }
+      }
+    }
+  };
 
   return (
     <div>
@@ -82,7 +117,15 @@ function SinglePostPage() {
               style={{ width: "100%", height: "40px" }}
             >
               <div className="icons-container">
-                <FavoriteBorder />
+                {likedPost ? (
+                  <FavoriteBorder
+                    onClick={likeToggle}
+                    id={post.id}
+                    className="liked"
+                  />
+                ) : (
+                  <FavoriteBorder onClick={likeToggle} id={post.id} />
+                )}
               </div>
               <div className="icons-container">
                 <MailOutline />

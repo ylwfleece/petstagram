@@ -85,7 +85,7 @@ def create_post_likes(post_id):
 
     post_likes = Like(
         # needs thunk logic
-        userId=req.body.userId,
+        userId=current_user.id,
         postId=post_id,
         commentId=None
     )
