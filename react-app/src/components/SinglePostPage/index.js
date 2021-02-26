@@ -85,10 +85,10 @@ function SinglePostPage() {
                         <div className='normalize-text flex-left-container' style={{ width: '100%', paddingLeft: '12px' }} >
                             <TimeAgo date={post.createdAt} />
                         </div>
-                        {comments.length > 0 &&
+                        {commentsArr.length > 0 &&
                             <div className='caption-section' style={{ flexDirection: 'column' }}>
                                 {
-                                    comments.map(
+                                    commentsArr.map(
                                         comment =>
                                             <div className='comments' key={comment.id} style={{ width: '100%' }}>
                                                 <div style={{ display: 'flex', alignItems: 'flex-start' }}>
