@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom"
+import { useParams, Link } from "react-router-dom"
 import { fetchComments } from '../../store/comments'
 import { FavoriteBorder, MailOutline, ChatBubbleOutline } from '@material-ui/icons'
 import './SinglePostPage.css'
+import TimeAgo from 'react-timeago'
 
 function SinglePostPage() {
     const dispatch = useDispatch()
@@ -40,19 +41,21 @@ function SinglePostPage() {
         }
     }
 
-
-
     return (
         <div>
             {post &&
                 <div className='page-container'>
-                    <div className='container posts' style={{ paddingTop: '0' }}>
+                    <div className='container posts' style={{ paddingTop: '0', marginBottom: '5vh' }}>
                         <div className='post-user-info'>
                             <div className='rounded-img-container comments-profile-pictures' style={{ alignSelf: 'flex-start' }}>
-                                <img src={post.photo} alt='profilepicposter' className='comments-profile-pictures' />
+                                <Link to={`/users/${post.userId}`}>
+                                    <img src={post.photo} alt='profilepicposter' className='comments-profile-pictures redirect-profile' />
+                                </Link>
                             </div>
-                            <div className='post-username-container'>
-                                <h5 className='post-username'>{post.username}</h5>
+                            <div className='username-comments-container'>
+                                <Link to={`/users/${post.userId}`}>
+                                    <h5 className='post-username redirect-profile'>{post.username}</h5>
+                                </Link>
                             </div>
                         </div>
                         <div className='post-image-container'>
@@ -70,33 +73,58 @@ function SinglePostPage() {
                             </div>
                         </div>
                         <div className='caption-section'>
-                            <div className='post-username-container'>
-                                <h5 className='post-username'>{post.username}</h5>
+                            <div className='username-comments-container'>
+                                <Link to={`/users/${post.userId}`}>
+                                    <h5 className='post-username redirect-profile'>{post.username}</h5>
+                                </Link>
                             </div>
                             <div className='post-caption-container'>
                                 <p className='normalize-text caption'>{post.caption}</p>
                             </div>
                         </div>
-                        <div className='caption-section' style={{ flexDirection: 'column' }}>
-                            {
-                                comments.map(
-                                    comment =>
-                                        <div className='comments' key={comment.id}>
-                                            <div>
-                                                <div className='rounded-img-container comments-profile-pictures'>
-                                                    <img src={comment.photo} alt='commenter-profile' className='comments-profile-pictures' />
+                        <div className='normalize-text flex-left-container' style={{ width: '100%', paddingLeft: '12px' }} >
+                            <TimeAgo date={post.createdAt} />
+                        </div>
+                        {comments.length > 0 &&
+                            <div className='caption-section' style={{ flexDirection: 'column' }}>
+                                {
+                                    comments.map(
+                                        comment =>
+                                            <div className='comments' key={comment.id} style={{ width: '100%' }}>
+                                                <div style={{ display: 'flex', alignItems: 'flex-start' }}>
+                                                    <div className='rounded-img-container comments-profile-pictures'>
+                                                        <Link to={`/users/${comment.userId}`}>
+                                                            <img src={comment.photo} alt='commenter-profile' className='comments-profile-pictures' />
+                                                        </Link>
+                                                    </div>
+                                                </div>
+                                                <div>
+                                                    <div className='flex-container' style={{ width: '496px' }}>
+                                                        <div className='username-comments-container' >
+                                                            <Link to={`/users/${comment.userId}`}>
+                                                                <h5 className='post-username redirect-profile' style={{ paddingLeft: '0' }}>{comment.username}</h5>
+                                                            </Link>
+                                                            <p className='normalize-text'>{comment.content}</p>
+                                                        </div>
+                                                    </div>
+                                                    <div className='flex-container'>
+                                                        <div className='normalize-text time-display'>
+                                                            <TimeAgo date={new Date(comment.createdAt)} />
+                                                            <p className='normalize-text' style={{ margin: '0 12px', fontSize: '10px', color: 'rgb(142, 142, 142)' }}>
+                                                                {`# likes`}
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div className='icons-container' style={{ margin: '0 12px 0 24px', alignSelf: 'center' }}>
+                                                    <FavoriteBorder />
                                                 </div>
                                             </div>
-                                            <div className='post-username-container'>
-                                                <h5 className='post-username'>{comment.username}</h5>
-                                            </div>
-                                            <div className='post-caption-container'>
-                                                <p className='normalize-text'>{comment.content}</p>
-                                            </div>
-                                        </div>
-                                )
-                            }
-                        </div>
+                                    )
+                                }
+                            </div>
+                        }
+
                     </div>
                 </div>
             }
