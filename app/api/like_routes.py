@@ -19,7 +19,7 @@ def get_comment_likes(comment_id):
             "postId": self.postId,
             "commentId": self.commentId
         }
-    return jsonify({"comment_likes": [comment_info(comment_like) for comment_like in comment_likes]})
+    return {"comment_likes": [comment_info(comment_like) for comment_like in comment_likes]}
 
 
 @like_routes.route('/posts/<int:post_id>')
@@ -33,7 +33,7 @@ def get_post_likes(post_id):
             "postId": self.postId,
             "commentId": self.commentId
         }
-    return jsonify({"post_likes": [post_info(post_like) for post_like in post_likes]})
+    return {"post_likes": [post_info(post_like) for post_like in post_likes]}
 
 
 @like_routes.route('/comments/<int:comment_id>', methods=['POST'])

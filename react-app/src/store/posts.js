@@ -61,8 +61,7 @@ const postsReducer = (state = initialState, action) => {
       newState = action.payload;
       return newState;
     case REMOVE_POSTS:
-      newState = [...state]
-      newState = null;
+      newState = [];
       return newState;
     case CREATE_POST:
       newState = [...state]

@@ -6,14 +6,16 @@ import HomePage from "./components/HomePage";
 import NavBar from "./components/NavBar";
 import ProtectedRoute from "./components/auth/ProtectedRoute";
 import CommentsPage from "./components/CommentsPage";
+import SinglePostPage from "./components/SinglePostPage";
 import UsersList from "./components/UsersList";
 import User from "./components/User";
 import UserProfile from "./components/UserProfile"
+import SearchResults from './components/SearchResults';
 import PostForm from "./components/PostForm";
 import { authenticate } from "./services/auth";
-import {useDispatch} from "react-redux";
-import {getPostsForUser} from "./store/posts";
-import {addUser} from './store/session';
+import { useDispatch } from "react-redux";
+import { getPostsForUser } from "./store/posts";
+import { addUser } from './store/session';
 
 function App() {
   const [authenticated, setAuthenticated] = useState(false);
@@ -84,9 +86,21 @@ function App() {
             <NavBar setAuthenticated={setAuthenticated} />
             <PostForm />
           </ProtectedRoute>
+          <ProtectedRoute
+            path="/posts/:postId"
+            exact={true}
+            authenticated={authenticated}
+          >
+            <NavBar setAuthenticated={setAuthenticated} />
+            <SinglePostPage />
+          </ProtectedRoute>
           <ProtectedRoute path="/" exact={true} authenticated={authenticated}>
             <NavBar setAuthenticated={setAuthenticated} />
             <HomePage />
+          </ProtectedRoute>
+          <ProtectedRoute path="/search-results" exact={true} authenticated={authenticated}>
+            <NavBar setAuthenticated={setAuthenticated} />
+            <SearchResults />
           </ProtectedRoute>
           <Route path="/comments">
             <CommentsPage />

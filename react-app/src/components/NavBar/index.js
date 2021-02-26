@@ -1,13 +1,35 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
-import { useSelector } from 'react-redux'
-import ProfileButton from './ProfileButton'
+import { NavLink, useHistory } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import ProfileButton from './ProfileButton';
 import { Home, FavoriteBorder, Search, MailOutline, Explore } from '@material-ui/icons'
-import petstagramlogo2 from './petstagramlogo2.png'
-import './NavBar.css'
+import petstagramlogo2 from './petstagramlogo2.png';
+import './NavBar.css';
+import { searchUsers } from '../../store/search';
+import { useState } from 'react';
+import { getFollowsForUser } from '../../store/follows';
 
 const NavBar = ({ setAuthenticated }) => {
+
+  const history = useHistory();
+  const dispatch = useDispatch();
+
   const user = useSelector(state => state.session.user)
+
+  const [searchTerm, setSearchTerm] = useState('');
+
+  const updateSearchTerm = (e) => {
+    setSearchTerm(e.target.value);
+  };
+
+  const onSearch = async (e) => {
+    e.preventDefault();
+    const searchResults = dispatch(searchUsers(searchTerm));
+    const follows = dispatch(getFollowsForUser());
+    history.push('/search-results')
+  }
+
+  const iconStyles = { fontSize: '30px', color: 'rgb(38, 38, 38)' }
 
   return (user &&
     <nav>
@@ -19,24 +41,31 @@ const NavBar = ({ setAuthenticated }) => {
         </div>
         <div className='search'>
           <Search style={{ textAlign: 'center', color: 'rgb(142, 142, 142)', fontSize: '18px' }} />
-          <input type='search' placeholder='Search'></input>
+          <form onSubmit={onSearch}>
+            <div>
+              <input onChange={updateSearchTerm} type='search' placeholder='Search by username'></input>
+            </div>
+            <div>
+              <button type="submit">search</button>
+            </div>
+          </form>
         </div>
         <div className='user-buttons'>
-          <div className='home'>
+          <div className='icons-container'>
             <NavLink to="/" exact={true} activeClassName="active">
-              <Home style={{ fontSize: '30px', color: 'rgb(38, 38, 38)' }} />
+              <Home style={iconStyles} />
             </NavLink>
           </div>
-          <div className='messages'>
-            <MailOutline style={{ fontSize: '30px', color: 'rgb(38, 38, 38)' }} />
+          <div className='icons-container'>
+            <MailOutline style={iconStyles} />
           </div>
-          <div className='explore'>
-            <Explore style={{ fontSize: '30px', color: 'rgb(38, 38, 38)' }} />
+          <div className='icons-container'>
+            <Explore style={iconStyles} />
           </div>
-          <div className='activity'>
-            <FavoriteBorder style={{ fontSize: '30px', color: 'rgb(38, 38, 38)' }} />
+          <div className='icons-container'>
+            <FavoriteBorder style={iconStyles} />
           </div>
-          <div>
+          <div style={{ padding: '0 12px' }}>
             <ProfileButton user={user} setAuthenticated={setAuthenticated} />
           </div>
         </div>
