@@ -2,16 +2,17 @@ from flask import Blueprint, jsonify, request
 from flask_login import login_required, current_user
 from ..helpers import *
 from ..config import Config
-from app.models import Comment, Post, Like, db
+from app.models import Comment, Post, Like, User, db
 from app.forms import CommentForm
 
 
 comment_routes = Blueprint('comments', __name__)
 
 
-@comment_routes.route('/<int:post_id>')
-def getPostComments(post_id):
-    comments = Comment.query.filter_by(postId=post_id).all()
+@comment_routes.route('/')
+def getAllComments():
+    comments = Comment.query.all()
+    # comments = Comment.query.filter_by(postId=post_id).all()
     comments_formatted = []
     def comment_info(self, like_count, username, photo):
         return {

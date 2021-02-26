@@ -35,9 +35,9 @@ export const postComment = (postId, content) => async (dispatch) => {
     return comment;
   };
 
-export const fetchComments = (id) => {
+export const fetchComments = () => {
   return async (dispatch) => {
-    const response = await fetch(`/api/comments/${id}`);
+    const response = await fetch(`/api/comments/`);
     const responseJSON = await response.json();
     console.log("RESPONSE DATA", responseJSON);
     dispatch(fetchAllComments(responseJSON.comments));
