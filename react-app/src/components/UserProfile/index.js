@@ -4,6 +4,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import Modal from 'react-modal';
 import './userProfile.css';
 
+
 const customStyles = {
     content : {
       top                   : '50%',
@@ -70,10 +71,10 @@ const UserProfile = () => {
                                         onRequestClose={closeModal}
                                         style={customStyles}
                                         contentLabel="userPictureModal"
-                                        theImageINeed={image}
+                                        
                                         >
                                             {console.log(image)}
-                                        <img src={theImageINeed} className='each-post'>{console.log(myImages)}</img>
+                                        <img src={image} className='each-post'>{console.log(myImages)}</img>
                                     </Modal>
                                 </div>
                             </>
