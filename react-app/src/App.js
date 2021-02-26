@@ -12,7 +12,7 @@ import User from "./components/User";
 import UserProfile from "./components/UserProfile";
 import SearchResults from "./components/SearchResults";
 import PostForm from "./components/PostForm";
-import LikeModal from "./components/LikesModal";
+import CommentLikeModal from "./components/LikesModal";
 import { authenticate } from "./services/auth";
 import { useDispatch } from "react-redux";
 import { getPostsForUser } from "./store/posts";
@@ -115,7 +115,7 @@ function App() {
             authenticated={authenticated}
           >
             <NavBar setAuthenticated={setAuthenticated} />
-            <LikeModal />
+            <CommentLikeModal />
           </ProtectedRoute>
           <Route path="/comments">
             <CommentsPage />

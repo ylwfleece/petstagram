@@ -1,5 +1,6 @@
 const SET_COMMENT_LIKES = "likes/setCommentLikes";
 const SET_POST_LIKES = "likes/setPostLikes";
+const SET_ALL_LIKES = "likes/setAllLikes";
 const MAKE_COMMENT_LIKES = "likes/makeCommentLikes";
 const MAKE_POST_LIKES = "likes/makePostLikes";
 
@@ -15,6 +16,12 @@ const setPostLikes = (likes) => {
     payload: likes,
   };
 };
+const setAllLikes = (allLikes) => {
+  return {
+    type: SET_ALL_LIKES,
+    payload: allLikes,
+  };
+};
 const makeCommentLikes = (likes) => {
   return {
     type: MAKE_COMMENT_LIKES,
@@ -26,6 +33,12 @@ const makePostLikes = (likes) => {
     type: MAKE_POST_LIKES,
     payload: likes,
   };
+};
+export const getAllLikes = () => async (dispatch) => {
+  let allLikes = await fetch(`/api/likes`);
+  allLikes = await allLikes.json();
+  console.log("all likes", allLikes);
+  dispatch(setAllLikes(allLikes));
 };
 
 export const getCommentLikes = (id) => async (dispatch) => {
@@ -63,6 +76,10 @@ const likesReducer = (state = initialState, action) => {
       newState = action.payload;
       return newState;
     case SET_POST_LIKES:
+      newState = [...state];
+      newState = action.payload;
+      return newState;
+    case SET_ALL_LIKES:
       newState = [...state];
       newState = action.payload;
       return newState;
