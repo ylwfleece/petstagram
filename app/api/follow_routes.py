@@ -17,34 +17,34 @@ follow_routes = Blueprint('follows', __name__)
 def add_follower(id_param):
     user = User.query.filter(User.id == current_user.id).first()
     to_follow = User.query.filter(User.id == id_param).first()
-    user.follows.append(to_follow)
-    to_follow.followers.append(user)
+    user.followers.append(to_follow)
+    to_follow.follows.append(user)
     db.session.add(user)
     db.session.add(to_follow)
     db.session.commit()
-    follows_to_return = []
-    for follow in user.follows:
-        follows_to_return.append(follow_to_dict(follow))
-    print('========== response:',  jsonify(follows_to_return))
+    followers_to_return = []
+    for follower in user.followers:
+        followers_to_return.append(follow_to_dict(follower))
+    print('========== response:',  jsonify(followers_to_return))
     print('==========')
-    return jsonify(follows_to_return)
+    return jsonify(followers_to_return)
 
 @follow_routes.route("/unfollowed/<int:id_param>", methods=["POST"])
 @login_required
 def unfollow(id_param):
     user = User.query.filter(User.id == current_user.id).first()
     to_unfollow = User.query.filter(User.id == id_param).first()
-    user.follows.remove(to_unfollow)
-    to_unfollow.followers.remove(user)
+    user.followers.remove(to_unfollow)
+    to_unfollow.follows.remove(user)
     db.session.add(user)
     db.session.add(to_unfollow)
     db.session.commit()
-    follows_to_return = []
-    for follow in user.follows:
-        follows_to_return.append(follow_to_dict(follow))
-    print('========== response:',  jsonify(follows_to_return))
+    followers_to_return = []
+    for follower in user.followers:
+        followers_to_return.append(follow_to_dict(follower))
+    print('========== response:',  jsonify(followers_to_return))
     print('==========')
-    return jsonify(follows_to_return)
+    return jsonify(followers_to_return)
 
 
 # @follow_routes.route("/:id/follower", methods=["DELETE"])
