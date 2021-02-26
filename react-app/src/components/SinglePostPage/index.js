@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom"
 import { fetchComments } from '../../store/comments'
+import { FavoriteBorder, MailOutline, ChatBubbleOutline } from '@material-ui/icons'
 import './SinglePostPage.css'
 
 function SinglePostPage() {
@@ -44,33 +45,58 @@ function SinglePostPage() {
     return (
         <div>
             {post &&
-                <div className='container' style={{ marginTop: '3vh' }}>
-                    <div className='rounded-img-container' style={{ alignSelf: 'flex-start', width: '32px', height: '32px' }}>
-                        <img src={post.photo} alt='profilepicposter' style={{ width: '32px', height: '32px' }} />
-                    </div>
-                    <div>
-                        <h5>{post.username}</h5>
-                    </div>
-                    <div>
-                        <img src={post.imageLinks} alt='postphoto' />
-                    </div>
-                    <div>
-                        {
-                            comments.map(
-                                comment =>
-                                    <div className='comments-container'>
-                                        <div className='comments-content-container'>
-                                            <p>{comment.content}</p>
+                <div className='page-container'>
+                    <div className='container posts' style={{ paddingTop: '0' }}>
+                        <div className='post-user-info'>
+                            <div className='rounded-img-container comments-profile-pictures' style={{ alignSelf: 'flex-start' }}>
+                                <img src={post.photo} alt='profilepicposter' className='comments-profile-pictures' />
+                            </div>
+                            <div className='post-username-container'>
+                                <h5 className='post-username'>{post.username}</h5>
+                            </div>
+                        </div>
+                        <div className='post-image-container'>
+                            <img src={post.imageLinks} alt='postphoto' />
+                        </div>
+                        <div className='flex-left-container' style={{ width: '100%', height: '40px' }}>
+                            <div className='icons-container'>
+                                <FavoriteBorder />
+                            </div>
+                            <div className='icons-container'>
+                                <MailOutline />
+                            </div>
+                            <div className='icons-container'>
+                                <ChatBubbleOutline />
+                            </div>
+                        </div>
+                        <div className='caption-section'>
+                            <div className='post-username-container'>
+                                <h5 className='post-username'>{post.username}</h5>
+                            </div>
+                            <div className='post-caption-container'>
+                                <p className='normalize-text caption'>{post.caption}</p>
+                            </div>
+                        </div>
+                        <div className='caption-section' style={{ flexDirection: 'column' }}>
+                            {
+                                comments.map(
+                                    comment =>
+                                        <div className='comments' key={comment.id}>
+                                            <div>
+                                                <div className='rounded-img-container comments-profile-pictures'>
+                                                    <img src={comment.photo} alt='commenter-profile' className='comments-profile-pictures' />
+                                                </div>
+                                            </div>
+                                            <div className='post-username-container'>
+                                                <h5 className='post-username'>{comment.username}</h5>
+                                            </div>
+                                            <div className='post-caption-container'>
+                                                <p className='normalize-text'>{comment.content}</p>
+                                            </div>
                                         </div>
-                                        <div>
-                                            <h5>{comment.username}</h5>
-                                        </div>
-                                        <div>
-                                            <img src={comment.photo} alt='commenter-profile' />
-                                        </div>
-                                    </div>
-                            )
-                        }
+                                )
+                            }
+                        </div>
                     </div>
                 </div>
             }

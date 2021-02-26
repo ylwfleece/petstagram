@@ -5,7 +5,7 @@ import ProfileButton from './ProfileButton';
 import { Home, FavoriteBorder, Search, MailOutline, Explore } from '@material-ui/icons'
 import petstagramlogo2 from './petstagramlogo2.png';
 import './NavBar.css';
-import {searchUsers} from '../../store/search';
+import { searchUsers } from '../../store/search';
 import { useState } from 'react';
 import { getFollowsForUser } from '../../store/follows';
 
@@ -22,12 +22,14 @@ const NavBar = ({ setAuthenticated }) => {
     setSearchTerm(e.target.value);
   };
 
-  const onSearch = async(e) => {
+  const onSearch = async (e) => {
     e.preventDefault();
     const searchResults = dispatch(searchUsers(searchTerm));
     const follows = dispatch(getFollowsForUser());
     history.push('/search-results')
   }
+
+  const iconStyles = { fontSize: '30px', color: 'rgb(38, 38, 38)' }
 
   return (user &&
     <nav>
@@ -44,24 +46,24 @@ const NavBar = ({ setAuthenticated }) => {
               <input onChange={updateSearchTerm} type='search' placeholder='Search by username'></input>
             </div>
             <div>
-            <button type="submit">search</button>
+              <button type="submit">search</button>
             </div>
           </form>
         </div>
         <div className='user-buttons'>
-          <div className='home'>
+          <div className='icons-container'>
             <NavLink to="/" exact={true} activeClassName="active">
-              <Home style={{ fontSize: '30px', color: 'rgb(38, 38, 38)' }} />
+              <Home style={iconStyles} />
             </NavLink>
           </div>
-          <div className='messages'>
-            <MailOutline style={{ fontSize: '30px', color: 'rgb(38, 38, 38)' }} />
+          <div className='icons-container'>
+            <MailOutline style={iconStyles} />
           </div>
-          <div className='explore'>
-            <Explore style={{ fontSize: '30px', color: 'rgb(38, 38, 38)' }} />
+          <div className='icons-container'>
+            <Explore style={iconStyles} />
           </div>
-          <div className='activity'>
-            <FavoriteBorder style={{ fontSize: '30px', color: 'rgb(38, 38, 38)' }} />
+          <div className='icons-container'>
+            <FavoriteBorder style={iconStyles} />
           </div>
           <div style={{ padding: '0 12px' }}>
             <ProfileButton user={user} setAuthenticated={setAuthenticated} />
