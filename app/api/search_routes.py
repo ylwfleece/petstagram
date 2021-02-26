@@ -25,13 +25,11 @@ def follows():
     #         '''SELECT * FROM users WHERE id=:param''',
     #         {"param": current_user.id}
     #     )
-    follows = User.query.filter(User.id == current_user.id).first().followers
+    follows = User.query.filter(User.id == current_user.id).first().follows
     # follows = user.follows
     follows_to_return = []
     for follow in follows:
         follows_to_return.append(follow_to_dict(follow))
-    print('========== results:', follows)
-    print('==========')
     # follows_to_return = []
     # for result in results:
     #     follows_to_return.append(follow_to_dict(result))
@@ -40,7 +38,7 @@ def follows():
 @search_routes.route('/<string:search_term>', methods=['GET'])
 # @login_required
 def user(search_term):
-    users = User.query.filter(User.username.like(f'%{search_term}%')).all()
+    users = User.query.filter(User.username.ilike(f'%{search_term}%')).all()
     users_to_return = []
     for user in users:
         users_to_return.append(user.to_dict())
