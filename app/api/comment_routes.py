@@ -11,15 +11,7 @@ comment_routes = Blueprint('comments', __name__)
 
 @comment_routes.route('/')
 def getAllComments():
-    user = User.query.get(current_user.id)
-    followers = user.followers
-    ids_to_query = [int(current_user.id)]
-    for follower in followers:
-        ids_to_query.append(follower.id)
-    comments_set = set()
-    for id in ids_to_query:
-        comments_from_userId = Comment.query.filter(Comment.userId == id).all()
-        comments_set = comments_set | set(comments_from_userId)
+    comments = Comment.query.all()
     # comments = Comment.query.filter_by(postId=post_id).all()
     comments_formatted = []
     def comment_info(self, like_count, username, photo):
@@ -33,7 +25,7 @@ def getAllComments():
             "username": username,
             "photo": photo,
         }
-    for comment in comments_set:
+    for comment in comments:
         likes = Like.query.filter(Like.commentId == comment.id).all()
         like_count = len(likes)
         username = comment.user.username
