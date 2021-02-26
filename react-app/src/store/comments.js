@@ -26,6 +26,9 @@ export const fetchComments = () => {
     const response = await fetch(`/api/comments/`);
     const responseJSON = await response.json();
     console.log("RESPONSE DATA", responseJSON);
+    responseJSON.comments.sort((comment1, comment2) => {
+      return Date.parse(comment2.createdAt) - Date.parse(comment1.createdAt)
+    })
     dispatch(fetchAllComments(responseJSON.comments));
   };
 };
