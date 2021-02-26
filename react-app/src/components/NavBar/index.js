@@ -45,9 +45,6 @@ const NavBar = ({ setAuthenticated }) => {
             <div>
               <input onChange={updateSearchTerm} type='search' placeholder='Search by username' style={{ border: 'none' }}></input>
             </div>
-            {/* <div>
-              <button type="submit">search</button>
-            </div> */}
           </form>
         </div>
         <div className='user-buttons'>
