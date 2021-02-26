@@ -17,6 +17,7 @@ import { authenticate } from "./services/auth";
 import { useDispatch } from "react-redux";
 import { getPostsForUser } from "./store/posts";
 import { addUser } from "./store/session";
+import { fetchComments } from "./store/comments";
 
 function App() {
   const [authenticated, setAuthenticated] = useState(false);
@@ -30,6 +31,7 @@ function App() {
         setAuthenticated(true);
         dispatch(addUser(user));
         dispatch(getPostsForUser());
+        dispatch(fetchComments());
       }
       setLoaded(true);
     })();
