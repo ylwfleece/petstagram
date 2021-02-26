@@ -9,6 +9,23 @@ const setFollows = (follows) => {
   };
 };
 
+export const addFollow = (userId) => async (dispatch) => {
+  let res = await fetch(`/api/follows/followed/${userId}`, {
+    method: "POST",
+  });
+  const follows = await res.json();
+  dispatch(setFollows(follows));
+  return follows;
+} 
+
+export const unfollow = (userId) => async (dispatch) => {
+  let res = await fetch(`/api/follows/unfollowed/${userId}`, {
+    method: "POST",
+  });
+  const follows = await res.json();
+  dispatch(setFollows(follows));
+  return follows;
+} 
 
 export const getFollowsForUser = () => async (dispatch) => {
   const res = await fetch(`/api/search/follows`);

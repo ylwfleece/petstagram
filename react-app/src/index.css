@@ -140,3 +140,72 @@ svg:active,img:active {
     color: rgb(142, 142, 142);
     margin: 0;
 }
+
+.comments-profile-pictures {
+    width: 36px !important;
+    height: 36px !important;
+}
+
+.posts {
+    width: 60vw;
+}
+
+.post-user-info {
+    align-self: flex-start;
+    display: flex;
+    padding: 0 10px;
+    border-bottom: 1px solid rgb(219, 219, 219);
+    width: 100%;
+}
+
+h5 {
+    color: rgb(38, 38, 38);
+    font-weight: 700;
+}
+
+.post-image-container {
+    width: 100%;
+    height: auto;
+    display: inline-block;
+}
+
+.post-image-container img {
+    width: 100%;
+    height: auto;
+}
+
+.post-caption-container {
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+
+
+.icons-container,.logout {
+    padding: 0 .75rem;
+    display: flex;
+    align-items: center;
+}
+
+.icons-container:hover {
+    cursor: pointer;
+}
+
+.caption-section {
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    padding-bottom: 10px;
+}
+
+
+.post-username {
+    margin: 0;
+    line-height: 19px;
+    padding: 0 12px;
+}
+
+.post-username-container {
+    display: flex;
+    align-items: center;
+}

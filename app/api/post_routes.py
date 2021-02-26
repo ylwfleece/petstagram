@@ -14,7 +14,8 @@ post_routes = Blueprint('posts', __name__)
 # @login_required
 def get_posts():
     user = User.query.get(current_user.id)
-    followers = user.followers # people the user follows
+    followers = user.followers
+    # people the user follows
     # follows = user.follows (people who follow the user)
     ids_to_query = [int(current_user.id)]
     for follower in followers:
@@ -37,6 +38,7 @@ def get_posts():
         username = post.user.username
         posts_to_return.append(post.to_dict(photo_urls, like_count, poster_photo, username))
     return jsonify(posts_to_return)
+
 
 @post_routes.route('/', methods=["POST"])
 @login_required
