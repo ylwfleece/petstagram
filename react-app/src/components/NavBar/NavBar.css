@@ -23,17 +23,6 @@ nav {
     justify-content: space-between;
 }
 
-.messages,.explore,.activity,.logout,.home {
-    padding: 0 .75rem;
-    display: flex;
-    align-items: center;
-}
-
-.messages:hover,.explore:hover,.activity:hover {
-    cursor: pointer;
-
-}
-
 input:focus {
     outline: none;
 }
