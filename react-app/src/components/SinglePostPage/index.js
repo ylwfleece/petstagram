@@ -13,12 +13,12 @@ function SinglePostPage() {
     let { postId } = useParams()
     postId = parseInt(postId, 10)
 
-    useEffect(() => {
-        if (!isNaN(postId)) {
-            console.log(postId)
-            dispatch(fetchComments(postId))
-        }
-    }, [dispatch])
+    // useEffect(() => {
+    //     if (!isNaN(postId)) {
+    //         console.log(postId)
+    //         dispatch(fetchComments(postId))
+    //     }
+    // }, [dispatch])
 
     let post
     if (posts) {
