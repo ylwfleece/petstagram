@@ -29,6 +29,7 @@
     display: grid;
     grid-template-columns: 600px 300px;
     grid-template-rows: 75px 250px 75px 50px;
+    overflow: hidden;
 }
 
 .modal-picture{
@@ -75,6 +76,27 @@
     border-left: 1px solid rgba(239,239,239,255);
     grid-column-start: 2;
     padding: 12px;
+    display: flex;
+    align-items: center;
+    /* justify-content: center; */
 }
 
+.comment-text-area{
+    border: none;
+    height: 50px;
+    width: 250px;
+    resize: none;
+    overflow: hidden;
+    padding-top: 6.5px;
+}
+
+.comment-button{
+    background:none;
+    border:none;
+    cursor: pointer;
+    color: rgba(0,149,246,255);
+    font-style: bold;
+    font-weight: 700;
+    padding-bottom: 12px;
+}
 
