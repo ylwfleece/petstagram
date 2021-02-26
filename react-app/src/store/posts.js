@@ -25,6 +25,9 @@ const createOnePost = (post) => {
 export const getPostsForUser = () => async (dispatch) => {
   let posts = await fetch(`/api/posts/`);
   posts = await posts.json();
+  posts.sort((post1, post2) => {
+      return Date.parse(post2.createdAt) - Date.parse(post1.createdAt)
+    })
   dispatch(setPosts(posts));
   return posts;
 };
