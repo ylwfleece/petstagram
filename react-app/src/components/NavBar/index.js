@@ -41,13 +41,13 @@ const NavBar = ({ setAuthenticated }) => {
         </div>
         <div className='search'>
           <Search style={{ textAlign: 'center', color: 'rgb(142, 142, 142)', fontSize: '18px' }} />
-          <form onSubmit={onSearch}>
+          <form onSubmit={onSearch} >
             <div>
-              <input onChange={updateSearchTerm} type='search' placeholder='Search by username'></input>
+              <input onChange={updateSearchTerm} type='search' placeholder='Search by username' style={{ border: 'none' }}></input>
             </div>
-            <div>
+            {/* <div>
               <button type="submit">search</button>
-            </div>
+            </div> */}
           </form>
         </div>
         <div className='user-buttons'>
