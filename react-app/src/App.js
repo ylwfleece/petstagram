@@ -9,13 +9,14 @@ import CommentsPage from "./components/CommentsPage";
 import SinglePostPage from "./components/SinglePostPage";
 import UsersList from "./components/UsersList";
 import User from "./components/User";
-import UserProfile from "./components/UserProfile"
-import SearchResults from './components/SearchResults';
+import UserProfile from "./components/UserProfile";
+import SearchResults from "./components/SearchResults";
 import PostForm from "./components/PostForm";
+import LikeModal from "./components/LikesModal";
 import { authenticate } from "./services/auth";
 import { useDispatch } from "react-redux";
 import { getPostsForUser } from "./store/posts";
-import { addUser } from './store/session';
+import { addUser } from "./store/session";
 
 function App() {
   const [authenticated, setAuthenticated] = useState(false);
@@ -98,9 +99,21 @@ function App() {
             <NavBar setAuthenticated={setAuthenticated} />
             <HomePage />
           </ProtectedRoute>
-          <ProtectedRoute path="/search-results" exact={true} authenticated={authenticated}>
+          <ProtectedRoute
+            path="/search-results"
+            exact={true}
+            authenticated={authenticated}
+          >
             <NavBar setAuthenticated={setAuthenticated} />
             <SearchResults />
+          </ProtectedRoute>
+          <ProtectedRoute
+            path="/likes/comments/:id"
+            exact={true}
+            authenticated={authenticated}
+          >
+            <NavBar setAuthenticated={setAuthenticated} />
+            <LikeModal />
           </ProtectedRoute>
           <Route path="/comments">
             <CommentsPage />

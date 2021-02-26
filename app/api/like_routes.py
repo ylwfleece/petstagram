@@ -19,6 +19,9 @@ def get_comment_likes(comment_id):
             "postId": self.postId,
             "commentId": self.commentId
         }
+
+    print("printeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee")
+
     return {"comment_likes": [comment_info(comment_like) for comment_like in comment_likes]}
 
 
