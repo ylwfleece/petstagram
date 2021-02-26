@@ -23,21 +23,17 @@ const UserProfile = () => {
     const sessionUserId = useSelector(state => state.session.user.id);
     const userPosts = useSelector(state => state.posts);
     const [modalIsOpen, setIsOpen] = useState(false);
-    
+    const [targetPhoto, setTargetPhoto] = useState([])
 
-    const openModal = () => {
+
+    const openModal = (image) => {
+        setTargetPhoto(image.target.src)
         setIsOpen(true);
     };
-
+    
     const closeModal = () => {
         setIsOpen(false);
     };
-
-    useEffect(() => {
-        const onClick = (event) => {
-            console.log(event.target)
-        }
-    },[Modal])
 
 
     const userImageLinks = userPosts.map(eachPicture => {
@@ -48,12 +44,8 @@ const UserProfile = () => {
     });
 
     const userImageId = userImageIdMap[0];
-    const myImageLink = userImageLinks[0];
-    console.log(myImageLink);
-    const myImages = userImageLinks;
-
-    // images.map(image => <div><Modal><img src={image.url}/> </Modal></div>)
-
+    
+    
     return (
         <>
         <div className='center-me'>
@@ -61,7 +53,6 @@ const UserProfile = () => {
                 {!userImageLinks && <h3>You have no posts yet!</h3>}
                 {userImageLinks && userImageLinks.map(image => {
                     if (sessionUserId === userImageId) {
-                        let theImageINeed;
                         return (
                             <>
                                 <div className='each-post'>
@@ -71,10 +62,8 @@ const UserProfile = () => {
                                         onRequestClose={closeModal}
                                         style={customStyles}
                                         contentLabel="userPictureModal"
-                                        
                                         >
-                                            {console.log(image)}
-                                        <img src={image} className='each-post'>{console.log(myImages)}</img>
+                                        <img src={targetPhoto} className='each-post'></img>
                                     </Modal>
                                 </div>
                             </>
@@ -83,7 +72,7 @@ const UserProfile = () => {
                 })}
 
             </div>
-            </div>
+        </div>
         </>
     );
 }
