@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Redirect, useHistory } from 'react-router-dom';
+import { Redirect, useHistory, useParams } from 'react-router-dom';
 import {useDispatch, useSelector} from 'react-redux';
 import Modal from 'react-modal';
 import { postComment } from '../../store/comments'
@@ -21,20 +21,24 @@ const customStyles = {
 Modal.setAppElement('body');
 
 const UserProfile = () => {
+    console.log(useParams())
     const dispatch = useDispatch();
     const sessionUserId = useSelector(state => state.session.user.id);
     const sessionUserName = useSelector(state => state.session.user.username);
     const sessionProfilePhoto = useSelector(state => state.session.user.profilePhotoUrl);
+    const postComments = useSelector(state => state.comments)
     const userPosts = useSelector(state => state.posts);
-
+    
     const [modalIsOpen, setIsOpen] = useState(false);
     const [targetPhoto, setTargetPhoto] = useState([])
     const [targetCaption, setTargetCaption] = useState([])
     const [comment, setComment] = useState("")
     const [postId, setPostId] = useState(0)
+    const [getComments, setGetComments] = useState([])
     const [errors, setErrors] = useState([])
   
-
+    const userUrlId = useParams()
+    
     const openModal = (e) => {
         // console.log(e.target.id)
         // console.log(e.target.src)
@@ -57,19 +61,22 @@ const UserProfile = () => {
         return eachPicture.userId;
     });
 
-    const userImageId = userImageIdMap[0];
 
+    const userImageId = userImageIdMap[0];
+    console.log(userImageId)
+    console.log(userUrlId.id)
     const handleCommentClick = (e) => {
         e.preventDefault();
         console.log(comment)
         if (comment) {
             setErrors([]);
+            setComment("")
             return dispatch(postComment(postId, comment))
             .catch(res => {
                 if (res.data && res.data.errors) setErrors(res.data.errors)
             });
         };
-        setComment("")
+        
         return setErrors(["Please leave a comment"])
     };
 
@@ -79,11 +86,16 @@ const UserProfile = () => {
             <div className='post-container'>
                 {!userImageLinks && <h3>You have no posts yet!</h3>}
                 {userPosts && userPosts.map(post => {
-                    if (sessionUserId === userImageId) {
+                    if (userUrlId.id == userImageId) {
                         return (
                             <>
                                 <div className='each-post'>
-                                    <img src={post.imageLinks[0]} id={post.id} alt={post.caption} className='each-picture' onClick={openModal}></img>
+                                        <img src={post.imageLinks[0]} 
+                                            id={post.id}
+                                            alt={post.caption} 
+                                            className='each-picture' 
+                                            onClick={openModal} 
+                                        />
                                     <Modal 
 
                                         isOpen={modalIsOpen}
@@ -97,7 +109,24 @@ const UserProfile = () => {
                                                     <img src={sessionProfilePhoto} className='profile-photo'/>
                                                     <h4 className='username-text'>{sessionUserName}</h4>
                                                 </div>
-                                                <p className='caption-field'>{targetCaption}{console.log(targetCaption)}</p>
+                                                <div className='caption-field'>
+                                                    <img src={sessionProfilePhoto} className='profile-photo'/>
+                                                    <h4 className='username-text-before-caption'>{sessionUserName}</h4>
+                                                    <p className='caption-text'>{targetCaption}</p>
+                                                    <div >
+                                                    {postComments && postComments.map((eachComment) => {
+                                                        if (eachComment.postId == postId) {
+                                                            return (
+                                                                <div className='user-responses'>
+                                                                    <img src={eachComment.photo} className='profile-photo'/>
+                                                                    <h4 className='other-users-who-commented'>{eachComment.username}</h4>
+                                                                    <p className='username-comment'>{eachComment.content}</p>
+                                                                </ div>
+                                                            )
+                                                        } 
+                                                    })}
+                                                    </div>
+                                                </div>
                                                 <p className='like-message-field'>I am likes/messages</p>
                                                 <div className='add-comment-field'>
                                                     <textarea 
