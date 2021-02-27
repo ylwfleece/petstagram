@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Redirect } from "react-router-dom";
-import { login } from "../../services/auth";
+import { demo, login } from "../../services/auth";
 import './LoginForm.css'
 import petstagramlogo from '../NavBar/petstagramlogo.png'
 import { useDispatch } from 'react-redux'
@@ -16,6 +16,18 @@ const LoginForm = ({ authenticated, setAuthenticated }) => {
   const onLogin = async (e) => {
     e.preventDefault();
     const user = await login(email, password);
+    if (!user.errors) {
+      setAuthenticated(true);
+      dispatch(addUser(user));
+      dispatch(getPostsForUser());
+    } else {
+      setErrors(user.errors);
+    }
+  };
+
+    const onLoginDemo = async (e) => {
+    e.preventDefault();
+    const user = await login("demo@aa.io", "password");
     if (!user.errors) {
       setAuthenticated(true);
       dispatch(addUser(user));
@@ -74,6 +86,7 @@ const LoginForm = ({ authenticated, setAuthenticated }) => {
         <div>
           <div className='container redirect-container'>
             <p>Don't have an account? <nobr><a href='/sign-up'>Sign up</a></nobr></p>
+            <p>Use a demo account? <nobr><a onClick={onLoginDemo}>Demo</a></nobr></p>
           </div>
         </div>
       </div>
