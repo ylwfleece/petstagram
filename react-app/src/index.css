@@ -225,3 +225,21 @@ h5 {
 .spacing {
     height: 100px;
 }
+
+.file-input {
+    width: 50%;
+    position: relative;
+}
+
+.file-input div {
+    width: 100%;
+    height: 36px;
+    cursor: pointer;
+    background-color:rgb(250, 250, 250);
+    border: 1px solid rgb(219, 219, 219);
+    border-radius: 5px;
+}
+
+.file-input div:hover {
+    box-shadow: 0 0 3px rgb(206, 206, 206);
+}
