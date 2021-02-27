@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useHistory } from "react-router-dom";
 import { fetchComments } from "../../store/comments";
 import { deletePost } from "../../store/posts";
 import {
@@ -99,7 +99,7 @@ function SinglePostPage() {
     });
   }
   const commentLikeToggle = (e) => {
-    let id = parseInt(e.target.id, 10);
+    let id = parseInt(e.target.parent.id, 10);
     if(!isNaN(id)){
         if (commentLikeObj[id]) {
           dispatch(deleteCommentLikes(id));
@@ -109,9 +109,19 @@ function SinglePostPage() {
     }
   };
 
+  const history = useHistory();
+
   const onDelete = (e) => {
-      dispatch(deletePost(e.target.id))
+      console.log(e.currentTarget.id)
+      let id = parseInt(e.currentTarget.id, 10)
+      console.log(id)
+      if (!isNaN(id)) {
+        dispatch(deletePost(id))
+        history.push('/')
+      }
   }
+
+  
 
   return (
     <div>

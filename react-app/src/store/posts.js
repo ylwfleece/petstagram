@@ -55,12 +55,10 @@ export const createPost = (caption, photoFile) => async (dispatch) => {
 };
 
 export const deletePost = (postId) => async (dispatch) => {
-  let res = await fetch(`/api/posts/${postId}`, {
-    method: "DELETE"
-  });
-  res = await res.json();
+  console.log(postId)
+  let res = await fetch(`/api/posts/delete/${postId}`);
   dispatch(getPostsForUser());
-  return res;
+  return 'deleted post ' + postId;
 }
 
 const initialState = [];
