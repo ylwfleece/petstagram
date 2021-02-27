@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { Redirect, useHistory, useParams, Link } from 'react-router-dom';
+import React, { useState } from "react";
+import {  useParams, Link } from 'react-router-dom';
 import { FavoriteBorder, MailOutline, ChatBubbleOutline } from '@material-ui/icons'
 import {useDispatch, useSelector} from 'react-redux';
 import Modal from 'react-modal';
@@ -24,7 +24,6 @@ Modal.setAppElement('body');
 const UserProfile = () => {
     console.log(useParams())
     const dispatch = useDispatch();
-    const sessionUserId = useSelector(state => state.session.user.id);
     const sessionUserName = useSelector(state => state.session.user.username);
     const sessionProfilePhoto = useSelector(state => state.session.user.profilePhotoUrl);
     const postComments = useSelector(state => state.comments)
@@ -41,18 +40,12 @@ const UserProfile = () => {
     const userUrlId = useParams()
     
     const openModal = (e) => {
-        // console.log(e.target.id)
-        // console.log(e.target.src)
-        // console.log(e.target.caption)
-        // console.log(e.target.alt)
         setTargetPhoto(e.target.src);
         setTargetCaption(e.target.alt);
         setPostId(e.target.id);
         setIsOpen(true);
         setGetCreatedAt(e.target.name)
     };
-
-    // console.log(getCreatedAt)
 
     const closeModal = () => {
         setIsOpen(false);
@@ -85,20 +78,8 @@ const UserProfile = () => {
     };
 
     let postLikeObj = {};
-    // if (likes) {
-    //     posts.forEach((post) => {
-    //         postLikeObj[post.id] = false;
-    //         likes.forEach((like) => {
-    //             if (like.userId == user.id && like.postId == post.id) {
-    //                  postLikeObj[post.id] = true;
-    //             }
-    //         });
-    //     });
-    // }
-
 
     return (
-        <>
         <div className='center-me'>
             <div className='post-container'>
                 {!userImageLinks && <h3>You have no posts yet!</h3>}
@@ -114,16 +95,14 @@ const UserProfile = () => {
                                             onClick={openModal}
                                             name={post.createdAt}
                                             />
-                                            <div id={post.createdAt}></div>
                                     <Modal 
-
                                         isOpen={modalIsOpen}
                                         onRequestClose={closeModal}
                                         style={customStyles}
                                         contentLabel="userPictureModal"
                                         >
                                             <div className='comments-modal'>
-                                                <img src={targetPhoto} className='modal-picture'></img>
+                                                <img src={targetPhoto} className='modal-picture' />
                                                 <div className='username-field'>
                                                     <Link to={`/users/${post.userId}/posts`}>
                                                         <img src={sessionProfilePhoto} className='profile-photo'/>
@@ -158,18 +137,15 @@ const UserProfile = () => {
                                                     })}
                                                 </div>
                                             </div>
-                            
                                                 <div className='like-message-field'>
                                                     <div className='favorite-icon'>
                                                         {postLikeObj[post.id] ? (
                                                             <FavoriteBorder
                                                             className="liked"
-                                                            // onClick={postLikeToggle}
                                                             id={post.id}
                                                             />
                                                             ) : (
                                                             <FavoriteBorder
-                                                            // onClick={postLikeToggle}
                                                             id={post.id}
                                                             />
                                                         )}
@@ -200,7 +176,6 @@ const UserProfile = () => {
                 })}
             </div>
         </div>
-        </>
     );
 }
 
