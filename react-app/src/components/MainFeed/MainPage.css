@@ -1,0 +1,13 @@
+.comments {
+    display: flex;
+    /* justify-content: flex-start; */
+    padding: 12px 12px 12px 0;
+}
+
+.time-display {
+    font-size: 10px;
+    display: flex;
+    width: 100%;
+    justify-content: flex-start;
+    padding-top: 2px;
+}

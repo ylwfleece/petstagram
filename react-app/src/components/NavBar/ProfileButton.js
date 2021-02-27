@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link } from 'react-router-dom'
 import LogoutButton from '../auth/LogoutButton'
-import { PersonOutline } from '@material-ui/icons'
+import { PersonOutline, CameraEnhanceOutlined } from '@material-ui/icons'
 
 const ProfileButton = ({ user, setAuthenticated }) => {
     const [showMenu, setShowMenu] = useState(false);
@@ -18,6 +18,18 @@ const ProfileButton = ({ user, setAuthenticated }) => {
                         </div>
                         <div>
                             {`${user.username}`}
+                        </div>
+                    </div>
+                </Link>
+            </div>
+            <div className='dropdown-item'>
+                <Link to='/posts/new' style={{ width: '100%' }}>
+                    <div className='dropdown-profile-redirect' style={{ width: '100%' }}>
+                        <div>
+                            <CameraEnhanceOutlined style={{ paddingRight: '0.25rem' }} />
+                        </div>
+                        <div>
+                            New Post
                         </div>
                     </div>
                 </Link>

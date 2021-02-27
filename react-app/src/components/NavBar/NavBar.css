@@ -132,7 +132,7 @@ input:focus {
 
 .popout {
     position: absolute !important;
-    right: 2vw;
+    right: 10vw;
     top: 55px;
     min-width: 220px;
 }

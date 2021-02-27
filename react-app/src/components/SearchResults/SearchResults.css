@@ -1,0 +1,45 @@
+.search-results-pictures {
+    width: 50px !important;
+    height: 50px !important;
+}
+
+.follow-button {
+    font-size: 14px;
+    padding: 6px 24px;
+    height: 30px;
+    width: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.follow-button:focus {
+    background-color: rgb(0, 149, 246);
+}
+
+.follow-button:hover {
+    box-shadow: 0 0 2px gray;
+}
+
+.unfollow-button {
+    font-size: 14px;
+    padding: 6px 24px;
+    height: 30px;
+    width: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(219, 219, 219);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.unfollow-button:hover {
+    box-shadow: 0 0 2px gray;
+}
+
+.follow-button-container {
+    align-self: center;
+    justify-content: center;
+}

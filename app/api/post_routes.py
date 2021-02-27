@@ -55,7 +55,6 @@ def create_post():
 
     if form.validate_on_submit():
         # file = form.data['feed_photo_file']
-
         post = Post(
             userId=current_user.id,
             caption=caption,

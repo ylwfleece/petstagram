@@ -1,17 +1,20 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { Redirect } from 'react-router-dom';
 import { signUp } from '../../services/auth';
 import './SignUpForm.css'
 import petstagramlogo from '../NavBar/petstagramlogo.png'
 import { useDispatch } from 'react-redux'
 import { addUser } from '../../store/session'
+import { CloudUploadOutlined } from '@material-ui/icons'
 
 const SignUpForm = ({ authenticated, setAuthenticated }) => {
+  const fileInput = useRef(null)
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [repeatPassword, setRepeatPassword] = useState("");
   const [profilePhotoFile, setProfilePhotoFile] = useState("");
+  const [selectedFile, setSelectedFile] = useState("Upload an Image")
   const dispatch = useDispatch();
 
   const onSignUp = async (e) => {
@@ -43,6 +46,11 @@ const SignUpForm = ({ authenticated, setAuthenticated }) => {
 
   const updateProfilePhotoFile = (e) => {
     setProfilePhotoFile(e.target.files[0]);
+    if (!e.target.files.length) {
+      setSelectedFile('Upload an Image')
+    } else {
+      setSelectedFile(`${e.target.value.split('\\').pop()}`)
+    }
   }
 
   if (authenticated) {
@@ -95,17 +103,29 @@ const SignUpForm = ({ authenticated, setAuthenticated }) => {
                 required={true}
               ></input>
             </div>
+            <div className='flex-container' style={{ justifyContent: 'center' }}>
+              <div className='normalize-text file-input ' >
+                <label
+                  className='upload-button'
+                  onClick={() => fileInput.current.click()}
+                >
+                  <div className='flex-container' style={{ justifyContent: 'center', alignItems: 'center', margin: '0' }}>
+                    <CloudUploadOutlined style={{ marginRight: '12px' }} />
+                    <h5 className='normalize-text' style={{ margin: '0' }}>{selectedFile}</h5>
+                  </div>
+                </label>
+                <input
+                  style={{ display: 'none' }}
+                  type="file"
+                  name="user_file"
+                  onChange={updateProfilePhotoFile}
+                  ref={fileInput}
+                //  value={profilePhotoUrl}
+                />
+              </div>
+            </div>
             <div className='submit-button-container' style={{ marginTop: '18px' }}>
               <button type="submit" className='blue-submit-button'>Sign Up</button>
-            </div>
-            <div>
-              <label htmlFor="user_file">Upload Your File</label>
-              <input
-                type="file"
-                name="user_file"
-                onChange={updateProfilePhotoFile}
-              //  value={profilePhotoUrl}
-              />
             </div>
           </form>
           <div className='errors-container'>
