@@ -23,17 +23,16 @@ function SinglePostPage() {
   const user = useSelector((state) => state.session.user);
   const posts = useSelector((state) => state.posts);
   const likes = useSelector((state) => state.likes);
-  const [trigger, setTrigger] = useState(false);
   let { postId } = useParams();
   postId = parseInt(postId, 10);
 
-  useEffect(() => {
-    //   if (!isNaN(postId)) {
-    //       console.log(postId)
-    //       dispatch(fetchComments(postId))
-    //   }
-    dispatch(getAllLikes());
-  }, [dispatch]);
+//   useEffect(() => {
+//     //   if (!isNaN(postId)) {
+//     //       console.log(postId)
+//     //       dispatch(fetchComments(postId))
+//     //   }
+//     dispatch(getAllLikes());
+//   }, [dispatch]);
 
   let post;
   if (posts) {
@@ -65,10 +64,11 @@ function SinglePostPage() {
     }
   }
   const postLikeToggle = (e) => {
-    console.log("etarget", typeof e.target.id);
+    console.log("etarget", e.target.id);
     let id = parseInt(e.target.id, 10);
     let likeExists = false;
-    if (likes) {
+    console.log(likes)
+    if (likes && !isNaN(id)) {
       if (likes.length) {
         for (let i = 0; i < likes.length; i++) {
           if (likes[i].userId === user.id && likes[i].postId === id) {
@@ -78,7 +78,6 @@ function SinglePostPage() {
         console.log("likeExists", likeExists);
         if (!likeExists) {
           dispatch(createPostLikes(parseInt(e.target.id, 10)));
-          setTrigger(true);
         }
         if (likeExists) {
           dispatch(deletePostLikes(parseInt(e.target.id, 10)));
@@ -99,10 +98,12 @@ function SinglePostPage() {
   }
   const commentLikeToggle = (e) => {
     let id = parseInt(e.target.id, 10);
-    if (commentLikeObj[id]) {
-      dispatch(deleteCommentLikes(id));
-    } else {
-      dispatch(createCommentLikes(id));
+    if(!isNaN(id)){
+        if (commentLikeObj[id]) {
+          dispatch(deleteCommentLikes(id));
+        } else {
+          dispatch(createCommentLikes(id));
+        }
     }
   };
 
