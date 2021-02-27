@@ -6,14 +6,16 @@
     flex-wrap: wrap;
     align-items: center;
     justify-content: center;
+    padding-left: 200px;
+    padding-right: 200px;
 
 }
 
 .each-post{
     display: flex;
     flex-direction: column;
-    width: 30%;
-    height: 40%;
+    width: 400px;
+    height: 400px;
     margin: 5px;
 }
 
@@ -55,14 +57,12 @@
 .profile-photo{
     height: 40px;
     width: 40px;
+    border-radius: 50%;
 }
 
 .user-responses{
     display: flex;
     flex-direction: row;
-    /* flex-wrap: wrap;
-    justify-content: space-between; */
-
 }
 
 .username-text{
@@ -162,3 +162,33 @@
     padding-bottom: 12px;
 }
 
+.like-message-field{
+    display: grid;
+    grid-template-columns: 30px 30px 30px auto;
+    grid-template-rows: 20px 200px;
+    /* flex-direction: row; */
+    /* align-items: flex-start; */
+}
+
+.favorite-icon{
+    grid-column-start: 1;
+    grid-row-start: 1;
+}
+.mail-icon{
+    grid-column-start: 2;
+    grid-row-start: 1;
+}
+.chat-bubble-icon{
+    grid-column-start: 3;
+    grid-row-start: 1;
+}
+
+.display-time{
+    color: gray;
+    font-weight: 100;
+    font-size: 12px;
+    grid-row-start: 2;
+    grid-column-start: 4;
+    /* align-items: flex-start;
+    justify-content: start; */
+}
