@@ -5,11 +5,19 @@ import { fetchComments } from '../../store/comments'
 import { FavoriteBorder, MailOutline, ChatBubbleOutline } from '@material-ui/icons'
 import './MainPage.css'
 import TimeAgo from 'react-timeago'
+import {
+  createCommentLikes,
+  createPostLikes,
+  getAllLikes,
+  deletePostLikes,
+  deleteCommentLikes,
+} from "../../store/likes";
 
 function MainFeed() {
     const dispatch = useDispatch()
     const comments = useSelector((state) => state.comments)
     const user = useSelector((state) => state.session.user)
+    const likes = useSelector((state) => state.likes)
     const posts = useSelector((state) => state.posts)
     let commentsArr = []
 
@@ -21,6 +29,62 @@ function MainFeed() {
         })
         console.log(commentsArr)
     }
+
+    let postLikeObj = {};
+    if (likes) {
+        posts.forEach((post) => {
+            postLikeObj[post.id] = false;
+            likes.forEach((like) => {
+                if (like.userId == user.id && like.postId == post.id) {
+                     postLikeObj[post.id] = true;
+                }
+            });
+        });
+    }
+    
+      const postLikeToggle = (e) => {
+        let id = parseInt(e.target.id, 10);
+        if(!isNaN(id)){
+            if (postLikeObj[id]) {
+                dispatch(deletePostLikes(id));
+            } else {
+                dispatch(createPostLikes(id));
+            }
+        }
+    };
+
+
+    let commentLikeObj = {};
+    if (likes) {
+        if(likes.length){
+            commentsArr.forEach((commentList) => {
+                commentList.forEach(comment =>{
+                    commentLikeObj[comment.id] = false;
+                    console.log(comment.id)
+                    likes.forEach((like) => {
+                        if (like.userId == user.id && like.commentId == comment.id) {
+                             commentLikeObj[comment.id] = true;
+                        }
+                    });
+                })
+            });
+        }
+    }
+    const commentLikeToggle = (e) => {
+        let id = parseInt(e.target.id, 10);
+        if(!isNaN(id)){
+            if (commentLikeObj[id]) {
+                dispatch(deleteCommentLikes(id));
+            } else {
+                dispatch(createCommentLikes(id));
+            }
+        }
+    };
+
+
+
+
+
 
     return (<div>
             {posts &&
@@ -44,7 +108,18 @@ function MainFeed() {
                         </div>
                         <div className='flex-left-container' style={{ width: '100%', height: '40px' }}>
                             <div className='icons-container'>
-                                <FavoriteBorder />
+                            {postLikeObj[post.id] ? (
+                                <FavoriteBorder
+                                className="liked"
+                                onClick={postLikeToggle}
+                                id={post.id}
+                                />
+                            ) : (
+                                <FavoriteBorder
+                                onClick={postLikeToggle}
+                                id={post.id}
+                                />
+                            )}
                             </div>
                             <div className='icons-container'>
                                 <MailOutline />
@@ -98,7 +173,18 @@ function MainFeed() {
                                                     </div>
                                                 </div>
                                                 <div className='icons-container' style={{ margin: '0 12px 0 24px', alignSelf: 'center' }}>
-                                                    <FavoriteBorder />
+                                                    {commentLikeObj[comment.id] ? (
+                                                        <FavoriteBorder
+                                                        className="liked"
+                                                        onClick={commentLikeToggle}
+                                                        id={comment.id}
+                                                        />
+                                                    ) : (
+                                                        <FavoriteBorder
+                                                        onClick={commentLikeToggle}
+                                                        id={comment.id}
+                                                        />
+                                                    )}
                                                 </div>
                                             </div>
                                     )

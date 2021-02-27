@@ -21,6 +21,10 @@ export const login = async (email, password) => {
   return await response.json();
 }
 
+export const demo = async() =>{
+  login("demo@aa.io", "password")
+}
+
 export const logout = async () => {
   const response = await fetch("/api/auth/logout", {
     headers: {
