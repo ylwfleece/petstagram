@@ -78,3 +78,17 @@ def delete_comment(comment_id):
         return 'delete comment'
     else:
         return 'not allowed to delete this comment'
+
+
+@comment_routes.route('/edit/<int:comment_id>', methods=["POST"])
+@login_required
+def edit_comment(comment_id):
+    comment = Comment.query.get(comment_id)
+    if comment.userId == current_user.id:
+        print("<<<<<<==============>>>>>>>", request.data.decode('ascii'))
+        comment.content = request.data.decode('ascii')
+        db.session.add(comment)
+        db.session.commit()
+        return 'edited comment'
+    else:
+        return 'not allowed to edit this comment'

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams, Link, useHistory } from "react-router-dom";
-import { fetchComments, deleteComment } from "../../store/comments";
+import { fetchComments, deleteComment, editComment } from "../../store/comments";
 import { deletePost, editPost } from "../../store/posts";
 import {
     createCommentLikes,
@@ -132,17 +132,6 @@ function SinglePostPage() {
         }
     }
 
-    // const editPost = (e) => {
-    //     console.log(e.currentTarget)
-
-        // let id = parseInt(e.currentTarget.id, 10)
-        // console.log(id)
-        // if (!isNaN(id)) {
-        //     dispatch(editPost(id))
-        //     //   history.push('/')
-        // }
-    // }
-
     const [editingPost, setEditingPost] = useState(false)
     const [caption, setCaption] = useState('')
 
@@ -163,6 +152,34 @@ function SinglePostPage() {
         dispatch(editPost(id, caption))
         setEditingPost(false)
     }
+
+    const [editingComment, setEditingComment] = useState(false)
+    const [comment, setComment] = useState('')
+    const [targetCommentId, setTargetCommentId] = useState('')
+
+    const openEditComment = (e) => {
+        setTargetCommentId(e.currentTarget.id)
+        setEditingComment(true);
+        console.log(e.currentTarget)
+    }
+
+    const updateComment = (e) => {
+        setComment(e.target.value)
+    }
+
+    const submitEditComment = (e) => {
+        console.log(comment)
+        console.log(e.target)
+        let id = parseInt(e.target.id, 10)
+        console.log(id)
+        dispatch(editComment(id, comment))
+        setEditingComment(false)
+    }
+
+    // const onEditComment = (e) => {
+    //     let id = parseInt(e.currentTarget.id, 10)
+    //     console.log(id)
+    // }
 
     return (
         <div>
@@ -296,7 +313,25 @@ function SinglePostPage() {
                                                             {comment.username}
                                                         </h5>
                                                     </Link>
-                                                    <p className="normalize-text">{comment.content}</p>
+                                                    {/* if it's our post and were not editing it yet, we should see our caption and the edit icon */}
+                                                    {/* if it's not our post and we're not editing it yet, we should see the caption and no edit icon */}
+                                                    {/* if it's our post and we're editing it, we should see the caption inside the input field and no edit icon */}
+                                                    {(!editingComment && (comment.userId == user.id)) &&
+                                                        <div>
+                                                            <p className="normalize-text caption">{comment.content}</p> 
+                                                            <EditIcon id={comment.id} onClick={openEditComment} /> 
+                                                        </div>
+                                                    }
+                                                    {(!editingComment && (comment.userId != user.id)) &&
+                                                        <p className="normalize-text caption">{comment.content}</p> 
+                                                    }
+                                                    {(editingComment && (comment.userId == user.id) && targetCommentId == comment.id) &&
+                                                        <div>
+                                                            <input onChange={updateComment} id={comment.id} placeholder={comment.content}></input> 
+                                                            <button id={comment.id} onClick={submitEditComment}>submit edit</button>
+                                                        </div>
+                                                    }
+                                                    
                                                 </div>
                                             </div>
                                             <div className="flex-container">
@@ -332,9 +367,12 @@ function SinglePostPage() {
                                                         id={comment.id}
                                                     />
                                                 )}
-                                            {comment.userId == user.id &&
-                                                <DeleteIcon id={comment.id} onClick={onDeleteComment} />
-                                            }
+                                            {/* {comment.userId == user.id &&
+                                                <div>
+                                                    <EditIcon id={comment.id} onClick={openEditComment} />
+                                                    <DeleteIcon id={comment.id} onClick={onDeleteComment} />
+                                                </div>
+                                            } */}
                                         </div>
                                     </div>
                                 ))}
