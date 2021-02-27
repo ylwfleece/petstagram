@@ -21,9 +21,9 @@ class User(db.Model, UserMixin):
                           default=datetime.datetime.utcnow)
     updatedAt = db.Column(db.DateTime,
                           default=datetime.datetime.utcnow)
-    posts = db.relationship("Post", back_populates="user")
-    comments = db.relationship("Comment", back_populates="user")
-    likes = db.relationship("Like", back_populates="user")
+    posts = db.relationship("Post", back_populates="user", cascade="all, delete-orphan")
+    comments = db.relationship("Comment", back_populates="user", cascade="all, delete-orphan")
+    likes = db.relationship("Like", back_populates="user", cascade="all, delete-orphan")
     followers = db.relationship(
         "User",
         secondary=follows,
