@@ -11,17 +11,15 @@ const fetchAllComments = (payload) => ({
   payload,
 });
 
-//actions
-// export const postComment = (postId, content) => {
-//   return async (dispatch) => {
-//       console.log(content)
-//     const response = await fetch(`/api/comments/${postId}`, {
-//       method: "POST",
-//       body: JSON.stringify({content}),
-//     });
-//     dispatch(addComment(response));
-//   };
-// };
+export const editComment = (commentId, comment) => async (dispatch) => {
+  console.log("commentId: ", commentId, "comment: ", comment)
+  let res = await fetch(`/api/comments/edit/${commentId}`, {
+    method: "POST",
+    body: comment,
+  });
+  dispatch(fetchComments());
+  return 'edited comment';
+}
 
 export const postComment = (postId, content) => async (dispatch) => {
     const formData = new FormData();
@@ -46,7 +44,13 @@ export const fetchComments = () => {
     dispatch(fetchAllComments(responseJSON.comments));
   };
 };
-//reducer
+
+export const deleteComment = (commentId) => async (dispatch) => {
+  const res = await fetch(`/api/comments/delete/${commentId}`);
+  dispatch(fetchComments());
+  return 'deleted comment ' + commentId; 
+}
+
 const initialState = [];
 
 function commentsReducer(state = initialState, action) {

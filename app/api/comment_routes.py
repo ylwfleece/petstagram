@@ -67,12 +67,28 @@ def createComment(post_id):
         return comment_info(comment)
     return "Bad Data"
 
-# in progress delete route
-# @comment_routes.route('/', methods=["POST"])
-# @login_required
-# def deleteComment(id):
-#     comment = Post.query.options(lazyload('comments')).first()
-#     db.session.remove(comment)
-#     db.session.commit
-#     return
-# {"postId": "6", "userId": 22, "content": "Great" }
+
+@comment_routes.route('/delete/<int:comment_id>', methods=["GET"])
+@login_required
+def delete_comment(comment_id):
+    comment = Comment.query.get(comment_id)
+    if comment.userId == current_user.id:
+        db.session.delete(comment)
+        db.session.commit()
+        return 'delete comment'
+    else:
+        return 'not allowed to delete this comment'
+
+
+@comment_routes.route('/edit/<int:comment_id>', methods=["POST"])
+@login_required
+def edit_comment(comment_id):
+    comment = Comment.query.get(comment_id)
+    if comment.userId == current_user.id:
+        print("<<<<<<==============>>>>>>>", request.data.decode('ascii'))
+        comment.content = request.data.decode('ascii')
+        db.session.add(comment)
+        db.session.commit()
+        return 'edited comment'
+    else:
+        return 'not allowed to edit this comment'

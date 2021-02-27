@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams, Link } from "react-router-dom"
-import { fetchComments } from '../../store/comments'
+import { useParams, Link, useHistory } from "react-router-dom"
+import { fetchComments, deleteComment } from '../../store/comments'
 import { FavoriteBorder, MailOutline, ChatBubbleOutline } from '@material-ui/icons'
+import DeleteIcon from '@material-ui/icons/Delete'
+import { deletePost } from '../../store/posts'
 import './MainPage.css'
 import TimeAgo from 'react-timeago'
 import {
@@ -81,10 +83,25 @@ function MainFeed() {
         }
     };
 
-
-
-
-
+    const onDeletePost = (e) => {
+        console.log(e.currentTarget.id)
+        let id = parseInt(e.currentTarget.id, 10)
+        console.log(id)
+        if (!isNaN(id)) {
+          dispatch(deletePost(id))
+        }
+    }
+  
+    // const onDeleteComment = (e) => {
+    //   console.log(e.target.id)
+    //   console.log(e.currentTarget.id)
+    //   let id = parseInt(e.currentTarget.id, 10)
+    //   console.log(id)
+    //   if (!isNaN(id)) {
+    //     dispatch(deleteComment(id))
+    //   //   history.push('/')
+    //   }
+    // }
 
     return (<div>
             {posts &&
@@ -93,12 +110,12 @@ function MainFeed() {
                     <div key={post.id} className='container posts' style={{ paddingTop: '0', marginBottom: '5vh' }}>
                         <div className='post-user-info'>
                             <div className='rounded-img-container comments-profile-pictures' style={{ alignSelf: 'flex-start' }}>
-                                <Link to={`/users/${post.userId}`}>
+                                <Link to={`/users/${post.userId}/posts`}>
                                     <img src={post.photo} alt='profilepicposter' className='comments-profile-pictures redirect-profile' />
                                 </Link>
                             </div>
                             <div className='username-comments-container'>
-                                <Link to={`/users/${post.userId}`}>
+                                <Link to={`/users/${post.userId}/posts`}>
                                     <h5 className='post-username redirect-profile'>{post.username}</h5>
                                 </Link>
                             </div>
@@ -120,6 +137,8 @@ function MainFeed() {
                                 id={post.id}
                                 />
                             )}
+                            {console.log(post.id, user.id)}
+                            
                             </div>
                             <div className='icons-container'>
                                 <MailOutline />
@@ -127,10 +146,15 @@ function MainFeed() {
                             <div className='icons-container'>
                                 <ChatBubbleOutline />
                             </div>
+                            <div className='icons-container'>
+                                {post.userId == user.id &&
+                                    <DeleteIcon id={post.id} onClick={onDeletePost} />
+                                }
+                            </div>
                         </div>
                         <div className='caption-section'>
                             <div className='username-comments-container'>
-                                <Link to={`/users/${post.userId}`}>
+                                <Link to={`/users/${post.userId}/posts`}>
                                     <h5 className='post-username redirect-profile'>{post.username}</h5>
                                 </Link>
                             </div>
@@ -149,7 +173,7 @@ function MainFeed() {
                                             <div className='comments' key={comment.id} style={{ width: '100%' }}>
                                                 <div style={{ display: 'flex', alignItems: 'flex-start' }}>
                                                     <div className='rounded-img-container comments-profile-pictures'>
-                                                        <Link to={`/users/${comment.userId}`}>
+                                                        <Link to={`/users/${comment.userId}/posts`}>
                                                             <img src={comment.photo} alt='commenter-profile' className='comments-profile-pictures' />
                                                         </Link>
                                                     </div>
@@ -157,7 +181,7 @@ function MainFeed() {
                                                 <div>
                                                     <div className='flex-container' style={{ width: '496px' }}>
                                                         <div className='username-comments-container' >
-                                                            <Link to={`/users/${comment.userId}`}>
+                                                            <Link to={`/users/${comment.userId}/posts`}>
                                                                 <h5 className='post-username redirect-profile' style={{ paddingLeft: '0' }}>{comment.username}</h5>
                                                             </Link>
                                                             <p className='normalize-text'>{comment.content}</p>
@@ -185,6 +209,7 @@ function MainFeed() {
                                                         id={comment.id}
                                                         />
                                                     )}
+
                                                 </div>
                                             </div>
                                     )
