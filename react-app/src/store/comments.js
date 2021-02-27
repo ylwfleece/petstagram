@@ -18,14 +18,27 @@ const deleteComment = (commentId) => ({
 })
 
 //actions
-export const postComment = (userId, postId) => {
-  return async (dispatch) => {
-    const response = await fetch(`/api/comments`, {
-      method: "POST",
-      body: JSON.stringify({ userId, postId }),
-    });
-    dispatch(addComment(response));
-  };
+// export const postComment = (postId, content) => {
+//   return async (dispatch) => {
+//       console.log(content)
+//     const response = await fetch(`/api/comments/${postId}`, {
+//       method: "POST",
+//       body: JSON.stringify({content}),
+//     });
+//     dispatch(addComment(response));
+//   };
+// };
+
+export const postComment = (postId, content) => async (dispatch) => {
+  const formData = new FormData();
+  formData.append("content", content);
+  let res = await fetch(`/api/comments/${postId}`, {
+    method: "POST",
+    body: formData,
+  });
+  const comment = await res.json();
+  dispatch(addComment(comment));
+  return comment;
 };
 
 export const fetchComments = () => {
@@ -33,6 +46,9 @@ export const fetchComments = () => {
     const response = await fetch(`/api/comments/`);
     const responseJSON = await response.json();
     console.log("RESPONSE DATA", responseJSON);
+    responseJSON.comments.sort((comment1, comment2) => {
+      return Date.parse(comment2.createdAt) - Date.parse(comment1.createdAt)
+    })
     dispatch(fetchAllComments(responseJSON.comments));
   };
 };
@@ -57,7 +73,6 @@ function commentsReducer(state = initialState, action) {
     case ADD_A_COMMENT:
       newState = [...state, action.payload];
       return newState;
-
     case FETCH_ALL_COMMENTS:
       newState = Object.assign({}, state);
       newState = action.payload;

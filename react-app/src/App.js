@@ -12,6 +12,7 @@ import User from "./components/User";
 import UserProfile from "./components/UserProfile"
 import SearchResults from './components/SearchResults';
 import PostForm from "./components/PostForm";
+import MainFeed from './components/MainFeed'
 import { authenticate } from "./services/auth";
 import { useDispatch } from "react-redux";
 import { getPostsForUser } from "./store/posts";
@@ -98,7 +99,7 @@ function App() {
           </ProtectedRoute>
           <ProtectedRoute path="/" exact={true} authenticated={authenticated}>
             <NavBar setAuthenticated={setAuthenticated} />
-            <HomePage />
+            <MainFeed />
           </ProtectedRoute>
           <ProtectedRoute path="/search-results" exact={true} authenticated={authenticated}>
             <NavBar setAuthenticated={setAuthenticated} />

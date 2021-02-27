@@ -17,10 +17,13 @@
     margin: 5px;
 }
 
+.each-picture{
+    height: 350px;
+}
+
 .each-picture:hover{
     background-color: rgba(0, 0, 0, 0.3);
     cursor: pointer;
-    transform: matrix3d();
 }
 
 .comments-modal{
@@ -29,6 +32,7 @@
     display: grid;
     grid-template-columns: 600px 300px;
     grid-template-rows: 75px 250px 75px 50px;
+    overflow: hidden;
 }
 
 .modal-picture{
@@ -53,15 +57,73 @@
     width: 40px;
 }
 
+.user-responses{
+    display: flex;
+    flex-direction: row;
+    /* flex-wrap: wrap;
+    justify-content: space-between; */
+
+}
+
 .username-text{
     padding-left: 10px;
+}
+
+.other-users-who-commented{
+    padding-left: 10px;
+    padding-bottom: 10px;
+    margin-top: 0;
+    padding-top: 5px;
+    height: 20px;
+    justify-content: flex-start;
+}
+
+.username-comment{
+    padding-left: 29px;
+    padding-bottom: 10px;
+    margin-top: 0;
+    padding-top: 5px;
+    height: 20px;
+    justify-content: center;
+    align-items: stretch;
+    flex-grow: 5;
+    flex-grow: 100;
+    width: 1000px !important;
+}
+
+.username-text-before-caption {
+    padding-left: 0;
+    padding-bottom: 10px;
+    margin-top: 0;
+    padding-top: 5px;
+    height: 20px;
+    justify-content: flex-start;
+
 }
 
 .caption-field{
     border-left: 1px solid rgba(239,239,239,255);
     border-bottom: 0.5px solid rgba(239,239,239,255);
     grid-column-start: 2;
+    display: grid;
     padding: 12px;
+    grid-template-columns: 50px 50px auto;
+    grid-template-rows: 50px 50px 50px 50px;
+    overflow-y: scroll;
+    
+}
+
+.caption-field::-webkit-scrollbar {
+    display: none;
+}
+
+
+.caption-text{
+    padding-left: 10px;
+    padding-bottom: 10px;
+    margin-top: 0;
+    padding-top: 5px;
+    height: 20px;
 }
 
 .like-message-field{
@@ -69,12 +131,34 @@
     border-bottom: 0.5px solid rgba(239,239,239,255);
     grid-column-start: 2;
     padding: 12px;
+    margin-top: 0 !important;
 }
 
 .add-comment-field{
     border-left: 1px solid rgba(239,239,239,255);
     grid-column-start: 2;
     padding: 12px;
+    display: flex;
+    align-items: center;
+    /* justify-content: center; */
 }
 
+.comment-text-area{
+    border: none;
+    height: 50px;
+    width: 250px;
+    resize: none;
+    overflow: hidden;
+    padding-top: 6.5px;
+}
+
+.comment-button{
+    background:none;
+    border:none;
+    cursor: pointer;
+    color: rgba(0,149,246,255);
+    font-style: bold;
+    font-weight: 700;
+    padding-bottom: 12px;
+}
 
