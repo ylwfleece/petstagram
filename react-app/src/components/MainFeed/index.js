@@ -110,12 +110,12 @@ function MainFeed() {
                     <div key={post.id} className='container posts' style={{ paddingTop: '0', marginBottom: '5vh' }}>
                         <div className='post-user-info'>
                             <div className='rounded-img-container comments-profile-pictures' style={{ alignSelf: 'flex-start' }}>
-                                <Link to={`/users/${post.userId}`}>
+                                <Link to={`/users/${post.userId}/posts`}>
                                     <img src={post.photo} alt='profilepicposter' className='comments-profile-pictures redirect-profile' />
                                 </Link>
                             </div>
                             <div className='username-comments-container'>
-                                <Link to={`/users/${post.userId}`}>
+                                <Link to={`/users/${post.userId}/posts`}>
                                     <h5 className='post-username redirect-profile'>{post.username}</h5>
                                 </Link>
                             </div>
@@ -154,7 +154,7 @@ function MainFeed() {
                         </div>
                         <div className='caption-section'>
                             <div className='username-comments-container'>
-                                <Link to={`/users/${post.userId}`}>
+                                <Link to={`/users/${post.userId}/posts`}>
                                     <h5 className='post-username redirect-profile'>{post.username}</h5>
                                 </Link>
                             </div>
@@ -173,7 +173,7 @@ function MainFeed() {
                                             <div className='comments' key={comment.id} style={{ width: '100%' }}>
                                                 <div style={{ display: 'flex', alignItems: 'flex-start' }}>
                                                     <div className='rounded-img-container comments-profile-pictures'>
-                                                        <Link to={`/users/${comment.userId}`}>
+                                                        <Link to={`/users/${comment.userId}/posts`}>
                                                             <img src={comment.photo} alt='commenter-profile' className='comments-profile-pictures' />
                                                         </Link>
                                                     </div>
@@ -181,7 +181,7 @@ function MainFeed() {
                                                 <div>
                                                     <div className='flex-container' style={{ width: '496px' }}>
                                                         <div className='username-comments-container' >
-                                                            <Link to={`/users/${comment.userId}`}>
+                                                            <Link to={`/users/${comment.userId}/posts`}>
                                                                 <h5 className='post-username redirect-profile' style={{ paddingLeft: '0' }}>{comment.username}</h5>
                                                             </Link>
                                                             <p className='normalize-text'>{comment.content}</p>
