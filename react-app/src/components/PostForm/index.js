@@ -42,9 +42,9 @@ const PostForm = ({ authenticated, setAuthenticated }) => {
             <div className='flex-container' style={{ justifyContent: 'center', alignItems: 'center' }}>
               <img src={petstagramlogo} alt='logo' style={{ padding: '5px 5rem' }} />
             </div>
-            <div className='paragraph-container flex-container' style={{ width: '100%', padding: '0 20px', marginTop: '0' }}>
-              <div>
-                <p className='paragraph' style={{ color: 'rgb(155, 155, 155)', fontSize: '18px' }}>Post a new pet photo to share with your friends.</p>
+            <div className='paragraph-container flex-container' style={{ width: '100%', padding: '0', marginTop: '0', justifyContent: 'center' }}>
+              <div style={{ width: '80%' }}>
+                <p className='paragraph' style={{ color: 'rgb(155, 155, 155)', fontSize: '18px', textAlign: 'center' }}>Post a new pet photo to share with your friends.</p>
               </div>
             </div>
             <div className='flex-container' style={{ justifyContent: 'center' }}>
@@ -55,9 +55,9 @@ const PostForm = ({ authenticated, setAuthenticated }) => {
                       className='upload-button'
                       onClick={() => fileInput.current.click()}
                     >
-                      <div className='flex-container' style={{ justifyContent: 'center', alignItems: 'center', margin: '0' }}>
+                      <div className='flex-container' style={{ justifyContent: 'center', alignItems: 'center', margin: '0', padding: '0 8px' }}>
                         <CloudUploadOutlined style={{ marginRight: '12px' }} />
-                        <h5 className='normalize-text' style={{ margin: '0' }}>{selectedFile}</h5>
+                        <h5 className='normalize-text' style={{ margin: '0', overflow: 'hidden' }}>{selectedFile}</h5>
                       </div>
                     </label>
                     <input

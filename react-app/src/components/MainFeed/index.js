@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams, Link, useHistory } from "react-router-dom"
 import { fetchComments, deleteComment } from '../../store/comments'
-import { FavoriteBorder, MailOutline, ChatBubbleOutline } from '@material-ui/icons'
+import { FavoriteBorder, MailOutline, ChatBubbleOutline, Favorite } from '@material-ui/icons'
 import DeleteIcon from '@material-ui/icons/Delete'
 import { deletePost } from '../../store/posts'
 import './MainPage.css'
@@ -128,7 +128,7 @@ function MainFeed() {
                                 <div className='flex-left-container' style={{ width: '100%', height: '40px' }}>
                                     <div className='icons-container'>
                                         {postLikeObj[post.id] ? (
-                                            <FavoriteBorder
+                                            <Favorite
                                                 className="liked"
                                                 onClick={postLikeToggle}
                                                 id={post.id}
@@ -200,7 +200,7 @@ function MainFeed() {
                                                         </div>
                                                         <div className='icons-container' style={{ margin: '0 12px 0 24px', alignSelf: 'center' }}>
                                                             {commentLikeObj[comment.id] ? (
-                                                                <FavoriteBorder
+                                                                <Favorite
                                                                     className="liked"
                                                                     onClick={commentLikeToggle}
                                                                     id={comment.id}
