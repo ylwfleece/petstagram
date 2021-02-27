@@ -64,7 +64,7 @@ def create_comment_likes(comment_id):
 
     comment_likes = Like(
         # needs thunk logic
-        userId=req.body.userId,
+        userId=current_user.id,
         postId=None,
         commentId=comment_id
     )
@@ -100,3 +100,12 @@ def delete_post_likes(post_id):
     db.session.delete(like)
     db.session.commit()
     return "deleted like on post"
+
+
+@like_routes.route('/comments/delete/<int:comment_id>', methods=['POST'])
+def delete_comment_likes(comment_id):
+    like = Like.query.filter_by(
+        commentId=comment_id, userId=current_user.id).first()
+    db.session.delete(like)
+    db.session.commit()
+    return "deleted like on comment"

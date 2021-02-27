@@ -7,6 +7,7 @@ import {
   createPostLikes,
   getAllLikes,
   deletePostLikes,
+  deleteCommentLikes,
 } from "../../store/likes";
 import {
   FavoriteBorder,
@@ -96,7 +97,14 @@ function SinglePostPage() {
       });
     });
   }
-  const commentLikeToggle = (e) => {};
+  const commentLikeToggle = (e) => {
+    let id = parseInt(e.target.id, 10);
+    if (commentLikeObj[id]) {
+      dispatch(deleteCommentLikes(id));
+    } else {
+      dispatch(createCommentLikes(id));
+    }
+  };
 
   return (
     <div>
@@ -234,9 +242,13 @@ function SinglePostPage() {
                         <FavoriteBorder
                           className="liked"
                           onClick={commentLikeToggle}
+                          id={comment.id}
                         />
                       ) : (
-                        <FavoriteBorder onClick={commentLikeToggle} />
+                        <FavoriteBorder
+                          onClick={commentLikeToggle}
+                          id={comment.id}
+                        />
                       )}
                     </div>
                   </div>

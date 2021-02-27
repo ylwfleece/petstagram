@@ -12,11 +12,8 @@ import User from "./components/User";
 import UserProfile from "./components/UserProfile";
 import SearchResults from "./components/SearchResults";
 import PostForm from "./components/PostForm";
-<<<<<<< HEAD
 import CommentLikeModal from "./components/LikesModal";
-=======
-import MainFeed from './components/MainFeed'
->>>>>>> main
+import MainFeed from "./components/MainFeed";
 import { authenticate } from "./services/auth";
 import { useDispatch } from "react-redux";
 import { getPostsForUser } from "./store/posts";

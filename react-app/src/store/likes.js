@@ -71,9 +71,20 @@ export const deletePostLikes = (id) => async (dispatch) => {
   return likes;
 };
 export const createCommentLikes = (id) => async (dispatch) => {
-  let likes = await fetch(`/api/likes/comments/${id}`);
+  console.log("create a comment");
+  let likes = await fetch(`/api/likes/comments/${id}`, {
+    method: "POST",
+  });
   likes = await likes.json();
-  dispatch(makeCommentLikes(likes));
+  // dispatch(makeCommentLikes(likes));
+  dispatch(getAllLikes());
+  return likes;
+};
+export const deleteCommentLikes = (id) => async (dispatch) => {
+  let likes = await fetch(`/api/likes/comments/delete/${id}`, {
+    method: "POST",
+  });
+  dispatch(getAllLikes());
   return likes;
 };
 
