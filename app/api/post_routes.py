@@ -84,3 +84,17 @@ def delete_post(post_id):
         return 'delete post'
     else:
         return 'not allowed to delete this post'
+
+
+@post_routes.route('/edit/<int:post_id>', methods=["POST"])
+@login_required
+def edit_post(post_id):
+    post = Post.query.get(post_id)
+    if post.userId == current_user.id:
+        print("<<<<<<==============>>>>>>>", request.data.decode('ascii'))
+        post.caption = request.data.decode('ascii')
+        db.session.add(post)
+        db.session.commit()
+        return 'edited post'
+    else:
+        return 'not allowed to edit this post'
