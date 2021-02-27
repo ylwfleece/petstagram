@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { Redirect, useHistory, useParams } from 'react-router-dom';
+import { Redirect, useHistory, useParams, Link } from 'react-router-dom';
+import { FavoriteBorder, MailOutline, ChatBubbleOutline } from '@material-ui/icons'
 import {useDispatch, useSelector} from 'react-redux';
 import Modal from 'react-modal';
 import { postComment } from '../../store/comments'
@@ -34,7 +35,7 @@ const UserProfile = () => {
     const [targetCaption, setTargetCaption] = useState([])
     const [comment, setComment] = useState("")
     const [postId, setPostId] = useState(0)
-    const [getComments, setGetComments] = useState([])
+    const [getCreatedAt, setGetCreatedAt] = useState("")
     const [errors, setErrors] = useState([])
   
     const userUrlId = useParams()
@@ -48,7 +49,10 @@ const UserProfile = () => {
         setTargetCaption(e.target.alt);
         setPostId(e.target.id);
         setIsOpen(true);
+        setGetCreatedAt(e.target.name)
     };
+
+    // console.log(getCreatedAt)
 
     const closeModal = () => {
         setIsOpen(false);
@@ -80,6 +84,19 @@ const UserProfile = () => {
         return setErrors(["Please leave a comment"])
     };
 
+    let postLikeObj = {};
+    // if (likes) {
+    //     posts.forEach((post) => {
+    //         postLikeObj[post.id] = false;
+    //         likes.forEach((like) => {
+    //             if (like.userId == user.id && like.postId == post.id) {
+    //                  postLikeObj[post.id] = true;
+    //             }
+    //         });
+    //     });
+    // }
+
+
     return (
         <>
         <div className='center-me'>
@@ -94,8 +111,10 @@ const UserProfile = () => {
                                             id={post.id}
                                             alt={post.caption} 
                                             className='each-picture' 
-                                            onClick={openModal} 
-                                        />
+                                            onClick={openModal}
+                                            name={post.createdAt}
+                                            />
+                                            <div id={post.createdAt}></div>
                                     <Modal 
 
                                         isOpen={modalIsOpen}
@@ -106,28 +125,63 @@ const UserProfile = () => {
                                             <div className='comments-modal'>
                                                 <img src={targetPhoto} className='modal-picture'></img>
                                                 <div className='username-field'>
-                                                    <img src={sessionProfilePhoto} className='profile-photo'/>
-                                                    <h4 className='username-text'>{sessionUserName}</h4>
+                                                    <Link to={`/users/${post.userId}/posts`}>
+                                                        <img src={sessionProfilePhoto} className='profile-photo'/>
+                                                    </Link>
+                                                    <Link to={`/users/${post.userId}/posts`}>
+                                                        <h4 className='username-text'>{sessionUserName}</h4>
+                                                    </Link>
                                                 </div>
                                                 <div className='caption-field'>
-                                                    <img src={sessionProfilePhoto} className='profile-photo'/>
-                                                    <h4 className='username-text-before-caption'>{sessionUserName}</h4>
+                                                    <Link to={`/users/${post.userId}/posts`}>
+                                                        <img src={sessionProfilePhoto} className='profile-photo'/>
+                                                    </Link>
+                                                    <Link to={`/users/${post.userId}/posts`}>
+                                                        <h4 className='username-text-before-caption'>{sessionUserName}</h4>
+                                                    </Link>
                                                     <p className='caption-text'>{targetCaption}</p>
-                                                    <div >
+                                                <div >
                                                     {postComments && postComments.map((eachComment) => {
                                                         if (eachComment.postId == postId) {
                                                             return (
                                                                 <div className='user-responses'>
-                                                                    <img src={eachComment.photo} className='profile-photo'/>
-                                                                    <h4 className='other-users-who-commented'>{eachComment.username}</h4>
+                                                                    <Link to={`/users/${post.userId}/posts`}>
+                                                                        <img src={eachComment.photo} className='profile-photo'/>
+                                                                    </Link>
+                                                                    <Link to={`/users/${post.userId}/posts`}>
+                                                                        <h4 className='other-users-who-commented'>{eachComment.username}</h4>
+                                                                    </Link>
                                                                     <p className='username-comment'>{eachComment.content}</p>
                                                                 </ div>
                                                             )
                                                         } 
                                                     })}
-                                                    </div>
                                                 </div>
-                                                <p className='like-message-field'>I am likes/messages</p>
+                                            </div>
+                            
+                                                <div className='like-message-field'>
+                                                    <div className='favorite-icon'>
+                                                        {postLikeObj[post.id] ? (
+                                                            <FavoriteBorder
+                                                            className="liked"
+                                                            // onClick={postLikeToggle}
+                                                            id={post.id}
+                                                            />
+                                                            ) : (
+                                                            <FavoriteBorder
+                                                            // onClick={postLikeToggle}
+                                                            id={post.id}
+                                                            />
+                                                        )}
+                                                    </div>
+                                                    <div className='main-icon'>
+                                                        <MailOutline />
+                                                    </div>
+                                                    <div className='chat-bubble-icon'>
+                                                        <ChatBubbleOutline />
+                                                    </div>
+                                                    <p className='display-time'>{getCreatedAt}</p>
+                                                </div>
                                                 <div className='add-comment-field'>
                                                     <textarea 
                                                         className='comment-text-area' 
@@ -144,7 +198,6 @@ const UserProfile = () => {
                         )
                     }   
                 })}
-
             </div>
         </div>
         </>

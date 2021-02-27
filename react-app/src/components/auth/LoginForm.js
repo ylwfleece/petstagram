@@ -86,7 +86,7 @@ const LoginForm = ({ authenticated, setAuthenticated }) => {
         <div>
           <div className='container redirect-container'>
             <p>Don't have an account? <nobr><a href='/sign-up'>Sign up</a></nobr></p>
-            <p>Use a demo account? <nobr><a onClick={onLoginDemo}>Demo</a></nobr></p>
+            <p>Use a demo account? <nobr><a onClick={onLoginDemo} className='demo-link'>Demo</a></nobr></p>
           </div>
         </div>
       </div>
