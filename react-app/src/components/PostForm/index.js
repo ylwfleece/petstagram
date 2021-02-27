@@ -50,7 +50,7 @@ const PostForm = ({ authenticated, setAuthenticated }) => {
             <div className='flex-container' style={{ justifyContent: 'center' }}>
               <form onSubmit={onPost}>
                 <div className='flex-container' style={{ justifyContent: 'center' }}>
-                  <div className='normalize-text' className='file-input' >
+                  <div className='normalize-text file-input' >
                     <label
                       className='upload-button'
                       onClick={() => fileInput.current.click()}
