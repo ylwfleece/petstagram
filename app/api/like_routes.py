@@ -92,3 +92,11 @@ def create_post_likes(post_id):
     db.session.add(post_likes)
     db.session.commit()
     return post_info(post_likes)
+
+
+@like_routes.route('/posts/delete/<int:post_id>', methods=['POST'])
+def delete_post_likes(post_id):
+    like = Like.query.filter_by(postId=post_id, userId=current_user.id).first()
+    db.session.delete(like)
+    db.session.commit()
+    return "deleted like on post"

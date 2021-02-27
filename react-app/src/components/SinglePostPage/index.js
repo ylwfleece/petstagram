@@ -2,7 +2,12 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams, Link } from "react-router-dom";
 import { fetchComments } from "../../store/comments";
-import { createPostLikes, getAllLikes } from "../../store/likes";
+import {
+  createCommentLikes,
+  createPostLikes,
+  getAllLikes,
+  deletePostLikes,
+} from "../../store/likes";
 import {
   FavoriteBorder,
   MailOutline,
@@ -16,7 +21,7 @@ function SinglePostPage() {
   const comments = useSelector((state) => state.comments);
   const user = useSelector((state) => state.session.user);
   const posts = useSelector((state) => state.posts);
-  const likes = useSelector((state) => state.likes.likes);
+  const likes = useSelector((state) => state.likes);
   const [trigger, setTrigger] = useState(false);
   let { postId } = useParams();
   postId = parseInt(postId, 10);
@@ -58,7 +63,7 @@ function SinglePostPage() {
       }
     }
   }
-  const likeToggle = (e) => {
+  const postLikeToggle = (e) => {
     console.log("etarget", typeof e.target.id);
     let id = parseInt(e.target.id, 10);
     let likeExists = false;
@@ -69,16 +74,29 @@ function SinglePostPage() {
             likeExists = true;
           }
         }
+        console.log("likeExists", likeExists);
         if (!likeExists) {
           dispatch(createPostLikes(parseInt(e.target.id, 10)));
           setTrigger(true);
         }
-        // if (likeExists) {
-        //   dispatch(deletePostLikes(parseInt(e.target.id, 10)));
-        // }
+        if (likeExists) {
+          dispatch(deletePostLikes(parseInt(e.target.id, 10)));
+        }
       }
     }
   };
+  let commentLikeObj = {};
+  if (likes) {
+    commentsArr.forEach((comment) => {
+      commentLikeObj[comment.id] = false;
+      likes.forEach((like) => {
+        if (like.userId == user.id && like.commentId == comment.id) {
+          commentLikeObj[comment.id] = true;
+        }
+      });
+    });
+  }
+  const commentLikeToggle = (e) => {};
 
   return (
     <div>
@@ -119,12 +137,12 @@ function SinglePostPage() {
               <div className="icons-container">
                 {likedPost ? (
                   <FavoriteBorder
-                    onClick={likeToggle}
+                    onClick={postLikeToggle}
                     id={post.id}
                     className="liked"
                   />
                 ) : (
-                  <FavoriteBorder onClick={likeToggle} id={post.id} />
+                  <FavoriteBorder onClick={postLikeToggle} id={post.id} />
                 )}
               </div>
               <div className="icons-container">
@@ -211,7 +229,15 @@ function SinglePostPage() {
                       className="icons-container"
                       style={{ margin: "0 12px 0 24px", alignSelf: "center" }}
                     >
-                      <FavoriteBorder />
+                      {" "}
+                      {commentLikeObj[comment.id] ? (
+                        <FavoriteBorder
+                          className="liked"
+                          onClick={commentLikeToggle}
+                        />
+                      ) : (
+                        <FavoriteBorder onClick={commentLikeToggle} />
+                      )}
                     </div>
                   </div>
                 ))}

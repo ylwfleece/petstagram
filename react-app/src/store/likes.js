@@ -54,6 +54,7 @@ export const getPostLikes = (id) => async (dispatch) => {
   return likes;
 };
 export const createPostLikes = (id) => async (dispatch) => {
+  console.log("running postlikes");
   let likes = await fetch(`/api/likes/posts/${id}`, {
     method: "POST",
   });
@@ -62,14 +63,13 @@ export const createPostLikes = (id) => async (dispatch) => {
   // dispatch(getPostLikes(id));
   return likes;
 };
-// export const deletePostLikes = (id) => async (dispatch) => {
-//   let likes = await fetch(`/api/likes/posts/${id}`, {
-//     method: "POST",
-//   });
-//   likes = await likes.json();
-//   dispatch(makePostLikes(likes));
-//   return likes;
-// };
+export const deletePostLikes = (id) => async (dispatch) => {
+  let likes = await fetch(`/api/likes/posts/delete/${id}`, {
+    method: "POST",
+  });
+  dispatch(getAllLikes());
+  return likes;
+};
 export const createCommentLikes = (id) => async (dispatch) => {
   let likes = await fetch(`/api/likes/comments/${id}`);
   likes = await likes.json();
