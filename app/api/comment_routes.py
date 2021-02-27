@@ -77,3 +77,11 @@ def createComment(post_id):
 #     db.session.commit
 #     return
 # {"postId": "6", "userId": 22, "content": "Great" }
+
+@comment_routes.route('/<int:comment_id>', methods=["DELETE"])
+def delete_comment(comment_id):
+    target_comment = Comment.query.filter(Comment.id == comment_id).first()
+    db.session.remove(target_comment)
+    db.session.commit()
+
+    return {'commentId': comment_id, 'postId': Comment.postId, 'userId': current_user.id}

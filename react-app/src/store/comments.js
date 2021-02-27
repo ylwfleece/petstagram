@@ -1,5 +1,6 @@
 const ADD_A_COMMENT = "comments/ADD_A_COMMENT";
 const FETCH_ALL_COMMENTS = "comments/FETCH_ALL_COMMENTS";
+const DELETE_A_COMMENT = "comments/DELETE_A_COMMENT"
 
 const addComment = (payload) => ({
   type: ADD_A_COMMENT,
@@ -10,6 +11,12 @@ const fetchAllComments = (payload) => ({
   type: FETCH_ALL_COMMENTS,
   payload,
 });
+
+const deleteComment = (commentId) => ({
+  type: DELETE_A_COMMENT,
+  commentId,
+})
+
 //actions
 export const postComment = (userId, postId) => {
   return async (dispatch) => {
@@ -29,6 +36,18 @@ export const fetchComments = () => {
     dispatch(fetchAllComments(responseJSON.comments));
   };
 };
+
+export const deleteCommentById = (commentId) => async dispatch => {
+  const res = await fetch(`/api/comments/${commentId}`, {
+    method: "DELETE",
+  })
+
+  if (res.ok) {
+    const comment = await res.json()
+    dispatch(deleteComment(comment.commentId))
+  }
+}
+
 //reducer
 const initialState = [];
 
@@ -43,6 +62,9 @@ function commentsReducer(state = initialState, action) {
       newState = Object.assign({}, state);
       newState = action.payload;
       return newState;
+    case DELETE_A_COMMENT:
+      newState = [...state]
+      delete newState[action.commentId - 1]
     default:
       return state;
   }
