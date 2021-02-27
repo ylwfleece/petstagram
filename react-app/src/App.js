@@ -9,15 +9,16 @@ import CommentsPage from "./components/CommentsPage";
 import SinglePostPage from "./components/SinglePostPage";
 import UsersList from "./components/UsersList";
 import User from "./components/User";
-import UserProfile from "./components/UserProfile"
-import SearchResults from './components/SearchResults';
+import UserProfile from "./components/UserProfile";
+import SearchResults from "./components/SearchResults";
 import PostForm from "./components/PostForm";
-import MainFeed from './components/MainFeed'
+import CommentLikeModal from "./components/LikesModal";
+import MainFeed from "./components/MainFeed";
 import { authenticate } from "./services/auth";
 import { useDispatch } from "react-redux";
 import { getPostsForUser } from "./store/posts";
-import { addUser } from './store/session';
-import { fetchComments } from './store/comments';
+import { addUser } from "./store/session";
+import { fetchComments } from "./store/comments";
 
 function App() {
   const [authenticated, setAuthenticated] = useState(false);
@@ -31,7 +32,7 @@ function App() {
         setAuthenticated(true);
         dispatch(addUser(user));
         dispatch(getPostsForUser());
-        dispatch(fetchComments())
+        dispatch(fetchComments());
       }
       setLoaded(true);
     })();
@@ -101,9 +102,21 @@ function App() {
             <NavBar setAuthenticated={setAuthenticated} />
             <MainFeed />
           </ProtectedRoute>
-          <ProtectedRoute path="/search-results" exact={true} authenticated={authenticated}>
+          <ProtectedRoute
+            path="/search-results"
+            exact={true}
+            authenticated={authenticated}
+          >
             <NavBar setAuthenticated={setAuthenticated} />
             <SearchResults />
+          </ProtectedRoute>
+          <ProtectedRoute
+            path="/likes/comments/:id"
+            exact={true}
+            authenticated={authenticated}
+          >
+            <NavBar setAuthenticated={setAuthenticated} />
+            <CommentLikeModal />
           </ProtectedRoute>
           <Route path="/comments">
             <CommentsPage />

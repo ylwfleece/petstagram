@@ -8,32 +8,48 @@ from app.models import Comment, Post, Like, db
 like_routes = Blueprint('likes', __name__)
 
 
-@like_routes.route('/comments/<int:comment_id>')
-def get_comment_likes(comment_id):
-    comment_likes = Like.query.filter_by(commentId=comment_id).all()
+@like_routes.route('/')
+def get_all_likes():
+    likes = Like.query.all()
 
-    def comment_info(self):
+    def comment_info(self, username, profilePhoto):
         return {
             "id": self.id,
             "userId": self.userId,
             "postId": self.postId,
-            "commentId": self.commentId
+            "commentId": self.commentId,
+            "username": username,
+            "profilePhoto": profilePhoto
         }
-    return {"comment_likes": [comment_info(comment_like) for comment_like in comment_likes]}
+    return {"likes": [comment_info(like, like.user.username, like.user.profilePhotoUrl) for like in likes]}
 
 
-@like_routes.route('/posts/<int:post_id>')
-def get_post_likes(post_id):
-    post_likes = Like.query.filter_by(postId=post_id).all()
+# @like_routes.route('/comments/<int:comment_id>')
+# def get_comment_likes(comment_id):
+#     comment_likes = Like.query.filter_by(commentId=comment_id).all()
 
-    def post_info(self):
-        return {
-            "id": self.id,
-            "userId": self.userId,
-            "postId": self.postId,
-            "commentId": self.commentId
-        }
-    return {"post_likes": [post_info(post_like) for post_like in post_likes]}
+#     def comment_info(self):
+#         return {
+#             "id": self.id,
+#             "userId": self.userId,
+#             "postId": self.postId,
+#             "commentId": self.commentId
+#         }
+#     return {"comment_likes": [comment_info(comment_like) for comment_like in comment_likes]}
+
+
+# @like_routes.route('/posts/<int:post_id>')
+# def get_post_likes(post_id):
+#     post_likes = Like.query.filter_by(postId=post_id).all()
+
+#     def post_info(self):
+#         return {
+#             "id": self.id,
+#             "userId": self.userId,
+#             "postId": self.postId,
+#             "commentId": self.commentId
+#         }
+#     return {"post_likes": [post_info(post_like) for post_like in post_likes]}
 
 
 @like_routes.route('/comments/<int:comment_id>', methods=['POST'])
@@ -48,7 +64,7 @@ def create_comment_likes(comment_id):
 
     comment_likes = Like(
         # needs thunk logic
-        userId=req.body.userId,
+        userId=current_user.id,
         postId=None,
         commentId=comment_id
     )
@@ -69,10 +85,27 @@ def create_post_likes(post_id):
 
     post_likes = Like(
         # needs thunk logic
-        userId=req.body.userId,
+        userId=current_user.id,
         postId=post_id,
         commentId=None
     )
     db.session.add(post_likes)
     db.session.commit()
     return post_info(post_likes)
+
+
+@like_routes.route('/posts/delete/<int:post_id>', methods=['POST'])
+def delete_post_likes(post_id):
+    like = Like.query.filter_by(postId=post_id, userId=current_user.id).first()
+    db.session.delete(like)
+    db.session.commit()
+    return "deleted like on post"
+
+
+@like_routes.route('/comments/delete/<int:comment_id>', methods=['POST'])
+def delete_comment_likes(comment_id):
+    like = Like.query.filter_by(
+        commentId=comment_id, userId=current_user.id).first()
+    db.session.delete(like)
+    db.session.commit()
+    return "deleted like on comment"
