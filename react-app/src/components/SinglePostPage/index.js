@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams, Link, useHistory } from "react-router-dom";
-import { fetchComments } from "../../store/comments";
+import { fetchComments, deleteComment } from "../../store/comments";
 import { deletePost } from "../../store/posts";
 import {
   createCommentLikes,
@@ -111,7 +111,7 @@ function SinglePostPage() {
 
   const history = useHistory();
 
-  const onDelete = (e) => {
+  const onDeletePost = (e) => {
       console.log(e.currentTarget.id)
       let id = parseInt(e.currentTarget.id, 10)
       console.log(id)
@@ -120,6 +120,17 @@ function SinglePostPage() {
         history.push('/')
       }
   }
+
+  const onDeleteComment = (e) => {
+    console.log(e.target.id)
+    console.log(e.currentTarget.id)
+    let id = parseInt(e.currentTarget.id, 10)
+    console.log(id)
+    if (!isNaN(id)) {
+      dispatch(deleteComment(id))
+    //   history.push('/')
+    }
+}
 
   
 
@@ -176,9 +187,12 @@ function SinglePostPage() {
               <div className="icons-container">
                 <ChatBubbleOutline />
               </div>
-              <div className="icons-container">
-                <DeleteIcon id={post.id} onClick={onDelete} />
-              </div>
+              {post.userId == user.id &&
+                  <div className="icons-container">
+                    <DeleteIcon id={post.id} onClick={onDeletePost} />
+                </div>
+              }
+              
             </div>
             <div className="caption-section">
               <div className="username-comments-container">
@@ -270,6 +284,9 @@ function SinglePostPage() {
                           id={comment.id}
                         />
                       )}
+                      {comment.userId == user.id &&
+                        <DeleteIcon id={comment.id} onClick={onDeleteComment} />
+                      }
                     </div>
                   </div>
                 ))}

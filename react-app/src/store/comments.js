@@ -46,7 +46,13 @@ export const fetchComments = () => {
     dispatch(fetchAllComments(responseJSON.comments));
   };
 };
-//reducer
+
+export const deleteComment = (commentId) => async (dispatch) => {
+  const res = await fetch(`/api/comments/delete/${commentId}`);
+  dispatch(fetchComments());
+  return 'deleted comment ' + commentId; 
+}
+
 const initialState = [];
 
 function commentsReducer(state = initialState, action) {

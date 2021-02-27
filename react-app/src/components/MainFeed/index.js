@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams, Link } from "react-router-dom"
-import { fetchComments } from '../../store/comments'
+import { useParams, Link, useHistory } from "react-router-dom"
+import { fetchComments, deleteComment } from '../../store/comments'
 import { FavoriteBorder, MailOutline, ChatBubbleOutline } from '@material-ui/icons'
+import DeleteIcon from '@material-ui/icons/Delete'
+import { deletePost } from '../../store/posts'
 import './MainPage.css'
 import TimeAgo from 'react-timeago'
 import {
@@ -81,10 +83,25 @@ function MainFeed() {
         }
     };
 
-
-
-
-
+    const onDeletePost = (e) => {
+        console.log(e.currentTarget.id)
+        let id = parseInt(e.currentTarget.id, 10)
+        console.log(id)
+        if (!isNaN(id)) {
+          dispatch(deletePost(id))
+        }
+    }
+  
+    // const onDeleteComment = (e) => {
+    //   console.log(e.target.id)
+    //   console.log(e.currentTarget.id)
+    //   let id = parseInt(e.currentTarget.id, 10)
+    //   console.log(id)
+    //   if (!isNaN(id)) {
+    //     dispatch(deleteComment(id))
+    //   //   history.push('/')
+    //   }
+    // }
 
     return (<div>
             {posts &&
@@ -120,12 +137,19 @@ function MainFeed() {
                                 id={post.id}
                                 />
                             )}
+                            {console.log(post.id, user.id)}
+                            
                             </div>
                             <div className='icons-container'>
                                 <MailOutline />
                             </div>
                             <div className='icons-container'>
                                 <ChatBubbleOutline />
+                            </div>
+                            <div className='icons-container'>
+                                {post.userId == user.id &&
+                                    <DeleteIcon id={post.id} onClick={onDeletePost} />
+                                }
                             </div>
                         </div>
                         <div className='caption-section'>
@@ -185,6 +209,7 @@ function MainFeed() {
                                                         id={comment.id}
                                                         />
                                                     )}
+
                                                 </div>
                                             </div>
                                     )
