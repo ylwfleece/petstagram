@@ -72,3 +72,15 @@ def create_post():
         db.session.commit()
         return jsonify(post.to_dict([s3_photo_url], 0, current_user.profilePhotoUrl, current_user.username))
     return {'errors': validation_errors_to_error_messages(form.errors)}
+
+
+@post_routes.route('/<int:post_id>', methods=["DELETE"])
+@login_required
+def delete_post(post_id):
+    post = Post.query.filter(id == post_id).first()
+    if post.userId == current_user.id:
+        db.session.delete(post)
+        db.session.commit()
+        return 'delete post'
+    else:
+        return 'not allowed to delete this post'

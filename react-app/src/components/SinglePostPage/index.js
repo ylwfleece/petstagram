@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams, Link } from "react-router-dom";
 import { fetchComments } from "../../store/comments";
+import { deletePost } from "../../store/posts";
 import {
   createCommentLikes,
   createPostLikes,
@@ -14,6 +15,7 @@ import {
   MailOutline,
   ChatBubbleOutline,
 } from "@material-ui/icons";
+import DeleteIcon from '@material-ui/icons/Delete';
 import "./SinglePostPage.css";
 import TimeAgo from "react-timeago";
 
@@ -107,6 +109,10 @@ function SinglePostPage() {
     }
   };
 
+  const onDelete = (e) => {
+      dispatch(deletePost(e.target.id))
+  }
+
   return (
     <div>
       {post && (
@@ -159,6 +165,9 @@ function SinglePostPage() {
               </div>
               <div className="icons-container">
                 <ChatBubbleOutline />
+              </div>
+              <div className="icons-container">
+                <DeleteIcon id={post.id} onClick={onDelete} />
               </div>
             </div>
             <div className="caption-section">

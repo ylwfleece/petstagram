@@ -54,6 +54,15 @@ export const createPost = (caption, photoFile) => async (dispatch) => {
   return post;
 };
 
+export const deletePost = (postId) => async (dispatch) => {
+  let res = await fetch(`/api/posts/${postId}`, {
+    method: "DELETE"
+  });
+  res = await res.json();
+  dispatch(getPostsForUser());
+  return res;
+}
+
 const initialState = [];
 
 const postsReducer = (state = initialState, action) => {
