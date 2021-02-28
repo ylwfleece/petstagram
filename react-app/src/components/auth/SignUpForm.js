@@ -14,7 +14,7 @@ const SignUpForm = ({ authenticated, setAuthenticated }) => {
   const [password, setPassword] = useState("");
   const [repeatPassword, setRepeatPassword] = useState("");
   const [profilePhotoFile, setProfilePhotoFile] = useState("");
-  const [selectedFile, setSelectedFile] = useState("Upload an Image")
+  const [selectedFile, setSelectedFile] = useState("Profile Image")
   const dispatch = useDispatch();
 
   const onSignUp = async (e) => {
@@ -47,7 +47,7 @@ const SignUpForm = ({ authenticated, setAuthenticated }) => {
   const updateProfilePhotoFile = (e) => {
     setProfilePhotoFile(e.target.files[0]);
     if (!e.target.files.length) {
-      setSelectedFile('Upload an Image')
+      setSelectedFile('Profile Image')
     } else {
       setSelectedFile(`${e.target.value.split('\\').pop()}`)
     }
@@ -109,9 +109,9 @@ const SignUpForm = ({ authenticated, setAuthenticated }) => {
                   className='upload-button'
                   onClick={() => fileInput.current.click()}
                 >
-                  <div className='flex-container' style={{ justifyContent: 'center', alignItems: 'center', margin: '0' }}>
+                  <div className='flex-container' style={{ justifyContent: 'center', alignItems: 'center', margin: '0', padding: '0 8px' }}>
                     <CloudUploadOutlined style={{ marginRight: '12px' }} />
-                    <h5 className='normalize-text' style={{ margin: '0' }}>{selectedFile}</h5>
+                    <h5 className='normalize-text' style={{ margin: '0', overflow: 'hidden' }}>{selectedFile}</h5>
                   </div>
                 </label>
                 <input
