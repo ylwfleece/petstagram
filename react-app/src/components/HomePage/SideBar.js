@@ -6,7 +6,7 @@ const SideBar = () => {
     const user = useSelector(state => state.session.user)
     return (user &&
         <div className='sidebar'>
-            <div className='user-display flex-left-container'>
+            <div className='flex-left-container'>
                 <div className='rounded-img-container'>
                     <Link to={`/users/${user.id}`}>
                         <img src={user.profilePhotoUrl} alt='profilepic' />
@@ -17,11 +17,13 @@ const SideBar = () => {
                         <h5 className='normalize-text redirect-profile' style={{ color: 'rgb(38, 38, 38)', fontWeight: '600' }}>{user.username}</h5>
                     </Link>
                     <div>
-
                         <p className='normalize-text'>{user.email}</p>
                     </div>
                 </div>
             </div>
+            {/* <div className='flex-container' style={{ padding: '12px' }}>
+                <h5>yes</h5>
+            </div> */}
         </div>
     )
 }
