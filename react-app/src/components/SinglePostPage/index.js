@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams, Link, useHistory } from "react-router-dom";
-import { fetchComments, deleteComment, editComment } from "../../store/comments";
+import { fetchComments, deleteComment, editComment, postComment } from "../../store/comments";
 import { deletePost, editPost } from "../../store/posts";
 import {
     createCommentLikes,
@@ -180,6 +180,18 @@ function SinglePostPage() {
     //     let id = parseInt(e.currentTarget.id, 10)
     //     console.log(id)
     // }
+
+    const [newComment, setNewComment] = useState('')
+
+    const updateNewComment = (e) => {
+        setNewComment(e.target.value)
+    }
+
+    const submitNewComment = (e) => {
+        console.log(e.target.id)
+        dispatch(postComment(e.target.id, newComment))
+        document.getElementById("new-comment-inp").value = ''
+    }
 
     return (
         <div>
@@ -376,6 +388,14 @@ function SinglePostPage() {
                                         </div>
                                     </div>
                                 ))}
+                                {
+                                    <>
+                                        <input id="new-comment-inp" onChange={updateNewComment} placeholder="add new comment"></input>
+                                        <div className="submit-comment-button-container">
+                                            <button id={post.id} className="blue-submit-button" onClick={submitNewComment}>submit comment</button>
+                                        </div>
+                                    </>
+                                }
                             </div>
                         )}
                     </div>

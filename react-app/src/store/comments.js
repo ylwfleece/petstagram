@@ -22,9 +22,10 @@ export const editComment = (commentId, comment) => async (dispatch) => {
 }
 
 export const postComment = (postId, content) => async (dispatch) => {
+    let id = parseInt(postId, 10);
     const formData = new FormData();
     formData.append("content", content);
-    let res = await fetch(`/api/comments/${postId}`, {
+    let res = await fetch(`/api/comments/${id}`, {
       method: "POST",
       body: formData,
     });
@@ -57,7 +58,7 @@ function commentsReducer(state = initialState, action) {
   let newState;
   switch (action.type) {
     case ADD_A_COMMENT:
-      newState = [...state, action.payload];
+      newState = [action.payload, ...state];
       return newState;
     case FETCH_ALL_COMMENTS:
       newState = Object.assign({}, state);
