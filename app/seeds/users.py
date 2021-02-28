@@ -5,19 +5,21 @@ from faker import Faker
 
 fake = Faker()
 
+jpegs = [6, 14, 17, 18]
+
 
 def seed_users(n):
-
     for i in range(n):
+        file_type = 'jpg'
+        if i in jpegs:
+            file_type = 'jpeg'
         entry = User(
             username=fake.user_name(), email=fake.ascii_email(),
-            password=f'password{i}', profilePhotoUrl='http://petstagram-top-25.s3.amazonaws.com/default_profile.jpeg'
+            password=f'password{i}', profilePhotoUrl=f'http://petstagram-top-25.s3.amazonaws.com/person-{i}.{file_type}'
         )
         db.session.add(entry)
-
     demo = User(username='Demo', email='demo@aa.io',
                 password='password', profilePhotoUrl='http://petstagram-top-25.s3.amazonaws.com/default_profile.jpeg')
-
     db.session.add(demo)
     db.session.commit()
 

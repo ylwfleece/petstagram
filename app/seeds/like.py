@@ -7,14 +7,17 @@ fake = Faker()
 
 
 def seed_likes(n):
-    for _ in range(n):
+    for i in range(n):
+        if (i+1) % 2 == 0:
+            post_id = i+1
+            comment_id = None
+        else:
+            post_id = None
+            comment_id = i+1
         entry = Like(
-            userId=random.randint(1, 20), postId=random.randint(1, 20), commentId=1
+            userId=random.randint(1, 20), postId=post_id, commentId=comment_id
         )
         db.session.add(entry)
-    post1 = Like(userId=1, postId=1, commentId=1)
-
-    db.session.add(post1)
     db.session.commit()
 
 
