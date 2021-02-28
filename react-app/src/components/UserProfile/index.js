@@ -24,6 +24,7 @@ Modal.setAppElement('body');
 const UserProfile = () => {
     console.log(useParams())
     const dispatch = useDispatch();
+    const sessionUserId = useSelector(state => state.session.user.id);
     const sessionUserName = useSelector(state => state.session.user.username);
     const sessionProfilePhoto = useSelector(state => state.session.user.profilePhotoUrl);
     const postComments = useSelector(state => state.comments)
@@ -51,13 +52,26 @@ const UserProfile = () => {
         setIsOpen(false);
     };
 
-    const userImageLinks = userPosts.map(eachPicture => {
-        return eachPicture.imageLinks;
-    });
-    const userImageIdMap = userPosts.map(eachPicture => {
-        return eachPicture.userId;
+    // const filteredPosts = userPosts.filter(post => {
+    //     return post.userId === sessionUserId;
+    // });
+
+    let filteredPosts = [];
+    userPosts.forEach(post => {
+        if (post.userId === sessionUserId) {
+            console.log(post.userId, sessionUserId)
+            filteredPosts.push(post)
+        }
+    })
+    console.log(filteredPosts)
+
+    const userImageLinks = filteredPosts.map(post => {
+        return post.imageLinks;
     });
 
+    const userImageIdMap = filteredPosts.map(post => {
+        return post.userId;
+    });
 
     const userImageId = userImageIdMap[0];
     console.log(userImageId)
@@ -83,7 +97,7 @@ const UserProfile = () => {
         <div className='center-me'>
             <div className='post-container'>
                 {!userImageLinks && <h3>You have no posts yet!</h3>}
-                {userPosts && userPosts.map(post => {
+                {filteredPosts && filteredPosts.map(post => {
                     if (userUrlId.id == userImageId) {
                         return (
                             <>

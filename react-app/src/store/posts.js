@@ -86,7 +86,7 @@ const postsReducer = (state = initialState, action) => {
     case CREATE_POST:
       newState = [...state]
       if(newState){
-          newState.push(action.payload); 
+          newState.unshift(action.payload); 
           return newState; 
       }
       else{
