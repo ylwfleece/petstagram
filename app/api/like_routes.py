@@ -8,7 +8,7 @@ from app.models import Comment, Post, Like, db
 like_routes = Blueprint('likes', __name__)
 
 
-@like_routes.route('/')
+@like_routes.route('/', methods=["GET"])
 def get_all_likes():
     likes = Like.query.all()
 
@@ -53,6 +53,7 @@ def get_all_likes():
 
 
 @like_routes.route('/comments/<int:comment_id>', methods=['POST'])
+@login_required
 def create_comment_likes(comment_id):
     def comment_info(self):
         return {
@@ -74,6 +75,7 @@ def create_comment_likes(comment_id):
 
 
 @like_routes.route('/posts/<int:post_id>', methods=['POST'])
+@login_required
 def create_post_likes(post_id):
     def post_info(self):
         return {
@@ -95,6 +97,7 @@ def create_post_likes(post_id):
 
 
 @like_routes.route('/posts/delete/<int:post_id>', methods=['POST'])
+@login_required
 def delete_post_likes(post_id):
     like = Like.query.filter_by(postId=post_id, userId=current_user.id).first()
     db.session.delete(like)
@@ -103,6 +106,7 @@ def delete_post_likes(post_id):
 
 
 @like_routes.route('/comments/delete/<int:comment_id>', methods=['POST'])
+@login_required
 def delete_comment_likes(comment_id):
     like = Like.query.filter_by(
         commentId=comment_id, userId=current_user.id).first()
