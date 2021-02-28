@@ -388,16 +388,17 @@ function SinglePostPage() {
                                         </div>
                                     </div>
                                 ))}
-                                {
-                                    <>
-                                        <input id="new-comment-inp" onChange={updateNewComment} placeholder="add new comment"></input>
-                                        <div className="submit-comment-button-container">
-                                            <button id={post.id} className="blue-submit-button" onClick={submitNewComment}>submit comment</button>
-                                        </div>
-                                    </>
-                                }
+                                
                             </div>
                         )}
+                        {
+                        <>
+                            <input id="new-comment-inp" onChange={updateNewComment} placeholder="add new comment"></input>
+                            <div className="submit-comment-button-container">
+                                <button id={post.id} className="blue-submit-button" onClick={submitNewComment}>submit comment</button>
+                            </div>
+                        </>
+                        }
                     </div>
                 </div>
             )}
