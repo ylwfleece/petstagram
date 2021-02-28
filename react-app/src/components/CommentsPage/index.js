@@ -1,35 +1,9 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-
-import { fetchComments, postComment } from "../../store/comments";
+import React from "react";
+import { useSelector } from "react-redux";
 
 function CommentsPage() {
   const comments = useSelector((state) => state.comments);
-  const user = useSelector((state) => state.session.user);
-  const posts = useSelector((state) => state.posts)
-
-  // const post;
-
-  // if(posts){
-  //   if(posts.length){
-  //       console.log("Testing nested state", posts[7])
-  //       console.log("Testing nested state, image links", posts[7].imageLinks)
-  //   }
-  // }
-
-  // const posts = useSelector((state) => state.posts);
-  // const post = useSelector((state) => state.posts.onePost);
-
-  const dispatch = useDispatch();
-
-  // useEffect(() => {
-  //   dispatch(fetchComments(posts.id));
-  //   // dispatch(fetchOnePost());
-  // }, [dispatch]);
-
-  // const commentContent = ({ prop }) => {
-  //   return <div>{prop.content}</div>;
-  // };
+ 
   return (
     <>
       {comments && (
@@ -44,13 +18,7 @@ function CommentsPage() {
     </>
   );
 
-  // return (
-  //   <>
-  //     <div>"hello"</div>
-  //   </>
-  // );
-  //also include the useSelector for post to display the post on this page as
-  // well
+
 }
 
 export default CommentsPage;

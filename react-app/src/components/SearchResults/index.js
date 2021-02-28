@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from "react";
-import { Redirect, useHistory } from 'react-router-dom';
+import React, { useEffect} from "react";
 // import './SignUpForm.css'
-import petstagramlogo from '../NavBar/petstagramlogo.png'
+
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 // import {createPost} from '../../store/posts'
@@ -13,23 +12,16 @@ const SearchResults = ({ authenticated, setAuthenticated }) => {
 
   const dispatch = useDispatch();
 
-  const currentUser = useSelector(state => state.session.user)
   const searchResults = useSelector(state => state.search);
   const follows = useSelector(state => state.follows);
   const followIds = follows.map(follow => follow.id);
 
   const followUser = async (e) => {
-    console.log(e.target.id);
     dispatch(addFollow(e.target.id))
   }
   const unfollowUser = async (e) => {
-    console.log(e.target.id)
     dispatch(unfollow(e.target.id))
   }
-
-  useEffect(() => {
-    console.log('useeffect triggered')
-  }, [dispatch])
 
   return (
     <div className='homepage'>

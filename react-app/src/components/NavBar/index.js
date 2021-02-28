@@ -24,8 +24,8 @@ const NavBar = ({ setAuthenticated }) => {
 
   const onSearch = async (e) => {
     e.preventDefault();
-    const searchResults = dispatch(searchUsers(searchTerm));
-    const follows = dispatch(getFollowsForUser());
+    dispatch(searchUsers(searchTerm));
+    dispatch(getFollowsForUser());
     history.push('/search-results')
   }
 

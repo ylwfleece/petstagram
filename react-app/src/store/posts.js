@@ -55,15 +55,13 @@ export const createPost = (caption, photoFile) => async (dispatch) => {
 };
 
 export const deletePost = (postId) => async (dispatch) => {
-  console.log(postId)
-  let res = await fetch(`/api/posts/delete/${postId}`);
+  await fetch(`/api/posts/delete/${postId}`);
   dispatch(getPostsForUser());
   return 'deleted post ' + postId;
 }
 
 export const editPost = (postId, caption) => async (dispatch) => {
-  console.log("postId: ", postId, "caption: ", caption)
-  let res = await fetch(`/api/posts/edit/${postId}`, {
+  await fetch(`/api/posts/edit/${postId}`, {
     method: "POST",
     body: caption,
   });

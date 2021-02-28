@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Redirect } from "react-router-dom";
-import { demo, login } from "../../services/auth";
+import { login } from "../../services/auth";
 import './LoginForm.css'
 import petstagramlogo from '../NavBar/petstagramlogo.png'
 import { useDispatch } from 'react-redux'

@@ -1,5 +1,5 @@
 import React, { useState, useRef } from "react";
-import { Redirect, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import './PostForm.css'
 import petstagramlogo from '../NavBar/petstagramlogo.png'
 import { CloudUploadOutlined } from '@material-ui/icons'
@@ -16,7 +16,7 @@ const PostForm = ({ authenticated, setAuthenticated }) => {
 
   const onPost = async (e) => {
     e.preventDefault();
-    const post = dispatch(createPost(caption, photoFile));
+    dispatch(createPost(caption, photoFile));
     history.push('/')
   };
 
