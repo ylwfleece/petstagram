@@ -22,9 +22,10 @@ export const editComment = (commentId, comment) => async (dispatch) => {
 }
 
 export const postComment = (postId, content) => async (dispatch) => {
+    let id = parseInt(postId, 10);
     const formData = new FormData();
     formData.append("content", content);
-    let res = await fetch(`/api/comments/${postId}`, {
+    let res = await fetch(`/api/comments/${id}`, {
       method: "POST",
       body: formData,
     });
