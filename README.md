@@ -96,3 +96,10 @@ This is the backend for the Flask React project.
 10. Under Settings find "Config Vars" and add any additional/secret .env variables.
 
 11. profit
+
+## Technologies Used
+
+1. React/Redux
+2. Python
+3. Flask
+4. SQLAlchemy
