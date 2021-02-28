@@ -22,7 +22,6 @@ const customStyles = {
 Modal.setAppElement('body');
 
 const UserProfile = () => {
-    console.log(useParams())
     const dispatch = useDispatch();
     const sessionUserId = useSelector(state => state.session.user.id);
     const sessionUserName = useSelector(state => state.session.user.username);
@@ -59,11 +58,9 @@ const UserProfile = () => {
     let filteredPosts = [];
     userPosts.forEach(post => {
         if (post.userId === sessionUserId) {
-            console.log(post.userId, sessionUserId)
             filteredPosts.push(post)
         }
     })
-    console.log(filteredPosts)
 
     const userImageLinks = filteredPosts.map(post => {
         return post.imageLinks;
@@ -74,11 +71,9 @@ const UserProfile = () => {
     });
 
     const userImageId = userImageIdMap[0];
-    console.log(userImageId)
-    console.log(userUrlId.id)
+
     const handleCommentClick = (e) => {
         e.preventDefault();
-        console.log(comment)
         if (comment) {
             setErrors([]);
             setComment("")
@@ -98,7 +93,7 @@ const UserProfile = () => {
             <div className='post-container'>
                 {!userImageLinks && <h3>You have no posts yet!</h3>}
                 {filteredPosts && filteredPosts.map(post => {
-                    if (userUrlId.id == userImageId) {
+                    if (userUrlId.id === userImageId) {
                         return (
                             <>
                                 <div className='each-post'>
@@ -116,10 +111,10 @@ const UserProfile = () => {
                                         contentLabel="userPictureModal"
                                         >
                                             <div className='comments-modal'>
-                                                <img src={targetPhoto} className='modal-picture' />
+                                                <img src={targetPhoto} alt="post" className='modal-picture' />
                                                 <div className='username-field'>
                                                     <Link to={`/users/${post.userId}/posts`}>
-                                                        <img src={sessionProfilePhoto} className='profile-photo'/>
+                                                        <img src={sessionProfilePhoto} alt="profile" className='profile-photo'/>
                                                     </Link>
                                                     <Link to={`/users/${post.userId}/posts`}>
                                                         <h4 className='username-text'>{sessionUserName}</h4>
@@ -127,7 +122,7 @@ const UserProfile = () => {
                                                 </div>
                                                 <div className='caption-field'>
                                                     <Link to={`/users/${post.userId}/posts`}>
-                                                        <img src={sessionProfilePhoto} className='profile-photo'/>
+                                                        <img src={sessionProfilePhoto} alt="profile" className='profile-photo'/>
                                                     </Link>
                                                     <Link to={`/users/${post.userId}/posts`}>
                                                         <h4 className='username-text-before-caption'>{sessionUserName}</h4>
@@ -135,11 +130,11 @@ const UserProfile = () => {
                                                     <p className='caption-text'>{targetCaption}</p>
                                                 <div >
                                                     {postComments && postComments.map((eachComment) => {
-                                                        if (eachComment.postId == postId) {
+                                                        if (eachComment.postId === postId) {
                                                             return (
                                                                 <div className='user-responses'>
                                                                     <Link to={`/users/${post.userId}/posts`}>
-                                                                        <img src={eachComment.photo} className='profile-photo'/>
+                                                                        <img src={eachComment.photo} alt="profile" className='profile-photo'/>
                                                                     </Link>
                                                                     <Link to={`/users/${post.userId}/posts`}>
                                                                         <h4 className='other-users-who-commented'>{eachComment.username}</h4>

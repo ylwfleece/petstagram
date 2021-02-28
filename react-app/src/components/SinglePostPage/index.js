@@ -1,12 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams, Link, useHistory } from "react-router-dom";
-import { fetchComments, deleteComment, editComment, postComment } from "../../store/comments";
+import { deleteComment, editComment, postComment } from "../../store/comments";
 import { deletePost, editPost } from "../../store/posts";
 import {
     createCommentLikes,
     createPostLikes,
-    getAllLikes,
     deletePostLikes,
     deleteCommentLikes,
 } from "../../store/likes";
@@ -28,14 +27,6 @@ function SinglePostPage() {
     const likes = useSelector((state) => state.likes);
     let { postId } = useParams();
     postId = parseInt(postId, 10);
-
-    //   useEffect(() => {
-    //     //   if (!isNaN(postId)) {
-    //     //       console.log(postId)
-    //     //       dispatch(fetchComments(postId))
-    //     //   }
-    //     dispatch(getAllLikes());
-    //   }, [dispatch]);
 
     let post;
     if (posts) {
@@ -67,10 +58,8 @@ function SinglePostPage() {
         }
     }
     const postLikeToggle = (e) => {
-        console.log("etarget", e.target.id);
         let id = parseInt(e.target.id, 10);
         let likeExists = false;
-        console.log(likes)
         if (likes && !isNaN(id)) {
             if (likes.length) {
                 for (let i = 0; i < likes.length; i++) {
@@ -78,7 +67,6 @@ function SinglePostPage() {
                         likeExists = true;
                     }
                 }
-                console.log("likeExists", likeExists);
                 if (!likeExists) {
                     dispatch(createPostLikes(parseInt(e.target.id, 10)));
                 }
@@ -93,14 +81,14 @@ function SinglePostPage() {
         commentsArr.forEach((comment) => {
             commentLikeObj[comment.id] = false;
             likes.forEach((like) => {
-                if (like.userId == user.id && like.commentId == comment.id) {
+                if (like.userId === user.id && like.commentId === comment.id) {
                     commentLikeObj[comment.id] = true;
                 }
             });
         });
     }
     const commentLikeToggle = (e) => {
-        let id = parseInt(e.target.parent.id, 10);
+        let id = parseInt(e.currentTarget.id, 10);
         if (!isNaN(id)) {
             if (commentLikeObj[id]) {
                 dispatch(deleteCommentLikes(id));
@@ -113,9 +101,7 @@ function SinglePostPage() {
     const history = useHistory();
 
     const onDeletePost = (e) => {
-        console.log(e.currentTarget.id)
         let id = parseInt(e.currentTarget.id, 10)
-        console.log(id)
         if (!isNaN(id)) {
             dispatch(deletePost(id))
             history.push('/')
@@ -123,12 +109,9 @@ function SinglePostPage() {
     }
 
     const onDeleteComment = (e) => {
-        console.log(e.currentTarget.id)
         let id = parseInt(e.currentTarget.id, 10)
-        console.log(id)
         if (!isNaN(id)) {
             dispatch(deleteComment(id))
-            //   history.push('/')
         }
     }
 
@@ -137,7 +120,6 @@ function SinglePostPage() {
 
     const openEditPost = (e) => {
         setEditingPost(true);
-        console.log(e.currentTarget)
     }
 
     const updateCaption = (e) => {
@@ -145,10 +127,7 @@ function SinglePostPage() {
     }
 
     const submitEditPost = (e) => {
-        console.log(caption)
-        console.log(e.target)
         let id = parseInt(e.target.id, 10)
-        console.log(id)
         dispatch(editPost(id, caption))
         setEditingPost(false)
     }
@@ -158,9 +137,9 @@ function SinglePostPage() {
     const [targetCommentId, setTargetCommentId] = useState('')
 
     const openEditComment = (e) => {
-        setTargetCommentId(e.currentTarget.id)
+        const id =  parseInt(e.currentTarget.id, 10)
+        setTargetCommentId(id)
         setEditingComment(true);
-        console.log(e.currentTarget)
     }
 
     const updateComment = (e) => {
@@ -168,18 +147,12 @@ function SinglePostPage() {
     }
 
     const submitEditComment = (e) => {
-        console.log(comment)
-        console.log(e.target)
         let id = parseInt(e.target.id, 10)
-        console.log(id)
         dispatch(editComment(id, comment))
         setEditingComment(false)
     }
 
-    // const onEditComment = (e) => {
-    //     let id = parseInt(e.currentTarget.id, 10)
-    //     console.log(id)
-    // }
+
 
     const [newComment, setNewComment] = useState('')
 
@@ -188,7 +161,6 @@ function SinglePostPage() {
     }
 
     const submitNewComment = (e) => {
-        console.log(e.target.id)
         dispatch(postComment(e.target.id, newComment))
         document.getElementById("new-comment-inp").value = ''
     }
@@ -246,7 +218,7 @@ function SinglePostPage() {
                             <div className="icons-container">
                                 <ChatBubbleOutline />
                             </div>
-                            {post.userId == user.id &&
+                            {post.userId === user.id &&
                                 <div className="icons-container">
                                     <DeleteIcon id={post.id} onClick={onDeletePost} />
                                 </div>
@@ -265,16 +237,16 @@ function SinglePostPage() {
                                 {/* if it's our post and were not editing it yet, we should see our caption and the edit icon */}
                                 {/* if it's not our post and we're not editing it yet, we should see the caption and no edit icon */}
                                 {/* if it's our post and we're editing it, we should see the caption inside the input field and no edit icon */}
-                                {(!editingPost && (post.userId == user.id)) &&
+                                {(!editingPost && (post.userId === user.id)) &&
                                     <div>
                                         <p className="normalize-text caption">{post.caption}</p> 
                                         <EditIcon id={post.id} onClick={openEditPost} /> 
                                     </div>
                                 }
-                                {(!editingPost && (post.userId != user.id)) &&
+                                {(!editingPost && (post.userId !== user.id)) &&
                                      <p className="normalize-text caption">{post.caption}</p> 
                                 }
-                                {(editingPost && (post.userId == user.id)) &&
+                                {(editingPost && (post.userId === user.id)) &&
                                     <div>
                                         <input onChange={updateCaption} id={post.id} placeholder={post.caption}></input> 
                                         <button id={post.id} onClick={submitEditPost}>submit edit</button>
@@ -328,16 +300,16 @@ function SinglePostPage() {
                                                     {/* if it's our post and were not editing it yet, we should see our caption and the edit icon */}
                                                     {/* if it's not our post and we're not editing it yet, we should see the caption and no edit icon */}
                                                     {/* if it's our post and we're editing it, we should see the caption inside the input field and no edit icon */}
-                                                    {(!editingComment && (comment.userId == user.id)) &&
+                                                    {(!editingComment && (comment.userId === user.id)) &&
                                                         <div>
                                                             <p className="normalize-text caption">{comment.content}</p> 
                                                             <EditIcon id={comment.id} onClick={openEditComment} /> 
                                                         </div>
                                                     }
-                                                    {(!editingComment && (comment.userId != user.id)) &&
+                                                    {(!editingComment && (comment.userId !== user.id)) &&
                                                         <p className="normalize-text caption">{comment.content}</p> 
                                                     }
-                                                    {(editingComment && (comment.userId == user.id) && targetCommentId == comment.id) &&
+                                                    {(editingComment && (comment.userId === user.id) && targetCommentId === comment.id) &&
                                                         <div>
                                                             <input onChange={updateComment} id={comment.id} placeholder={comment.content}></input> 
                                                             <button id={comment.id} onClick={submitEditComment}>submit edit</button>

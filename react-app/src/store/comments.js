@@ -12,8 +12,7 @@ const fetchAllComments = (payload) => ({
 });
 
 export const editComment = (commentId, comment) => async (dispatch) => {
-  console.log("commentId: ", commentId, "comment: ", comment)
-  let res = await fetch(`/api/comments/edit/${commentId}`, {
+  await fetch(`/api/comments/edit/${commentId}`, {
     method: "POST",
     body: comment,
   });
@@ -38,7 +37,6 @@ export const fetchComments = () => {
   return async (dispatch) => {
     const response = await fetch(`/api/comments/`);
     const responseJSON = await response.json();
-    console.log("RESPONSE DATA", responseJSON);
     responseJSON.comments.sort((comment1, comment2) => {
       return Date.parse(comment1.createdAt) - Date.parse(comment2.createdAt)
     })
@@ -47,7 +45,7 @@ export const fetchComments = () => {
 };
 
 export const deleteComment = (commentId) => async (dispatch) => {
-  const res = await fetch(`/api/comments/delete/${commentId}`);
+  await fetch(`/api/comments/delete/${commentId}`);
   dispatch(fetchComments());
   return 'deleted comment ' + commentId; 
 }

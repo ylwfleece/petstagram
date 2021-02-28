@@ -22,12 +22,12 @@ const setAllLikes = (allLikes) => {
     payload: allLikes,
   };
 };
-const makeCommentLikes = (likes) => {
-  return {
-    type: MAKE_COMMENT_LIKES,
-    payload: likes,
-  };
-};
+// const makeCommentLikes = (likes) => {
+//   return {
+//     type: MAKE_COMMENT_LIKES,
+//     payload: likes,
+//   };
+// };
 const makePostLikes = (likes) => {
   return {
     type: MAKE_POST_LIKES,
@@ -37,8 +37,8 @@ const makePostLikes = (likes) => {
 export const getAllLikes = () => async (dispatch) => {
   let allLikes = await fetch(`/api/likes`);
   allLikes = await allLikes.json();
-  console.log("all likes", allLikes);
   dispatch(setAllLikes(allLikes));
+  return null;
 };
 
 export const getCommentLikes = (id) => async (dispatch) => {
@@ -54,7 +54,6 @@ export const getPostLikes = (id) => async (dispatch) => {
   return likes;
 };
 export const createPostLikes = (id) => async (dispatch) => {
-  console.log("running postlikes");
   let likes = await fetch(`/api/likes/posts/${id}`, {
     method: "POST",
   });
@@ -71,7 +70,7 @@ export const deletePostLikes = (id) => async (dispatch) => {
   return likes;
 };
 export const createCommentLikes = (id) => async (dispatch) => {
-  console.log("create a comment");
+
   let likes = await fetch(`/api/likes/comments/${id}`, {
     method: "POST",
   });

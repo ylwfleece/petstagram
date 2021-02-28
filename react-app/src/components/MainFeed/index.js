@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams, Link, useHistory } from "react-router-dom"
-import { fetchComments, deleteComment } from '../../store/comments'
+import {Link} from "react-router-dom"
 import { FavoriteBorder, MailOutline, ChatBubbleOutline, Favorite } from '@material-ui/icons'
 import DeleteIcon from '@material-ui/icons/Delete'
 import { deletePost } from '../../store/posts'
@@ -11,7 +10,6 @@ import SideBar from '../HomePage/SideBar'
 import {
     createCommentLikes,
     createPostLikes,
-    getAllLikes,
     deletePostLikes,
     deleteCommentLikes,
 } from "../../store/likes";
@@ -26,10 +24,9 @@ function MainFeed() {
 
     if (posts && comments) {
         commentsArr = posts.map((post) => {
-            let unfiltered = comments.filter(comment => comment.postId == post.id)
+            let unfiltered = comments.filter(comment => comment.postId === post.id)
             return unfiltered.slice(0, 3)
         })
-        console.log(commentsArr)
     }
 
     let postLikeObj = {};
@@ -37,7 +34,7 @@ function MainFeed() {
         posts.forEach((post) => {
             postLikeObj[post.id] = false;
             likes.forEach((like) => {
-                if (like.userId == user.id && like.postId == post.id) {
+                if (like.userId === user.id && like.postId === post.id) {
                     postLikeObj[post.id] = true;
                 }
             });
@@ -62,9 +59,8 @@ function MainFeed() {
             commentsArr.forEach((commentList) => {
                 commentList.forEach(comment => {
                     commentLikeObj[comment.id] = false;
-                    console.log(comment.id)
                     likes.forEach((like) => {
-                        if (like.userId == user.id && like.commentId == comment.id) {
+                        if (like.userId === user.id && like.commentId === comment.id) {
                             commentLikeObj[comment.id] = true;
                         }
                     });
@@ -84,24 +80,12 @@ function MainFeed() {
     };
 
     const onDeletePost = (e) => {
-        console.log(e.currentTarget.id)
         let id = parseInt(e.currentTarget.id, 10)
-        console.log(id)
         if (!isNaN(id)) {
             dispatch(deletePost(id))
         }
     }
 
-    // const onDeleteComment = (e) => {
-    //   console.log(e.target.id)
-    //   console.log(e.currentTarget.id)
-    //   let id = parseInt(e.currentTarget.id, 10)
-    //   console.log(id)
-    //   if (!isNaN(id)) {
-    //     dispatch(deleteComment(id))
-    //   //   history.push('/')
-    //   }
-    // }
 
     return (<>
         {posts &&
@@ -139,7 +123,6 @@ function MainFeed() {
                                                     id={post.id}
                                                 />
                                             )}
-                                        {console.log(post.id, user.id)}
 
                                     </div>
                                     <div className='icons-container'>
@@ -149,7 +132,7 @@ function MainFeed() {
                                         <ChatBubbleOutline />
                                     </div>
                                     <div className='icons-container'>
-                                        {post.userId == user.id &&
+                                        {post.userId === user.id &&
                                             <DeleteIcon id={post.id} onClick={onDeletePost} />
                                         }
                                     </div>
