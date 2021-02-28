@@ -58,7 +58,7 @@ function commentsReducer(state = initialState, action) {
   let newState;
   switch (action.type) {
     case ADD_A_COMMENT:
-      newState = [...state, action.payload];
+      newState = [action.payload, ...state];
       return newState;
     case FETCH_ALL_COMMENTS:
       newState = Object.assign({}, state);
