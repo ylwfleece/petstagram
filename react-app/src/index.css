@@ -131,7 +131,7 @@ img:active {
   border-radius: 50%;
   overflow: hidden;
   position: relative;
-  padding: 1px;
+  margin: 10px;
 }
 
 .rounded-img-container img {
