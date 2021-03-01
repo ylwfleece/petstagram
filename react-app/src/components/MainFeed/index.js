@@ -7,7 +7,6 @@ import DeleteIcon from '@material-ui/icons/Delete'
 import { deletePost, getPostsForUser } from '../../store/posts'
 import './MainPage.css'
 import TimeAgo from 'react-timeago'
-import SideBar from '../HomePage/SideBar'
 import {
     createCommentLikes,
     createPostLikes,
@@ -220,7 +219,6 @@ function MainFeed() {
                         )}
                     </div>
                 </div>
-                <SideBar />
             </div>
         }
     </>)
