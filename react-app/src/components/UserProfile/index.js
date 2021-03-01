@@ -60,7 +60,6 @@ const UserProfile = () => {
     userPosts.forEach(post => {
         if (post.userId == userUrlId.id) {
             filteredPosts.push(post)
-            console.log(filteredPosts)
         }
     })
 
