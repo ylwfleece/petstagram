@@ -43,13 +43,25 @@ function MainFeed() {
     }
 
     const postLikeToggle = (e) => {
-        let id = parseInt(e.target.id, 10);
+        console.log("toggling post like with target id:", e.target.id)
+        console.log('toggle post like w/ currentTarget id:', e.currentTarget.id)
+
+        let id;
+        if (e.target.id > 1 && e.target.id < 500) {
+            id = e.target.id
+        } else {
+            id = e.currentTarget.id
+        }
+        console.log(id)
+        
         if (!isNaN(id)) {
             if (postLikeObj[id]) {
                 dispatch(deletePostLikes(id));
             } else {
                 dispatch(createPostLikes(id));
             }
+        } else {
+            console.log('id is nan')
         }
     };
 
@@ -70,13 +82,32 @@ function MainFeed() {
         }
     }
     const commentLikeToggle = (e) => {
-        let id = parseInt(e.target.id, 10);
+        console.log('toggle comment like w/ target id:', e.target.id)
+        console.log('toggle comment like w/ currentTarget id:', e.currentTarget.id)
+
+        // let id = parseInt(e.target.id, 10);
+        // if (!(id > 1 && id < 500)) {
+        //     id = e.target.currentTarget
+        //     console.log(id)
+        // }
+        let id;
+        if (e.target.id > 1 && e.target.id < 500) {
+            id = e.target.id
+        } else {
+            id = e.currentTarget.id
+        }
+        console.log(id)
+
         if (!isNaN(id)) {
             if (commentLikeObj[id]) {
+                console.log("deleting like")
                 dispatch(deleteCommentLikes(id));
             } else {
+                console.log("adding like")
                 dispatch(createCommentLikes(id));
             }
+        } else {
+            console.log('id is nan')
         }
     };
 
