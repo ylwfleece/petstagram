@@ -1,4 +1,4 @@
-import React, { useEffect} from "react";
+import React, { useEffect } from "react";
 // import './SignUpForm.css'
 
 import { useDispatch, useSelector } from 'react-redux'
@@ -73,7 +73,6 @@ const SearchResults = ({ authenticated, setAuthenticated }) => {
             </div>
           ))}
         </div>
-        <SideBar />
       </div>
     </div >
   );
