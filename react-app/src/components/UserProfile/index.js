@@ -38,6 +38,7 @@ const UserProfile = () => {
     const [errors, setErrors] = useState([])
   
     const userUrlId = useParams()
+    // console.log(userUrlId.id)
     
     const openModal = (e) => {
         setTargetPhoto(e.target.src);
@@ -57,8 +58,9 @@ const UserProfile = () => {
 
     let filteredPosts = [];
     userPosts.forEach(post => {
-        if (post.userId === sessionUserId) {
+        if (post.userId == userUrlId.id) {
             filteredPosts.push(post)
+            console.log(filteredPosts)
         }
     })
 
@@ -113,18 +115,18 @@ const UserProfile = () => {
                                                 <img src={targetPhoto} alt="post" className='modal-picture' />
                                                 <div className='username-field'>
                                                     <Link to={`/users/${post.userId}/posts`}>
-                                                        <img src={sessionProfilePhoto} alt="profile" className='profile-photo'/>
+                                                        <img src={post.photo} alt="profile" className='profile-photo'/>
                                                     </Link>
                                                     <Link to={`/users/${post.userId}/posts`}>
-                                                        <h4 className='username-text'>{sessionUserName}</h4>
+                                                        <h4 className='username-text'>{post.username}</h4>
                                                     </Link>
                                                 </div>
                                                 <div className='caption-field'>
                                                     <Link to={`/users/${post.userId}/posts`}>
-                                                        <img src={sessionProfilePhoto} alt="profile" className='profile-photo'/>
+                                                        <img src={post.photo} alt="profile" className='profile-photo'/>
                                                     </Link>
                                                     <Link to={`/users/${post.userId}/posts`}>
-                                                        <h4 className='username-text-before-caption'>{sessionUserName}</h4>
+                                                        <h4 className='username-text-before-caption'>{post.username}</h4>
                                                     </Link>
                                                     <p className='caption-text'>{targetCaption}</p>
                                                 <div >
