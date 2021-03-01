@@ -4,7 +4,7 @@ import { useParams, Link, useHistory } from "react-router-dom"
 import { fetchComments, deleteComment } from '../../store/comments'
 import { FavoriteBorder, MailOutline, ChatBubbleOutline, Favorite } from '@material-ui/icons'
 import DeleteIcon from '@material-ui/icons/Delete'
-import { deletePost } from '../../store/posts'
+import { deletePost, getPostsForUser } from '../../store/posts'
 import './MainPage.css'
 import TimeAgo from 'react-timeago'
 import SideBar from '../HomePage/SideBar'

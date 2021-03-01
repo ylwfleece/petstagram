@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 // import {createPost} from '../../store/posts'
 import { addFollow, unfollow } from '../../store/follows';
+import { getPostsForUser } from "../../store/posts";
 import SideBar from '../HomePage/SideBar'
 import './SearchResults.css'
 
@@ -18,9 +19,11 @@ const SearchResults = ({ authenticated, setAuthenticated }) => {
 
   const followUser = async (e) => {
     dispatch(addFollow(e.target.id))
+    dispatch(getPostsForUser())
   }
   const unfollowUser = async (e) => {
     dispatch(unfollow(e.target.id))
+    dispatch(getPostsForUser())
   }
 
   return (

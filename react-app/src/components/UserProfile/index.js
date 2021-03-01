@@ -57,9 +57,7 @@ const UserProfile = () => {
 
     let filteredPosts = [];
     userPosts.forEach(post => {
-        console.log("found post", post.userId)
-        if (post.userId == sessionUserId) {
-            console.log("found matching post", post.userId)
+        if (post.userId === sessionUserId) {
             filteredPosts.push(post)
         }
     })
