@@ -29,7 +29,7 @@ const SearchResults = ({ authenticated, setAuthenticated }) => {
   return (
     <div className='homepage'>
 
-      <div className='page-container homepage-container' style={{ marginTop: '0' }}>
+      <div className='page-container homepage-container'>
         {/* <div>
         search results:
       </div> */}
@@ -73,7 +73,6 @@ const SearchResults = ({ authenticated, setAuthenticated }) => {
             </div>
           ))}
         </div>
-        <SideBar />
       </div>
     </div >
   );
