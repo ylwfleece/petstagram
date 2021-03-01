@@ -58,8 +58,8 @@ export const createPostLikes = (id) => async (dispatch) => {
     method: "POST",
   });
   likes = await likes.json();
-  dispatch(makePostLikes(likes));
-  // dispatch(getPostLikes(id));
+  // dispatch(makePostLikes(likes));
+  dispatch(getAllLikes());
   return likes;
 };
 export const deletePostLikes = (id) => async (dispatch) => {
@@ -99,7 +99,8 @@ const likesReducer = (state = initialState, action) => {
       newState = [...state, ...action.payload];
       return newState;
     case SET_ALL_LIKES:
-      newState = action.payload.likes;
+      // newState = action.payload.likes;
+      newState = action.payload.likes
       return newState;
 
     case MAKE_COMMENT_LIKES:
