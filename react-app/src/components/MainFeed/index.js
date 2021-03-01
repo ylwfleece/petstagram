@@ -4,7 +4,7 @@ import { useParams, Link, useHistory } from "react-router-dom"
 import { fetchComments, deleteComment } from '../../store/comments'
 import { FavoriteBorder, MailOutline, ChatBubbleOutline, Favorite } from '@material-ui/icons'
 import DeleteIcon from '@material-ui/icons/Delete'
-import { deletePost } from '../../store/posts'
+import { deletePost, getPostsForUser } from '../../store/posts'
 import './MainPage.css'
 import TimeAgo from 'react-timeago'
 import SideBar from '../HomePage/SideBar'
@@ -29,7 +29,6 @@ function MainFeed() {
             let unfiltered = comments.filter(comment => comment.postId == post.id)
             return unfiltered.slice(0, 3)
         })
-        console.log(commentsArr)
     }
 
     let postLikeObj = {};
@@ -62,7 +61,6 @@ function MainFeed() {
             commentsArr.forEach((commentList) => {
                 commentList.forEach(comment => {
                     commentLikeObj[comment.id] = false;
-                    console.log(comment.id)
                     likes.forEach((like) => {
                         if (like.userId == user.id && like.commentId == comment.id) {
                             commentLikeObj[comment.id] = true;
@@ -84,9 +82,7 @@ function MainFeed() {
     };
 
     const onDeletePost = (e) => {
-        console.log(e.currentTarget.id)
         let id = parseInt(e.currentTarget.id, 10)
-        console.log(id)
         if (!isNaN(id)) {
             dispatch(deletePost(id))
         }
@@ -139,8 +135,6 @@ function MainFeed() {
                                                     id={post.id}
                                                 />
                                             )}
-                                        {console.log(post.id, user.id)}
-
                                     </div>
                                     <div className='icons-container'>
                                         <MailOutline />

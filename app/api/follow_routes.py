@@ -25,8 +25,6 @@ def add_follower(id_param):
     followers_to_return = []
     for follower in user.followers:
         followers_to_return.append(follow_to_dict(follower))
-    print('========== response:',  jsonify(followers_to_return))
-    print('==========')
     return jsonify(followers_to_return)
 
 @follow_routes.route("/unfollowed/<int:id_param>", methods=["POST"])
@@ -42,8 +40,6 @@ def unfollow(id_param):
     followers_to_return = []
     for follower in user.followers:
         followers_to_return.append(follow_to_dict(follower))
-    print('========== response:',  jsonify(followers_to_return))
-    print('==========')
     return jsonify(followers_to_return)
 
 

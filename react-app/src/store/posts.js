@@ -75,7 +75,7 @@ const postsReducer = (state = initialState, action) => {
   let newState;
   switch (action.type) {
     case SET_POSTS:
-      newState = [...state];
+      // newState = [...state];
       newState = action.payload;
       return newState;
     case REMOVE_POSTS:

@@ -41,8 +41,8 @@ const followsReducer = (state = initialState, action) => {
   let newState;
   switch (action.type) {
     case SET_FOLLOWS:
-      newState = [...state];
-      newState = action.payload;
+      newState = [...action.payload];
+      // newState.push(action.payload);
       return newState;
     // case REMOVE_POSTS:
     //   newState = [...state]
