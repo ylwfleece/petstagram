@@ -8,6 +8,7 @@ import './NavBar.css';
 import { searchUsers } from '../../store/search';
 import { useState } from 'react';
 import { getFollowsForUser } from '../../store/follows';
+import { getPostsForUser } from '../../store/posts';
 
 const NavBar = ({ setAuthenticated }) => {
 
@@ -29,13 +30,17 @@ const NavBar = ({ setAuthenticated }) => {
     history.push('/search-results')
   }
 
+  const loadMainFeed = () => {
+    dispatch(getPostsForUser())
+  }
+
   const iconStyles = { fontSize: '30px', color: 'rgb(38, 38, 38)' }
 
   return (user &&
     <nav>
       <div className='menu'>
         <div className='logo'>
-          <NavLink to="/" exact={true} activeClassName="active">
+          <NavLink onClick={loadMainFeed} to="/" exact={true} activeClassName="active">
             <img src={petstagramlogo2} alt='logo' style={{ maxHeight: '50px' }}></img>
           </NavLink>
         </div>
