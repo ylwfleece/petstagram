@@ -76,15 +76,15 @@ const UserProfile = () => {
     const handleCommentClick = (e) => {
         e.preventDefault();
         if (comment) {
-            setErrors([]);
+            //.catch(res => {
+            //     if (res.data && res.data.errors) setErrors(res.data.errors)
+            // });setErrors([]);
+            dispatch(postComment(postId, comment))
             setComment("")
-            return dispatch(postComment(postId, comment))
-            .catch(res => {
-                if (res.data && res.data.errors) setErrors(res.data.errors)
-            });
+            // 
         };
         
-        return setErrors(["Please leave a comment"])
+        //return setErrors(["Please leave a comment"])
     };
 
     let postLikeObj = {};
