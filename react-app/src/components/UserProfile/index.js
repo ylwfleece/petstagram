@@ -57,7 +57,9 @@ const UserProfile = () => {
 
     let filteredPosts = [];
     userPosts.forEach(post => {
-        if (post.userId === sessionUserId) {
+        console.log("found post", post.userId)
+        if (post.userId == sessionUserId) {
+            console.log("found matching post", post.userId)
             filteredPosts.push(post)
         }
     })
@@ -93,7 +95,6 @@ const UserProfile = () => {
             <div className='post-container'>
                 {!userImageLinks && <h3>You have no posts yet!</h3>}
                 {filteredPosts && filteredPosts.map(post => {
-                    if (userUrlId.id === userImageId) {
                         return (
                             <>
                                 <div className='each-post'>
@@ -130,7 +131,7 @@ const UserProfile = () => {
                                                     <p className='caption-text'>{targetCaption}</p>
                                                 <div >
                                                     {postComments && postComments.map((eachComment) => {
-                                                        if (eachComment.postId === postId) {
+                                                        if (eachComment.postId == postId) {
                                                             return (
                                                                 <div className='user-responses'>
                                                                     <Link to={`/users/${post.userId}/posts`}>
@@ -181,7 +182,7 @@ const UserProfile = () => {
                                 </div>
                             </>
                         )
-                    }   
+                     
                 })}
             </div>
         </div>
