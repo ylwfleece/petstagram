@@ -52,7 +52,6 @@ function MainFeed() {
         } else {
             id = e.currentTarget.id
         }
-        console.log(id)
         
         if (!isNaN(id)) {
             if (postLikeObj[id]) {
@@ -60,9 +59,7 @@ function MainFeed() {
             } else {
                 dispatch(createPostLikes(id));
             }
-        } else {
-            console.log('id is nan')
-        }
+        } 
     };
 
 
@@ -96,19 +93,14 @@ function MainFeed() {
         } else {
             id = e.currentTarget.id
         }
-        console.log(id)
 
         if (!isNaN(id)) {
             if (commentLikeObj[id]) {
-                console.log("deleting like")
                 dispatch(deleteCommentLikes(id));
             } else {
-                console.log("adding like")
                 dispatch(createCommentLikes(id));
             }
-        } else {
-            console.log('id is nan')
-        }
+        } 
     };
 
     const onDeletePost = (e) => {
@@ -132,7 +124,7 @@ function MainFeed() {
     return (<>
         {posts &&
             <div className='homepage'>
-                <div className='page-container homepage-container' style={{ marginTop: '0' }}>
+                <div className='page-container homepage-container'>
                     <div className='homepage-feed'>
                         {posts.map((post, index) =>
                             <div key={post.id} className='container posts' style={{ paddingTop: '0', marginBottom: '5vh' }}>
