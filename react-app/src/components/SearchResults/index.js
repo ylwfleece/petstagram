@@ -39,12 +39,12 @@ const SearchResults = ({ authenticated, setAuthenticated }) => {
               <div className='post-user-info' style={{ borderBottom: 'none', justifyContent: 'space-between' }}>
                 <div className='flex-container'>
                   <div className='rounded-img-container search-results-pictures' >
-                    <Link to={`/users/${user.id}`}>
+                    <Link to={`/users/${user.id}/posts`}>
                       <img alt="profile_photo search-results-pictures" src={user.profilePhotoUrl} className='search-results-pictures'></img>
                     </Link>
                   </div>
                   <div className='flex-container' style={{ alignItems: 'center' }}>
-                    <Link to={`/users/${user.id}`}>
+                    <Link to={`/users/${user.id}/posts`}>
                       <h5 className='normalize-text redirect-profile' style={{ color: 'rgb(38, 38, 38)', fontWeight: '600' }}>
                         {user.username}
                       </h5>
