@@ -12,3 +12,13 @@ class Like(db.Model):
     post = db.relationship("Post", back_populates="likes")
     comment = db.relationship("Comment", back_populates="likes")
     user = db.relationship("User", back_populates="likes")
+
+    def comment_info(self, username, profilePhoto):
+        return {
+            "id": self.id,
+            "userId": self.userId,
+            "postId": self.postId,
+            "commentId": self.commentId,
+            "username": username,
+            "profilePhoto": profilePhoto
+        }
