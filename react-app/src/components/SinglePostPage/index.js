@@ -26,6 +26,7 @@ function SinglePostPage() {
     const posts = useSelector((state) => state.posts);
     const likes = useSelector((state) => state.likes);
     const commentLikeObj = likes.commentLikes
+    const postLikeObj = likes.postLikes
     let { postId } = useParams();
     postId = parseInt(postId, 10);
 
@@ -48,34 +49,37 @@ function SinglePostPage() {
             });
         }
     }
-    let likedPost = false;
-    if (likes && post) {
-        if (likes.length) {
-            for (let i = 0; i < likes.length; i++) {
-                if (likes[i].userId === user.id && likes[i].postId === post.id) {
-                    likedPost = true;
-                }
-            }
+    let likedPost = false
+    if(post){
+        if(postLikeObj[post.id]){
+            likedPost = true;
         }
     }
+    // if (likes && post) {
+    //     if (likes.length) {
+    //         for (let i = 0; i < likes.length; i++) {
+    //             if (likes[i].userId === user.id && likes[i].postId === post.id) {
+    //                 likedPost = true;
+    //             }
+    //         }
+    //     }
+    // }
     const postLikeToggle = (e) => {
-        let id = parseInt(e.target.id, 10);
-        let likeExists = false;
-        if (likes && !isNaN(id)) {
-            if (likes.length) {
-                for (let i = 0; i < likes.length; i++) {
-                    if (likes[i].userId === user.id && likes[i].postId === id) {
-                        likeExists = true;
-                    }
-                }
-                if (!likeExists) {
-                    dispatch(createPostLikes(parseInt(e.target.id, 10)));
-                }
-                if (likeExists) {
-                    dispatch(deletePostLikes(parseInt(e.target.id, 10)));
-                }
-            }
+        let id = parseInt(e.currentTarget.id, 10);
+        console.log('id', id)
+        if(isNaN(id)){
+            console.log("Errored, targets", e.target, e.currentTarget)
+            id = parseInt(e.target.id, 10);
         }
+        console.log("Is it triggering?")
+       
+        if (!postLikeObj[id]) {
+            dispatch(createPostLikes(id));
+        }
+        else {
+            dispatch(deletePostLikes(id));
+        }
+
     };
     // let commentLikeObj = {};
     // if (likes) {
