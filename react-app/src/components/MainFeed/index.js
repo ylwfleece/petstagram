@@ -45,8 +45,7 @@ function MainFeed() {
     // }
 
     const postLikeToggle = (e) => {
-        console.log("toggling post like with target id:", e.target.id)
-        console.log('toggle post like w/ currentTarget id:', e.currentTarget.id)
+
 
         let id;
         if (e.target.id > 1 && e.target.id < 500) {
@@ -81,8 +80,7 @@ function MainFeed() {
     //     }
     // }
     const commentLikeToggle = (e) => {
-        console.log('toggle comment like w/ target id:', e.target.id)
-        console.log('toggle comment like w/ currentTarget id:', e.currentTarget.id)
+ 
 
         // let id = parseInt(e.target.id, 10);
         // if (!(id > 1 && id < 500)) {
@@ -148,7 +146,7 @@ function MainFeed() {
                                 <div className='flex-left-container' style={{ width: '100%', height: '40px' }}>
                                     <div className='icons-container'>
                                         {postLikeObj[post.id] ? (
-                                            <Favorite
+                                            <FavoriteBorder
                                                 className="liked"
                                                 onClick={postLikeToggle}
                                                 id={post.id}
@@ -184,6 +182,11 @@ function MainFeed() {
                                 </div>
                                 <div className='normalize-text flex-left-container' style={{ width: '100%', paddingLeft: '12px' }} >
                                     <TimeAgo date={post.createdAt} />
+                                    <p className='normalize-text' style={{paddingLeft: '12px' , color: 'rgb(142, 142, 142)', fontWeight: '600' }}>
+                                        {post.likes==1 ? `1 like` :
+                                        `${post.likes} likes`
+                                        }
+                                    </p>
                                 </div>
                                 {commentsArr.length > 0 &&
                                     <div className='caption-section' style={{ flexDirection: 'column' }}>
@@ -210,15 +213,17 @@ function MainFeed() {
                                                             <div className='flex-container'>
                                                                 <div className='normalize-text time-display'>
                                                                     <TimeAgo date={new Date(comment.createdAt)} />
-                                                                    <p className='normalize-text' style={{ margin: '0 12px', fontSize: '10px', color: 'rgb(142, 142, 142)' }}>
-                                                                        {`# likes`}
+                                                                    <p className='normalize-text' style={{ fontWeight: '600', margin: '0 12px', fontSize: '10px', color: 'rgb(142, 142, 142)' }}>
+                                                                        {comment.likes==1 ? `1 like` :
+                                                                        `${comment.likes} likes`
+                                                                        }
                                                                     </p>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                         <div className='icons-container' style={{ margin: '0 12px 0 24px', alignSelf: 'center' }}>
                                                             {commentLikeObj[comment.id] ? (
-                                                                <Favorite
+                                                                <FavoriteBorder
                                                                     className="liked"
                                                                     onClick={commentLikeToggle}
                                                                     id={comment.id}

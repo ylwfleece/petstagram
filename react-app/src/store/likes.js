@@ -48,7 +48,7 @@ export const getAllCommentLikes = () => async (dispatch) => {
   for (let i = 0; i < commentLikesJson.length; i++){
     normalizedCommentLikes[commentLikesJson[i].commentId] = commentLikesJson[i]
   }
-  console.log(normalizedCommentLikes)
+
   dispatch(makeCommentLikes(normalizedCommentLikes))
   //dispatch something that adds it to state
 };
@@ -60,7 +60,7 @@ export const getAllPostLikes = () => async (dispatch) => {
   for (let i = 0; i < postLikesJson.length; i++){
     normalizedPostLikes[postLikesJson[i].postId] = postLikesJson[i]
   }
-  console.log(normalizedPostLikes)
+
   dispatch(makePostLikes(normalizedPostLikes))
   //dispatch something that adds it to state
 };

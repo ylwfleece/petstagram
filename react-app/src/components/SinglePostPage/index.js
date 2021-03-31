@@ -66,12 +66,10 @@ function SinglePostPage() {
     // }
     const postLikeToggle = (e) => {
         let id = parseInt(e.currentTarget.id, 10);
-        console.log('id', id)
+
         if(isNaN(id)){
-            console.log("Errored, targets", e.target, e.currentTarget)
             id = parseInt(e.target.id, 10);
         }
-        console.log("Is it triggering?")
        
         if (!postLikeObj[id]) {
             dispatch(createPostLikes(id));
@@ -265,6 +263,11 @@ function SinglePostPage() {
                             style={{ width: "100%", paddingLeft: "12px" }}
                         >
                             <TimeAgo date={post.createdAt} />
+                            <p className='normalize-text' style={{paddingLeft: '12px' , color: 'rgb(142, 142, 142)', fontWeight: '600' }}>
+                                {post.likes==1 ? `1 like` :
+                                    `${post.likes} likes`
+                                }
+                            </p>
                         </div>
                         {commentsArr.length > 0 && (
                             <div
@@ -332,9 +335,12 @@ function SinglePostPage() {
                                                             margin: "0 12px",
                                                             fontSize: "10px",
                                                             color: "rgb(142, 142, 142)",
+                                                            fontWeight: "600"
                                                         }}
                                                     >
-                                                        {`# likes`}
+                                                        {comment.likes==1 ? `1 like` :
+                                                            `${comment.likes} likes`
+                                                        }
                                                     </p>
                                                 </div>
                                             </div>
