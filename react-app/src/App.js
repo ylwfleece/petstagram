@@ -19,7 +19,7 @@ import { useDispatch } from "react-redux";
 import { getPostsForUser } from "./store/posts";
 import { addUser } from "./store/session";
 import { fetchComments } from "./store/comments";
-import { getAllLikes } from "./store/likes";
+import { getAllCommentLikes } from "./store/likes";
 import { getFollowsForUser } from "./store/follows";
 
 function App() {
@@ -35,7 +35,7 @@ function App() {
         dispatch(addUser(user));
         dispatch(getPostsForUser());
         dispatch(fetchComments());
-        dispatch(getAllLikes());
+        dispatch(getAllCommentLikes());
         dispatch(getFollowsForUser());
       }
       setLoaded(true);

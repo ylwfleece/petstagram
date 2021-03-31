@@ -22,12 +22,12 @@ const setAllLikes = (allLikes) => {
     payload: allLikes,
   };
 };
-// const makeCommentLikes = (likes) => {
-//   return {
-//     type: MAKE_COMMENT_LIKES,
-//     payload: likes,
-//   };
-// };
+const makeCommentLikes = (likes) => {
+  return {
+    type: MAKE_COMMENT_LIKES,
+    payload: likes,
+  };
+};
 const makePostLikes = (likes) => {
   return {
     type: MAKE_POST_LIKES,
@@ -43,7 +43,13 @@ export const getAllLikes = () => async (dispatch) => {
 
 export const getAllCommentLikes = () => async (dispatch) => {
   let commentLikes = await fetch(`/api/likes/comments/`);
-  commentLikes = await likes.json();
+  let commentLikesJson = await commentLikes.json();
+  let normalizedCommentLikes = {}
+  for (let i = 0; i < commentLikesJson.length; i++){
+    normalizedCommentLikes[commentLikesJson[i].commentId] = commentLikesJson[i]
+  }
+  console.log(normalizedCommentLikes)
+  dispatch(makeCommentLikes(normalizedCommentLikes))
   //dispatch something that adds it to state
 };
 
