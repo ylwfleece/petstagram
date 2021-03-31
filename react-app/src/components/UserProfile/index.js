@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import {  useParams, Link } from 'react-router-dom';
-import { FavoriteBorder, MailOutline, ChatBubbleOutline } from '@material-ui/icons'
+import { FavoriteBorder } from '@material-ui/icons'
 import {useDispatch, useSelector} from 'react-redux';
 import Modal from 'react-modal';
 import { postComment } from '../../store/comments'
@@ -158,12 +158,6 @@ const UserProfile = () => {
                                                             id={post.id}
                                                             />
                                                         )}
-                                                    </div>
-                                                    <div className='main-icon'>
-                                                        <MailOutline />
-                                                    </div>
-                                                    <div className='chat-bubble-icon'>
-                                                        <ChatBubbleOutline />
                                                     </div>
                                                     <p className='display-time'>{getCreatedAt}</p>
                                                 </div>
