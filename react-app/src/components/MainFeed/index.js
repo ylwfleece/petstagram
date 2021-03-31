@@ -159,12 +159,6 @@ function MainFeed() {
                                             )}
                                     </div>
                                     <div className='icons-container'>
-                                        <MailOutline />
-                                    </div>
-                                    <div className='icons-container'>
-                                        <ChatBubbleOutline />
-                                    </div>
-                                    <div className='icons-container'>
                                         {post.userId == user.id &&
                                             <DeleteIcon id={post.id} onClick={onDeletePost} />
                                         }

@@ -12,8 +12,6 @@ import {
 import EditIcon from '@material-ui/icons/Edit';
 import {
     FavoriteBorder,
-    MailOutline,
-    ChatBubbleOutline,
 } from "@material-ui/icons";
 import DeleteIcon from '@material-ui/icons/Delete';
 import "./SinglePostPage.css";
@@ -211,12 +209,6 @@ function SinglePostPage() {
                                 ) : (
                                         <FavoriteBorder onClick={postLikeToggle} id={post.id} />
                                     )}
-                            </div>
-                            <div className="icons-container">
-                                <MailOutline />
-                            </div>
-                            <div className="icons-container">
-                                <ChatBubbleOutline />
                             </div>
                             {post.userId === user.id &&
                                 <div className="icons-container">

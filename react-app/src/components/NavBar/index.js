@@ -58,15 +58,6 @@ const NavBar = ({ setAuthenticated }) => {
               <Home style={iconStyles} />
             </NavLink>
           </div>
-          <div className='icons-container'>
-            <MailOutline style={iconStyles} />
-          </div>
-          <div className='icons-container'>
-            <Explore style={iconStyles} />
-          </div>
-          <div className='icons-container'>
-            <FavoriteBorder style={iconStyles} />
-          </div>
           <div style={{ padding: '0 12px' }}>
             <ProfileButton user={user} setAuthenticated={setAuthenticated} />
           </div>
