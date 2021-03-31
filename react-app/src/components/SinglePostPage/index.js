@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams, Link, useHistory } from "react-router-dom";
-import { deleteComment, editComment, postComment } from "../../store/comments";
-import { deletePost, editPost } from "../../store/posts";
+import { deleteComment, editComment, postComment, fetchComments} from "../../store/comments";
+import { deletePost, editPost, getPostsForUser } from "../../store/posts";
 import {
     createCommentLikes,
     createPostLikes,
@@ -73,9 +73,11 @@ function SinglePostPage() {
        
         if (!postLikeObj[id]) {
             dispatch(createPostLikes(id));
+            dispatch(getPostsForUser())
         }
         else {
             dispatch(deletePostLikes(id));
+            dispatch(getPostsForUser())
         }
 
     };
@@ -95,8 +97,10 @@ function SinglePostPage() {
         if (!isNaN(id)) {
             if (commentLikeObj[id]) {
                 dispatch(deleteCommentLikes(id));
+                dispatch(fetchComments())
             } else {
                 dispatch(createCommentLikes(id));
+                dispatch(fetchComments())
             }
         }
     };

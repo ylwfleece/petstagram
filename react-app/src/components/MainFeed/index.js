@@ -57,8 +57,10 @@ function MainFeed() {
         if (!isNaN(id)) {
             if (postLikeObj[id]) {
                 dispatch(deletePostLikes(id));
+                dispatch(getPostsForUser())
             } else {
                 dispatch(createPostLikes(id));
+                dispatch(getPostsForUser())
             }
         } 
     };
@@ -97,8 +99,10 @@ function MainFeed() {
         if (!isNaN(id)) {
             if (commentLikeObj[id]) {
                 dispatch(deleteCommentLikes(id));
+                dispatch(fetchComments())
             } else {
                 dispatch(createCommentLikes(id));
+                dispatch(fetchComments())
             }
         } 
     };
