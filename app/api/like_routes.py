@@ -34,6 +34,16 @@ def get_comment_likes():
                 like.user.username, like.user.profilePhotoUrl))
     return jsonify(ret_likes)
 
+@like_routes.route('/posts/', methods=["GET"])
+def get_post_likes():
+    likes = Like.query.filter(Like.userId == current_user.id).all()
+    ret_likes = []
+    for like in likes:
+        if type(like.postId) is int:
+            ret_likes.append(like.comment_info(
+                like.user.username, like.user.profilePhotoUrl))
+    return jsonify(ret_likes)
+
 
 # @like_routes.route('/comments/<int:comment_id>')
 # def get_comment_likes(comment_id):

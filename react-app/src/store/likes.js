@@ -53,6 +53,18 @@ export const getAllCommentLikes = () => async (dispatch) => {
   //dispatch something that adds it to state
 };
 
+export const getAllPostLikes = () => async (dispatch) => {
+  let postLikes = await fetch(`/api/likes/posts/`);
+  let postLikesJson = await postLikes.json();
+  let normalizedPostLikes = {}
+  for (let i = 0; i < postLikesJson.length; i++){
+    normalizedPostLikes[postLikesJson[i].postId] = postLikesJson[i]
+  }
+  console.log(normalizedPostLikes)
+  dispatch(makePostLikes(normalizedPostLikes))
+  //dispatch something that adds it to state
+};
+
 export const getCommentLikes = (id) => async (dispatch) => {
   let likes = await fetch(`/api/likes/comments/${id}`);
   likes = await likes.json();
@@ -71,14 +83,14 @@ export const createPostLikes = (id) => async (dispatch) => {
   });
   likes = await likes.json();
   // dispatch(makePostLikes(likes));
-  dispatch(getAllLikes());
+  dispatch(getAllPostLikes());
   return likes;
 };
 export const deletePostLikes = (id) => async (dispatch) => {
   let likes = await fetch(`/api/likes/posts/delete/${id}`, {
     method: "POST",
   });
-  dispatch(getAllLikes());
+  dispatch(getAllPostLikes());
   return likes;
 };
 export const createCommentLikes = (id) => async (dispatch) => {
@@ -120,19 +132,14 @@ const likesReducer = (state = initialState, action) => {
       return newState;
 
     case MAKE_COMMENT_LIKES:
-      newState = Object.assign({},);
+      newState = Object.assign({},state);
       newState["commentLikes"] = action.payload;
       return newState;
       
     case MAKE_POST_LIKES:
-      newState = [...state];
-      if (newState) {
-        newState.push(action.payload);
-        return newState;
-      } else {
-        newState = [action.payload];
-        return newState;
-      }
+      newState = Object.assign({},state);
+      newState["postLikes"] = action.payload;
+      return newState;
     default:
       return state;
   }

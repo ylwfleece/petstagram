@@ -21,7 +21,7 @@ function MainFeed() {
     const user = useSelector((state) => state.session.user)
     const likes = useSelector((state) => state.likes)
     let commentLikeObj = likes["commentLikes"]
-    let postLikeObj = {}
+    let postLikeObj = likes["postLikes"]
     const posts = useSelector((state) => state.posts)
     let commentsArr = []
 
