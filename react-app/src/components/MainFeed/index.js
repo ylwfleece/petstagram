@@ -20,6 +20,8 @@ function MainFeed() {
     const comments = useSelector((state) => state.comments)
     const user = useSelector((state) => state.session.user)
     const likes = useSelector((state) => state.likes)
+    let commentLikeObj = likes["commentLikes"]
+    let postLikeObj = {}
     const posts = useSelector((state) => state.posts)
     let commentsArr = []
 
@@ -30,17 +32,17 @@ function MainFeed() {
         })
     }
 
-    let postLikeObj = {};
-    if (likes) {
-        posts.forEach((post) => {
-            postLikeObj[post.id] = false;
-            likes.forEach((like) => {
-                if (like.userId == user.id && like.postId == post.id) {
-                    postLikeObj[post.id] = true;
-                }
-            });
-        });
-    }
+    // let postLikeObj = {};
+    // if (likes) {
+    //     posts.forEach((post) => {
+    //         postLikeObj[post.id] = false;
+    //         likes.forEach((like) => {
+    //             if (like.userId == user.id && like.postId == post.id) {
+    //                 postLikeObj[post.id] = true;
+    //             }
+    //         });
+    //     });
+    // }
 
     const postLikeToggle = (e) => {
         console.log("toggling post like with target id:", e.target.id)
@@ -63,21 +65,21 @@ function MainFeed() {
     };
 
 
-    let commentLikeObj = {};
-    if (likes) {
-        if (likes.length) {
-            commentsArr.forEach((commentList) => {
-                commentList.forEach(comment => {
-                    commentLikeObj[comment.id] = false;
-                    likes.forEach((like) => {
-                        if (like.userId == user.id && like.commentId == comment.id) {
-                            commentLikeObj[comment.id] = true;
-                        }
-                    });
-                })
-            });
-        }
-    }
+    // let commentLikeObj = {};
+    // if (likes) {
+    //     if (likes.length) {
+    //         commentsArr.forEach((commentList) => {
+    //             commentList.forEach(comment => {
+    //                 commentLikeObj[comment.id] = false;
+    //                 likes.forEach((like) => {
+    //                     if (like.userId == user.id && like.commentId == comment.id) {
+    //                         commentLikeObj[comment.id] = true;
+    //                     }
+    //                 });
+    //             })
+    //         });
+    //     }
+    // }
     const commentLikeToggle = (e) => {
         console.log('toggle comment like w/ target id:', e.target.id)
         console.log('toggle comment like w/ currentTarget id:', e.currentTarget.id)

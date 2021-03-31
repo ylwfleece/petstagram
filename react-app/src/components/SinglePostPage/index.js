@@ -25,6 +25,7 @@ function SinglePostPage() {
     const user = useSelector((state) => state.session.user);
     const posts = useSelector((state) => state.posts);
     const likes = useSelector((state) => state.likes);
+    const commentLikeObj = likes.commentLikes
     let { postId } = useParams();
     postId = parseInt(postId, 10);
 
@@ -76,17 +77,17 @@ function SinglePostPage() {
             }
         }
     };
-    let commentLikeObj = {};
-    if (likes) {
-        commentsArr.forEach((comment) => {
-            commentLikeObj[comment.id] = false;
-            likes.forEach((like) => {
-                if (like.userId === user.id && like.commentId === comment.id) {
-                    commentLikeObj[comment.id] = true;
-                }
-            });
-        });
-    }
+    // let commentLikeObj = {};
+    // if (likes) {
+    //     commentsArr.forEach((comment) => {
+    //         commentLikeObj[comment.id] = false;
+    //         likes.forEach((like) => {
+    //             if (like.userId === user.id && like.commentId === comment.id) {
+    //                 commentLikeObj[comment.id] = true;
+    //             }
+    //         });
+    //     });
+    // }
     const commentLikeToggle = (e) => {
         let id = parseInt(e.currentTarget.id, 10);
         if (!isNaN(id)) {
