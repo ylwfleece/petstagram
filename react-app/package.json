@@ -10,6 +10,7 @@
     "@testing-library/user-event": "^7.1.2",
     "http-proxy-middleware": "^1.0.5",
     "react": "^16.13.1",
+    "react-autosuggest": "^10.1.0",
     "react-dom": "^16.14.0",
     "react-modal": "^3.12.1",
     "react-redux": "^7.2.2",

@@ -21,6 +21,7 @@ import { addUser } from "./store/session";
 import { fetchComments } from "./store/comments";
 import { getAllLikes } from "./store/likes";
 import { getFollowsForUser } from "./store/follows";
+import { getAllUsers } from './store/users'
 
 function App() {
   const [authenticated, setAuthenticated] = useState(false);
@@ -37,6 +38,7 @@ function App() {
         dispatch(fetchComments());
         dispatch(getAllLikes());
         dispatch(getFollowsForUser());
+        dispatch(getAllUsers())
       }
       setLoaded(true);
     })();
