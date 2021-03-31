@@ -20,6 +20,8 @@ function MainFeed() {
     const comments = useSelector((state) => state.comments)
     const user = useSelector((state) => state.session.user)
     const likes = useSelector((state) => state.likes)
+    let commentLikeObj = likes["commentLikes"]
+    let postLikeObj = likes["postLikes"]
     const posts = useSelector((state) => state.posts)
     let commentsArr = []
 
@@ -30,21 +32,20 @@ function MainFeed() {
         })
     }
 
-    let postLikeObj = {};
-    if (likes) {
-        posts.forEach((post) => {
-            postLikeObj[post.id] = false;
-            likes.forEach((like) => {
-                if (like.userId == user.id && like.postId == post.id) {
-                    postLikeObj[post.id] = true;
-                }
-            });
-        });
-    }
+    // let postLikeObj = {};
+    // if (likes) {
+    //     posts.forEach((post) => {
+    //         postLikeObj[post.id] = false;
+    //         likes.forEach((like) => {
+    //             if (like.userId == user.id && like.postId == post.id) {
+    //                 postLikeObj[post.id] = true;
+    //             }
+    //         });
+    //     });
+    // }
 
     const postLikeToggle = (e) => {
-        console.log("toggling post like with target id:", e.target.id)
-        console.log('toggle post like w/ currentTarget id:', e.currentTarget.id)
+
 
         let id;
         if (e.target.id > 1 && e.target.id < 500) {
@@ -56,31 +57,32 @@ function MainFeed() {
         if (!isNaN(id)) {
             if (postLikeObj[id]) {
                 dispatch(deletePostLikes(id));
+                dispatch(getPostsForUser())
             } else {
                 dispatch(createPostLikes(id));
+                dispatch(getPostsForUser())
             }
         } 
     };
 
 
-    let commentLikeObj = {};
-    if (likes) {
-        if (likes.length) {
-            commentsArr.forEach((commentList) => {
-                commentList.forEach(comment => {
-                    commentLikeObj[comment.id] = false;
-                    likes.forEach((like) => {
-                        if (like.userId == user.id && like.commentId == comment.id) {
-                            commentLikeObj[comment.id] = true;
-                        }
-                    });
-                })
-            });
-        }
-    }
+    // let commentLikeObj = {};
+    // if (likes) {
+    //     if (likes.length) {
+    //         commentsArr.forEach((commentList) => {
+    //             commentList.forEach(comment => {
+    //                 commentLikeObj[comment.id] = false;
+    //                 likes.forEach((like) => {
+    //                     if (like.userId == user.id && like.commentId == comment.id) {
+    //                         commentLikeObj[comment.id] = true;
+    //                     }
+    //                 });
+    //             })
+    //         });
+    //     }
+    // }
     const commentLikeToggle = (e) => {
-        console.log('toggle comment like w/ target id:', e.target.id)
-        console.log('toggle comment like w/ currentTarget id:', e.currentTarget.id)
+ 
 
         // let id = parseInt(e.target.id, 10);
         // if (!(id > 1 && id < 500)) {
@@ -97,8 +99,10 @@ function MainFeed() {
         if (!isNaN(id)) {
             if (commentLikeObj[id]) {
                 dispatch(deleteCommentLikes(id));
+                dispatch(fetchComments())
             } else {
                 dispatch(createCommentLikes(id));
+                dispatch(fetchComments())
             }
         } 
     };
@@ -146,7 +150,7 @@ function MainFeed() {
                                 <div className='flex-left-container' style={{ width: '100%', height: '40px' }}>
                                     <div className='icons-container'>
                                         {postLikeObj[post.id] ? (
-                                            <Favorite
+                                            <FavoriteBorder
                                                 className="liked"
                                                 onClick={postLikeToggle}
                                                 id={post.id}
@@ -176,6 +180,11 @@ function MainFeed() {
                                 </div>
                                 <div className='normalize-text flex-left-container' style={{ width: '100%', paddingLeft: '12px' }} >
                                     <TimeAgo date={post.createdAt} />
+                                    <p className='normalize-text' style={{paddingLeft: '12px' , color: 'rgb(142, 142, 142)', fontWeight: '600' }}>
+                                        {post.likes==1 ? `1 like` :
+                                        `${post.likes} likes`
+                                        }
+                                    </p>
                                 </div>
                                 {commentsArr.length > 0 &&
                                     <div className='caption-section' style={{ flexDirection: 'column' }}>
@@ -202,15 +211,17 @@ function MainFeed() {
                                                             <div className='flex-container'>
                                                                 <div className='normalize-text time-display'>
                                                                     <TimeAgo date={new Date(comment.createdAt)} />
-                                                                    <p className='normalize-text' style={{ margin: '0 12px', fontSize: '10px', color: 'rgb(142, 142, 142)' }}>
-                                                                        {`# likes`}
+                                                                    <p className='normalize-text' style={{ fontWeight: '600', margin: '0 12px', fontSize: '10px', color: 'rgb(142, 142, 142)' }}>
+                                                                        {comment.likes==1 ? `1 like` :
+                                                                        `${comment.likes} likes`
+                                                                        }
                                                                     </p>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                         <div className='icons-container' style={{ margin: '0 12px 0 24px', alignSelf: 'center' }}>
                                                             {commentLikeObj[comment.id] ? (
-                                                                <Favorite
+                                                                <FavoriteBorder
                                                                     className="liked"
                                                                     onClick={commentLikeToggle}
                                                                     id={comment.id}

@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams, Link, useHistory } from "react-router-dom";
-import { deleteComment, editComment, postComment } from "../../store/comments";
-import { deletePost, editPost } from "../../store/posts";
+import { deleteComment, editComment, postComment, fetchComments} from "../../store/comments";
+import { deletePost, editPost, getPostsForUser } from "../../store/posts";
 import {
     createCommentLikes,
     createPostLikes,
@@ -23,6 +23,8 @@ function SinglePostPage() {
     const user = useSelector((state) => state.session.user);
     const posts = useSelector((state) => state.posts);
     const likes = useSelector((state) => state.likes);
+    const commentLikeObj = likes.commentLikes
+    const postLikeObj = likes.postLikes
     let { postId } = useParams();
     postId = parseInt(postId, 10);
 
@@ -45,53 +47,58 @@ function SinglePostPage() {
             });
         }
     }
-    let likedPost = false;
-    if (likes && post) {
-        if (likes.length) {
-            for (let i = 0; i < likes.length; i++) {
-                if (likes[i].userId === user.id && likes[i].postId === post.id) {
-                    likedPost = true;
-                }
-            }
+    let likedPost = false
+    if(post){
+        if(postLikeObj[post.id]){
+            likedPost = true;
         }
     }
+    // if (likes && post) {
+    //     if (likes.length) {
+    //         for (let i = 0; i < likes.length; i++) {
+    //             if (likes[i].userId === user.id && likes[i].postId === post.id) {
+    //                 likedPost = true;
+    //             }
+    //         }
+    //     }
+    // }
     const postLikeToggle = (e) => {
-        let id = parseInt(e.target.id, 10);
-        let likeExists = false;
-        if (likes && !isNaN(id)) {
-            if (likes.length) {
-                for (let i = 0; i < likes.length; i++) {
-                    if (likes[i].userId === user.id && likes[i].postId === id) {
-                        likeExists = true;
-                    }
-                }
-                if (!likeExists) {
-                    dispatch(createPostLikes(parseInt(e.target.id, 10)));
-                }
-                if (likeExists) {
-                    dispatch(deletePostLikes(parseInt(e.target.id, 10)));
-                }
-            }
+        let id = parseInt(e.currentTarget.id, 10);
+
+        if(isNaN(id)){
+            id = parseInt(e.target.id, 10);
         }
+       
+        if (!postLikeObj[id]) {
+            dispatch(createPostLikes(id));
+            dispatch(getPostsForUser())
+        }
+        else {
+            dispatch(deletePostLikes(id));
+            dispatch(getPostsForUser())
+        }
+
     };
-    let commentLikeObj = {};
-    if (likes) {
-        commentsArr.forEach((comment) => {
-            commentLikeObj[comment.id] = false;
-            likes.forEach((like) => {
-                if (like.userId === user.id && like.commentId === comment.id) {
-                    commentLikeObj[comment.id] = true;
-                }
-            });
-        });
-    }
+    // let commentLikeObj = {};
+    // if (likes) {
+    //     commentsArr.forEach((comment) => {
+    //         commentLikeObj[comment.id] = false;
+    //         likes.forEach((like) => {
+    //             if (like.userId === user.id && like.commentId === comment.id) {
+    //                 commentLikeObj[comment.id] = true;
+    //             }
+    //         });
+    //     });
+    // }
     const commentLikeToggle = (e) => {
         let id = parseInt(e.currentTarget.id, 10);
         if (!isNaN(id)) {
             if (commentLikeObj[id]) {
                 dispatch(deleteCommentLikes(id));
+                dispatch(fetchComments())
             } else {
                 dispatch(createCommentLikes(id));
+                dispatch(fetchComments())
             }
         }
     };
@@ -252,6 +259,11 @@ function SinglePostPage() {
                             style={{ width: "100%", paddingLeft: "12px" }}
                         >
                             <TimeAgo date={post.createdAt} />
+                            <p className='normalize-text' style={{paddingLeft: '12px' , color: 'rgb(142, 142, 142)', fontWeight: '600' }}>
+                                {post.likes==1 ? `1 like` :
+                                    `${post.likes} likes`
+                                }
+                            </p>
                         </div>
                         {commentsArr.length > 0 && (
                             <div
@@ -319,9 +331,12 @@ function SinglePostPage() {
                                                             margin: "0 12px",
                                                             fontSize: "10px",
                                                             color: "rgb(142, 142, 142)",
+                                                            fontWeight: "600"
                                                         }}
                                                     >
-                                                        {`# likes`}
+                                                        {comment.likes==1 ? `1 like` :
+                                                            `${comment.likes} likes`
+                                                        }
                                                     </p>
                                                 </div>
                                             </div>
