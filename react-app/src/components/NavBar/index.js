@@ -37,7 +37,8 @@ const NavBar = ({ setAuthenticated }) => {
 
   const iconStyles = { fontSize: '30px', color: 'rgb(38, 38, 38)' }
 
-  let suggestions = []
+  let suggestions = [];
+
   if (allUsers) suggestions.push(allUsers)
 
   return (user &&
