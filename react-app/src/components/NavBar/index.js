@@ -16,7 +16,7 @@ const NavBar = ({ setAuthenticated }) => {
   const dispatch = useDispatch();
 
   const user = useSelector(state => state.session.user)
-  const users = useSelector(state => state.users)
+  const allUsers = useSelector(state => state.users)
 
   const [searchTerm, setSearchTerm] = useState('');
 
@@ -38,7 +38,7 @@ const NavBar = ({ setAuthenticated }) => {
   const iconStyles = { fontSize: '30px', color: 'rgb(38, 38, 38)' }
 
   let suggestions = []
-  if (users) suggestions.push(users)
+  if (allUsers) suggestions.push(allUsers)
 
   return (user &&
     <nav>
